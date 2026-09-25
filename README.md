@@ -1,6 +1,6 @@
 # Reading Vault
 
-Read EPUB and PDF books inside your Obsidian vault. Everything you highlight becomes a real note, linked to your own Topic notes, so your reading ends up in the same place as the rest of your thinking.
+Read EPUB and PDF books inside your Obsidian vault. Everything you highlight becomes a real note, and with Pro you can link it to your own Topic notes, so your reading ends up in the same place as the rest of your thinking.
 
 I built Reading Vault because I wanted my books, my highlights and my notes in one place, as plain files I own. No separate app, no account, no hidden database: every book, highlight and saved word is an ordinary Markdown note in your vault.
 
@@ -12,7 +12,7 @@ I built Reading Vault because I wanted my books, my highlights and my notes in o
 
 - **A library for your books.** Add EPUB and PDF files by dragging them in. Title, author and cover fill in on their own. Search, filter by status or format, browse by author, and sort books onto your own shelves.
 - **One reader for EPUB and PDF.** Real pages, a table of contents, search inside the book, bookmarks, and it opens where you left off. Choose the font, text size, line spacing and margins, with a light, dark or automatic page.
-- **Highlights that become notes.** Select text, pick one of five colours, add a note. Link a highlight to a Topic note in your vault with a real link, so it shows up in your graph and backlinks. Each book's own note lists its highlights, with links that jump straight back to the exact spot.
+- **Highlights that become notes.** Select text, pick one of five colours, add a note. Each book's own note lists its highlights, with links that jump straight back to the exact spot.
 - **Listen.** Have the book read aloud with your computer's built-in voices, sentence by sentence, with the page turning as it goes. Works for PDFs too.
 - **Word lookup.** Select a word for its meaning, from an English dictionary you download once and use offline.
 - **Full screen reading.** Just the page, nothing else on screen.
@@ -28,7 +28,7 @@ Highlights for the book beside the page:
 
 ![The reader with the highlights panel open](assets/reader-highlights-panel-light.png)
 
-A book's page: cover, summary, shelves, and every highlight with its note and linked Topic:
+A book's page: cover, shelves, and every highlight with its note (summary and linked Topic are Pro):
 
 ![A book page with its summary, details and highlights](assets/book-page-light.png)
 
@@ -76,13 +76,13 @@ Payment is required for full access: the features marked Pro below unlock with a
 | Reading progress and time left | ✓ | ✓ |
 | Full screen reading | ✓ | ✓ |
 | Highlights in five colours, with notes | ✓ | ✓ |
-| Link highlights to Topic notes | ✓ | ✓ |
 | Highlights listed in each book's note | ✓ | ✓ |
 | Listen with your computer's built-in voices | ✓ | ✓ |
 | Word lookup (offline dictionary) | ✓ | ✓ |
 | Today's reading line in the library | ✓ | ✓ |
 | Export highlights: preview | ✓ | ✓ |
 | Export highlights: save to a file or copy |  | ✓ |
+| Link highlights to Topic notes |  | ✓ |
 | Save looked-up words as notes |  | ✓ |
 | Book summaries, including "Write with AI" |  | ✓ |
 | Ask the book (AI, uses your own AI account) |  | ✓ |
