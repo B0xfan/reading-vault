@@ -179,6 +179,41 @@ button.a4r-back-link{display:flex;align-items:center;gap:8px;font-size:14px;colo
 .a4r-hl-triage > .a4r-empty-state{grid-column:3 / 4;justify-self:center;max-width:100%;padding:40px 24px;}
 .a4r-hl-triage > .a4r-empty-state:only-child{grid-column:1 / -1;}
 
+/* Add sample books (v0.23.0) -- built to the approved mockup-sample-books.html */
+.a4r-starter{margin:26px auto 0;max-width:640px;border:1px solid var(--a4r-line);border-radius:14px;background:var(--a4r-page);padding:22px 24px;display:grid;gap:14px;}
+.a4r-starter h3{font-family:'A4R Fraunces', Georgia, serif;font-size:21px;font-weight:600;margin:0;}
+.a4r-starter > p{margin:0;font-size:13.5px;line-height:1.55;color:var(--a4r-ink-dim);max-width:62ch;}
+.a4r-mini-row{display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:12px;}
+.a4r-mini .a4r-cover{padding:10px 8px;}
+.a4r-mini-title{font-size:12px;font-weight:600;margin-top:6px;line-height:1.3;}
+.a4r-mini-author{font-size:11.5px;color:var(--a4r-ink-dim);margin-top:1px;}
+.a4r-acts{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+.a4r-fine{font-size:12px;color:var(--a4r-ink-dim);}
+.a4r-btn-big{padding:10px 16px;font-size:14px;}
+.a4r-dl{display:grid;gap:12px;}
+.a4r-dl-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;}
+.a4r-dl-top b{font-size:14px;}
+.a4r-dl-top span{font-family:'A4R IBM Plex Mono', monospace;font-size:12px;color:var(--a4r-ink-dim);}
+.a4r-dl-list{display:grid;gap:8px;}
+.a4r-dl-item{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:12px;align-items:center;}
+.a4r-dl-item .a4r-cover{border-radius:4px;box-shadow:none;padding:0;}
+.a4r-dl-mid{min-width:0;}
+.a4r-dl-name{font-size:13px;font-weight:600;line-height:1.3;}
+.a4r-dl-name small{display:block;font-weight:400;color:var(--a4r-ink-dim);font-size:11.5px;}
+.a4r-bar{height:6px;border-radius:99px;background:var(--a4r-status-gray-soft);overflow:hidden;margin-top:5px;}
+.a4r-bar .a4r-fill{display:block;height:100%;width:0;background:var(--a4r-accent);border-radius:99px;}
+.a4r-dl-item.a4r-done .a4r-bar .a4r-fill{background:#4f7d4a;}
+.a4r-dl-item.a4r-failed .a4r-bar .a4r-fill{background:var(--a4r-danger);}
+.a4r-dl-state{font-family:'A4R IBM Plex Mono', monospace;font-size:11.5px;color:var(--a4r-ink-dim);white-space:nowrap;}
+.a4r-dl-item.a4r-done .a4r-dl-state{color:#4f7d4a;font-weight:600;}
+.a4r-dl-item.a4r-failed .a4r-dl-state{color:var(--a4r-danger);font-weight:600;}
+.a4r-welcome-choice{border:1px solid var(--a4r-line);border-radius:10px;padding:14px;display:grid;gap:10px;}
+.a4r-welcome-choice p{margin:0;}
+.a4r-welcome-choice .a4r-mini-row{gap:8px;}
+@media (max-width:760px){
+  .a4r-mini-row{grid-template-columns:repeat(2, minmax(0, 1fr));}
+}
+
 /* Detail */
 /* minmax(0,1fr), not 1fr: a plain 1fr column can't shrink below its widest
  * unbreakable word, which pushed the Details box off a narrow pane (fixed
@@ -1172,8 +1207,9 @@ button.a4r-icon-btn-sm:focus-visible{box-shadow:0 0 0 2px var(--a4r-accent);}
 /* ---------- Pro locks (v0.16.0), built to mockup-pro-locks.html ---------- */
 /* A Pro tag inside a button takes the button's own text colour. */
 .a4r-dash-pro.a4r-pro-on-btn{color:inherit;border-color:currentColor;font-size:9px;padding:0 6px;margin-left:6px;vertical-align:1px;}
-.a4r-lookup-pro-note,.a4r-export-pro-note{font-size:12.5px;color:var(--a4r-ink-dim);background:var(--a4r-page);border:1px dashed var(--a4r-line);border-radius:8px;padding:9px 11px;line-height:1.45;}
-.a4r-lookup-pro-note b,.a4r-export-pro-note b{color:var(--a4r-ink);}
+.a4r-lookup-pro-note,.a4r-export-pro-note,.a4r-hl-topic-pro-note{font-size:12.5px;color:var(--a4r-ink-dim);background:var(--a4r-page);border:1px dashed var(--a4r-line);border-radius:8px;padding:9px 11px;line-height:1.45;}
+.a4r-lookup-pro-note b,.a4r-export-pro-note b,.a4r-hl-topic-pro-note b{color:var(--a4r-ink);}
+.a4r-hl-topic-pro-note .a4r-dash-pro{margin-right:6px;}
 /* Settings uses Obsidian's own colours. */
 .a4r-settings-pro-card{border:1px solid var(--background-modifier-border);border-radius:10px;padding:12px 14px;margin:6px 0 12px;background:var(--background-secondary);}
 .a4r-settings-pro-title{font-weight:600;font-size:14px;display:flex;gap:8px;align-items:center;}
@@ -1181,6 +1217,9 @@ button.a4r-icon-btn-sm:focus-visible{box-shadow:0 0 0 2px var(--a4r-accent);}
 .a4r-settings .a4r-dash-pro{color:var(--interactive-accent);border-color:var(--interactive-accent);font-size:9.5px;padding:1px 7px;}
 .a4r-settings-samples .a4r-settings-voice{cursor:default;}
 .a4r-settings-pro-card .setting-item{border-top:1px solid var(--background-modifier-border);margin-top:10px;padding-top:10px;}
+/* Free natural-voices card footer (v0.21.0, audiobook mockup): Get Pro + note. */
+.a4r-settings-pro-foot{display:flex;align-items:center;gap:12px;margin-top:12px;padding-top:10px;border-top:1px solid var(--background-modifier-border);}
+.a4r-settings-pro-foot .a4r-settings-status{font-size:12.5px;color:var(--text-muted);}
 
 /* ---------- Pro key in Settings (v0.17.0), built to mockup-pro-key.html ---------- */
 .a4r-settings .a4r-settings-pro-badge{margin-left:8px;vertical-align:2px;}
@@ -1206,3 +1245,50 @@ button.a4r-icon-btn-sm:focus-visible{box-shadow:0 0 0 2px var(--a4r-accent);}
 .a4r-folder-tree-hl{color:var(--a4r-accent, var(--text-accent));font-weight:600;}
 .a4r-folder-move p{margin:0 0 10px;font-size:13.5px;line-height:1.55;}
 .a4r-folder-move ul{margin:0 0 10px;padding-left:18px;font-size:13px;line-height:1.6;color:var(--a4r-ink-dim, var(--text-muted));}
+
+/* ---- Audiobook mode (Pro, v0.22.0), built to the approved mockup-audiobook-mode.html ---- */
+/* Word by word: the spoken word inside the sentence highlight; words already read fade. */
+.a4r-reader-page ::highlight(a4r-ab-word){background-color:#e2b35d;color:#2b2622;}
+.a4r-reader-page ::highlight(a4r-ab-read){color:#9a917f;}
+.a4r-reader-page.a4r-dark ::highlight(a4r-ab-word){background-color:#d0a668;color:#1b140b;}
+.a4r-reader-page.a4r-dark ::highlight(a4r-ab-read){color:#a89c85;}
+/* The richer listening bar, under the page. */
+.a4r-listen-bar.a4r-audiobook-bar{display:grid;gap:10px;padding:12px 22px 14px;border-bottom:none;border-top:1px solid var(--a4r-line);background:var(--a4r-card);position:relative;}
+.a4r-ab-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.a4r-ab-cover{width:34px;height:50px;border-radius:4px;flex:none;border:1px solid var(--a4r-line);background:var(--a4r-status-gray-soft);overflow:hidden;}
+.a4r-ab-cover img{width:100%;height:100%;object-fit:cover;display:block;}
+.a4r-ab-what{flex:1;min-width:180px;}
+.a4r-ab-what b{display:block;font-size:13.5px;color:var(--a4r-ink);}
+.a4r-ab-what span{font-size:12px;color:var(--a4r-ink-dim);}
+.a4r-ab-ctl{display:flex;align-items:center;gap:6px;}
+button.a4r-ab-round{width:36px;height:36px;border-radius:50%;border:1px solid var(--a4r-line);background:var(--a4r-card);color:var(--a4r-ink);cursor:pointer;font-size:13px;display:grid;place-content:center;padding:0;box-shadow:none;}
+button.a4r-ab-round.a4r-ab-big{width:46px;height:46px;background:var(--a4r-accent);border-color:var(--a4r-accent);color:#fff;font-size:16px;}
+.theme-dark button.a4r-ab-round.a4r-ab-big{color:#1b140b;}
+button.a4r-ab-round:disabled{opacity:.5;cursor:default;}
+.a4r-ab-chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center;position:relative;}
+.a4r-ab-prog{display:grid;gap:5px;}
+.a4r-ab-line{height:5px;border-radius:99px;background:var(--a4r-status-gray-soft);overflow:hidden;}
+.a4r-ab-line .a4r-listen-meter-fill{height:100%;background:var(--a4r-accent);border-radius:99px;}
+.a4r-ab-meta{display:flex;justify-content:space-between;gap:10px;font:11.5px 'A4R IBM Plex Mono', ui-monospace, monospace;color:var(--a4r-ink-dim);flex-wrap:wrap;font-variant-numeric:tabular-nums;}
+.a4r-ab-hidden{display:none;}
+.a4r-ab-menu{position:absolute;bottom:calc(100% + 4px);background:var(--a4r-card);border:1px solid var(--a4r-line);border-radius:10px;box-shadow:0 10px 26px rgba(0,0,0,.18);padding:6px;min-width:210px;z-index:30;}
+.a4r-ab-mh{font:600 10.5px 'A4R IBM Plex Mono', ui-monospace, monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--a4r-ink-dim);padding:6px 10px 4px;}
+.a4r-ab-menu button{display:flex;width:100%;border:none;background:none;box-shadow:none;color:var(--a4r-ink);padding:8px 10px;border-radius:7px;font-size:13px;cursor:pointer;text-align:left;justify-content:flex-start;height:auto;}
+.a4r-ab-menu button:hover{background:var(--a4r-status-gray-soft);}
+.a4r-ab-menu button.a4r-sel{color:var(--a4r-accent);font-weight:600;}
+.a4r-ab-toast{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);background:var(--a4r-ink);color:var(--a4r-card);font-size:12.5px;padding:8px 12px;border-radius:8px;white-space:nowrap;max-width:calc(100% - 40px);overflow:hidden;text-overflow:ellipsis;z-index:31;}
+/* Free bar: Pro chips, and what Pro adds. */
+.a4r-chip.a4r-chip-locked{color:var(--a4r-ink-dim);}
+.a4r-chip .a4r-dash-pro{font-size:9px;padding:1px 6px;margin-left:6px;}
+.a4r-ab-upsell{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px dashed var(--a4r-line);border-radius:10px;padding:10px 12px;margin:8px 22px;background:var(--a4r-page);}
+.a4r-ab-upsell p{margin:0;font-size:12.5px;color:var(--a4r-ink-dim);flex:1;min-width:220px;line-height:1.45;}
+.a4r-ab-upsell p b{color:var(--a4r-ink);}
+/* Settings: Audiobook mode rows shown off for free users. */
+.a4r-settings-locked{opacity:.6;}
+/* Full screen keeps just the controls at the top, like the Listen bar. */
+.a4r-fs .a4r-listen-bar.a4r-audiobook-bar{display:none;grid-auto-flow:column;align-items:center;gap:8px;padding:5px 10px;border:1px solid var(--a4r-line);border-radius:999px;}
+.a4r-fs.a4r-fs-listening .a4r-listen-bar.a4r-audiobook-bar{display:grid;}
+.a4r-fs .a4r-audiobook-bar .a4r-ab-cover,.a4r-fs .a4r-audiobook-bar .a4r-ab-what,.a4r-fs .a4r-audiobook-bar .a4r-ab-prog{display:none;}
+.a4r-fs .a4r-audiobook-bar .a4r-ab-chips .a4r-listen-chip{display:none;}
+.a4r-fs .a4r-audiobook-bar .a4r-ab-chips .a4r-fs-speed,.a4r-fs .a4r-audiobook-bar .a4r-ab-chips .a4r-listen-voice{display:inline-flex;}
+@media (prefers-reduced-motion: reduce){.a4r-ab-toast{transition:none;}}

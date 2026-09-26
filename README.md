@@ -11,9 +11,12 @@ I built Reading Vault because I wanted my books, my highlights and my notes in o
 ## What it does
 
 - **A library for your books.** Add EPUB and PDF files by dragging them in. Title, author and cover fill in on their own. Search, filter by status or format, browse by author, and sort books onto your own shelves.
+- **Add sample books.** Nothing in your Library yet? One button adds four free classics (Meditations, Pride and Prejudice, The Adventures of Sherlock Holmes, Walden), so there's something to read, highlight and listen to right away. Free for everyone.
 - **One reader for EPUB and PDF.** Real pages, a table of contents, search inside the book, bookmarks, and it opens where you left off. Choose the font, text size, line spacing and margins, with a light, dark or automatic page.
 - **Highlights that become notes.** Select text, pick one of five colours, add a note. Each book's own note lists its highlights, with links that jump straight back to the exact spot.
 - **Listen.** Have the book read aloud with your computer's built-in voices, sentence by sentence, with the page turning as it goes. Works for PDFs too.
+- **Natural voices (Pro).** 28 natural-sounding English voices (American and British) that sound much closer to a person reading. They run on your own computer, offline, after a one-time download.
+- **Audiobook mode (Pro).** Turn any book into an audiobook: each word lights up as it's read, listening keeps going across pages and chapters, and a sleep timer pauses it and keeps your place.
 - **Word lookup.** Select a word for its meaning, from an English dictionary you download once and use offline.
 - **Full screen reading.** Just the page, nothing else on screen.
 - **Your files stay yours.** Choose which folders it uses. Uninstall it and every note is still there, readable in Obsidian or any text editor.
@@ -70,6 +73,7 @@ Payment is required for full access: the features marked Pro below unlock with a
 |---|:---:|:---:|
 | Library: covers, search, filters, authors | ✓ | ✓ |
 | Shelves | ✓ | ✓ |
+| Add sample books (four free classics, for trying it out) | ✓ | ✓ |
 | Choose your own folders | ✓ | ✓ |
 | EPUB and PDF reader, contents, search, bookmarks | ✓ | ✓ |
 | Text settings and light, dark or automatic page | ✓ | ✓ |
@@ -78,6 +82,8 @@ Payment is required for full access: the features marked Pro below unlock with a
 | Highlights in five colours, with notes | ✓ | ✓ |
 | Highlights listed in each book's note | ✓ | ✓ |
 | Listen with your computer's built-in voices | ✓ | ✓ |
+| Natural voices: 28 English voices, offline after one download |  | ✓ |
+| Audiobook mode: word-by-word highlighting, keeps going across chapters, sleep timer |  | ✓ |
 | Word lookup (offline dictionary) | ✓ | ✓ |
 | Today's reading line in the library | ✓ | ✓ |
 | Export highlights: preview | ✓ | ✓ |
@@ -114,7 +120,9 @@ Reading Vault works offline. It never sends anything about you or your reading a
   - The "Test" button next to a key, and the list of models to choose from, also ask that service to check your key and list its models.
 - **Word lookup dictionary.** When you press Download in Settings → Word lookup, the English dictionary (made from Princeton WordNet, about 6 MB) is downloaded once from the public GitHub repository [B0xfan/a4-reading-dictionaries](https://github.com/B0xfan/a4-reading-dictionaries), checked, and saved on your computer outside your vault. After that, lookups are offline.
 - **Buy Pro.** The Buy Pro button opens the store page in your web browser.
-- **Natural voices (not available yet).** The plugin contains code for an optional natural-sounding voice whose model downloads from Hugging Face. It only runs on a computer where that voice has already been set up, which this version doesn't do for you yet, so for now it never goes online.
+- **Natural voices (Pro).** When you press Download in Settings → Reading Vault, the voice model (about 325 MB, once) and each voice you use (about half a megabyte) are downloaded from Hugging Face (huggingface.co, the public Kokoro-82M files, Apache-2.0 licence), together with English pronunciation lists (about 3 MB) from the public GitHub repository [B0xfan/reading-vault-voices](https://github.com/B0xfan/reading-vault-voices). Each file is checked against a fingerprint built into the plugin, then saved on your computer outside your vault, in `Library/Application Support/a4-reading-kokoro` in your home folder on a Mac, or `AppData\Roaming\a4-reading-kokoro` on Windows (so it doesn't sync or get backed up with your notes). After that, listening is offline and your books' text never leaves your computer. The voice engine itself is inside the plugin; it is never downloaded.
+- **Voice samples.** Pressing ▶ next to a natural voice in Settings plays a short sample clip (about 30 KB) from the same public repository, [B0xfan/reading-vault-voices](https://github.com/B0xfan/reading-vault-voices). It's checked the same way and kept in that same folder, so it plays without the internet next time. This works with or without Pro, and doesn't need the voice model.
+- **Add sample books.** When you press "Add sample books" (in an empty Library, or the first-run welcome), four EPUB files (about 3 MB total) are downloaded once from the public GitHub repository [B0xfan/a4-reading-sample-books](https://github.com/B0xfan/a4-reading-sample-books), checked, and added to your Library as regular books. They're free, public-domain editions from [Standard Ebooks](https://standardebooks.org/). Free for everyone.
 
 "Open in Apple Dictionary" (on a Mac) opens the dictionary app on your computer; it doesn't go online.
 
@@ -149,5 +157,7 @@ Reading Vault's source is public so you can read exactly what it does. It's lice
 - You can't use the code to offer a product that competes with Reading Vault or Reading Vault Pro. That includes publishing a copy with Pro unlocked, even for free.
 
 The licence text is the part that counts; this summary isn't legal advice.
+
+Reading Vault includes some open-source parts (the natural-voice engine) under the Apache 2.0 and MIT licences; they're listed, with their licence texts, in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md). None of them is under the GPL.
 
 The fonts bundled in `styles.css` (Fraunces, Work Sans, IBM Plex Mono, Atkinson Hyperlegible) are under the SIL Open Font License 1.1; see [`fonts/`](fonts/).
