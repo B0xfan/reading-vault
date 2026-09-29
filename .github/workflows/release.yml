@@ -1,0 +1,51 @@
+# Reading Vault releases (from 1.0.2). Pushing a version tag (e.g. 1.0.2) to
+# this public repository creates the GitHub release with main.js,
+# manifest.json and styles.css, and a signed build provenance attestation for
+# them (recommended by Obsidian's community directory). There is no build: the
+# three files are committed as they ship. Runs on this public repository's
+# free Actions minutes only. The release notes are the tag's message.
+# Maintained in the private workshop repo (public/.github/) and copied here by
+# scripts/publish-public.sh; don't edit it in the public repo.
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions: {}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Check the tag matches manifest.json and versions.json
+        run: |
+          v="$(jq -r .version manifest.json)"
+          [ "$v" = "$GITHUB_REF_NAME" ] || { echo "Tag $GITHUB_REF_NAME does not match manifest.json version $v"; exit 1; }
+          jq -e --arg v "$v" 'has($v)' versions.json > /dev/null || { echo "versions.json has no $v"; exit 1; }
+          grep -q "^const PRO_BUILD = 'public';$" main.js || { echo "main.js is not the public build"; exit 1; }
+
+      - name: Attest build provenance
+        uses: actions/attest@v4
+        with:
+          subject-path: |
+            main.js
+            manifest.json
+            styles.css
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --title "Reading Vault $GITHUB_REF_NAME" \
+            --notes-from-tag \
+            --verify-tag \
+            main.js manifest.json styles.css

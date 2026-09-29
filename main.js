@@ -2482,7 +2482,11 @@ function hideTitlePageText(doc) {
   for (const pg of pages) {
     if (!pg.querySelector('img, svg, image')) continue;
     pg.querySelectorAll('h1, h2, h3, h4, h5, h6, p, hgroup').forEach((el) => {
-      if (!el.querySelector('img, svg, image')) el.classList.add('a4r-sr-only');
+      if (el.querySelector('img, svg, image')) return;
+      // 1.0.2: the book's own inline position is dropped so the class wins
+      // without !important, exactly as before.
+      el.style.removeProperty('position');
+      el.classList.add('a4r-sr-only');
     });
   }
 }
@@ -3565,6 +3569,7 @@ class ReadingView extends ItemView {
       if (coverFile) {
         const img = cover.createEl('img');
         img.src = this.app.vault.adapter.getResourcePath(b.cover_path);
+        cover.addClass('a4r-cover-with-img'); // 1.0.2: was :has(> img) in styles.css
       } else {
         const [bg, fg] = pickPlaceholderColor(b.title || '');
         cover.style.background = bg;
@@ -5484,7 +5489,9 @@ class ReadingView extends ItemView {
     page.style.fontSize = `${s.textSize}px`;
     page.style.lineHeight = String(s.lineSpacing);
     const margins = Array.isArray(s.textMargins) && s.textMargins.length === 2 ? s.textMargins : [34, 44];
-    page.style.padding = `${margins[0]}px ${margins[1]}px`;
+    // 1.0.2: a custom property styles.css reads, not inline padding, so full
+    // screen's own top/bottom space wins without !important.
+    page.style.setProperty('--a4r-page-padding', `${margins[0]}px ${margins[1]}px`);
     page.style.textAlign = s.justifyText ? 'justify' : 'left';
   }
 
@@ -6005,7 +6012,9 @@ class ReadingView extends ItemView {
 
   applyReaderPageColors(page, r) {
     const colors = this.readerIsDark(r) ? A4R_READER_COLORS.dark : A4R_READER_COLORS.light;
-    page.style.background = colors.page;
+    // 1.0.2: a PDF page keeps its fixed dark backdrop from styles.css
+    // (.a4r-pdf-page), so it gets no inline background to fight.
+    if (!page.classList.contains('a4r-pdf-page')) page.style.background = colors.page;
     page.style.color = colors.ink;
     // Full screen (v0.15.0): the space around the page takes its colour.
     const root = page.closest('.a4r-root');
@@ -6020,6 +6029,7 @@ class ReadingView extends ItemView {
   // width but never past 100%, centered, 3px/4px margins.
   async renderPdfPage(pageWrap, file, fm, r, appEl) {
     pageWrap.empty();
+    pageWrap.addClass('a4r-page-wrap-pdf'); // 1.0.2: was :has(.a4r-pdf-page) in styles.css
     if (r.pdf.resizeObserver) { r.pdf.resizeObserver.disconnect(); r.pdf.resizeObserver = null; }
     const page = pageWrap.createDiv({ cls: `a4r-reader-page a4r-pdf-page${this.readerIsDark(r) ? ' a4r-dark' : ''}` });
     // The PDF backdrop (#282828, no padding) never changes: styles.css
@@ -6212,6 +6222,7 @@ class ReadingView extends ItemView {
 
   async renderEpubPage(pageWrap, file, fm, r, appEl) {
     pageWrap.empty();
+    pageWrap.removeClass('a4r-page-wrap-pdf');
     const page = pageWrap.createDiv({ cls: `a4r-reader-page${this.readerIsDark(r) ? ' a4r-dark' : ''}` });
     this.applyReaderPageColors(page, r);
     this.applyTextStylesToPage(page, r);

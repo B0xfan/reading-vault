@@ -104,7 +104,7 @@ html:not(#a4r-guard) .a4r-root{
    * stay readable (white on tan and dark red on near-black did not). */
   --a4r-on-accent:#fff;
   --a4r-danger-text:#b23a3a;
-  font-family:'A4R Work Sans', ui-sans-serif, system-ui, sans-serif;
+  font-family:'A4R Work Sans', system-ui, sans-serif;
   background:var(--a4r-ground);
   color:var(--a4r-ink);
   height:100%;
@@ -138,7 +138,7 @@ html:not(#a4r-guard) .a4r-root button{font-family:inherit;cursor:pointer;}
  * keeps this rule weaker than any button's own rule below it. */
 html:not(#a4r-guard) :is(.a4r-root, .a4r-voice-popup, .a4r-hl-color-popup) :where(button){color:inherit;}
 html:not(#a4r-guard) .a4r-root input,html:not(#a4r-guard) .a4r-root select,html:not(#a4r-guard) .a4r-root textarea{font-family:inherit;}
-html:not(#a4r-guard) .a4r-mono{font-family:'A4R IBM Plex Mono', ui-monospace, monospace;}
+html:not(#a4r-guard) .a4r-mono{font-family:'A4R IBM Plex Mono', monospace;}
 html:not(#a4r-guard) .a4r-serif{font-family:'A4R Fraunces', Georgia, serif;}
 
 html:not(#a4r-guard) .a4r-app{background:var(--a4r-card);border:1px solid var(--a4r-line);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05);}
@@ -192,14 +192,14 @@ html:not(#a4r-guard) .a4r-book-grid{display:grid;grid-template-columns:repeat(au
 html:not(#a4r-guard) .a4r-book-card{display:flex;flex-direction:column;align-items:stretch;gap:7px;width:100%;min-width:0;height:auto;min-height:0;cursor:pointer;background:var(--a4r-card);border:1px solid var(--a4r-line);border-radius:8px;padding:8px;text-align:left;white-space:normal;}
 html:not(#a4r-guard) .a4r-cover{position:relative;aspect-ratio:2/3;width:100%;border-radius:7px;overflow:hidden;border:1px solid var(--a4r-line);box-shadow:0 3px 7px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;text-align:center;padding:14px 10px;font-family:'A4R Fraunces', Georgia, serif;background-size:cover;background-position:center;color:var(--a4r-ink);background-color:var(--a4r-accent-soft);}
 html:not(#a4r-guard) .a4r-cover img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;}
-html:not(#a4r-guard) .a4r-cover .a4r-status{position:absolute;top:8px;right:8px;font-family:'A4R Work Sans', ui-sans-serif, system-ui, sans-serif;font-size:10px;font-weight:600;letter-spacing:.02em;padding:2px 6px;border-radius:999px;background:var(--a4r-status-gray-soft);color:var(--a4r-ink-dim);z-index:2;text-transform:uppercase;}
+html:not(#a4r-guard) .a4r-cover .a4r-status{position:absolute;top:8px;right:8px;font-family:'A4R Work Sans', system-ui, sans-serif;font-size:10px;font-weight:600;letter-spacing:.02em;padding:2px 6px;border-radius:999px;background:var(--a4r-status-gray-soft);color:var(--a4r-ink-dim);z-index:2;text-transform:uppercase;}
 html:not(#a4r-guard) .a4r-cover .a4r-status.a4r-reading{background:var(--a4r-status-blue-soft);color:var(--a4r-status-blue);}
 /* Library cards line up (buyer test item 18): Obsidian centres a button's
    content, so a card in a row with a taller one (a two-line title) had its
    cover pushed down. Content starts at the top, and every cover sits in the
    same fixed frame, the picture at the top of it whatever its shape. */
 html:not(#a4r-guard) .a4r-book-grid > .a4r-book-card{justify-content:flex-start;}
-html:not(#a4r-guard) .a4r-book-card .a4r-cover:has(> img){background:var(--a4r-status-gray-soft);}
+html:not(#a4r-guard) .a4r-book-card .a4r-cover.a4r-cover-with-img{background:var(--a4r-status-gray-soft);}
 /* Covers fill the frame instead of leaving an empty block under a cover
    that's a different shape (buyer test item 51, v0.26.1: Habits of a Happy
    Brain, Storytelling with Data, The PARA Method) -- "contain" (item 18)
@@ -222,7 +222,7 @@ html:not(#a4r-guard) .a4r-starter > p{margin:0;font-size:13.5px;line-height:1.55
 html:not(#a4r-guard) .a4r-mini-row{display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:12px;}
 html:not(#a4r-guard) .a4r-mini .a4r-cover{padding:10px 8px;}
 /* Real sample covers (buyer test 2026-09-26): the picture fills the frame. */
-html:not(#a4r-guard) .a4r-cover.a4r-has-img{padding:0 !important;overflow:hidden;}
+html:not(#a4r-guard) .a4r-cover.a4r-has-img:not(#a4r-strong){padding:0;overflow:hidden;}
 html:not(#a4r-guard) .a4r-cover.a4r-has-img > img{display:block;width:100%;height:100%;object-fit:cover;}
 html:not(#a4r-guard) .a4r-mini-title{font-size:12px;font-weight:600;margin-top:6px;line-height:1.3;}
 html:not(#a4r-guard) .a4r-mini-author{font-size:11.5px;color:var(--a4r-ink-dim);margin-top:1px;}
@@ -258,8 +258,8 @@ html:not(#a4r-guard) .a4r-welcome-choice .a4r-mini-row{gap:8px;}
  * unbreakable word, which pushed the Details box off a narrow pane (fixed
  * v0.11.0, from John's screenshot 2026-09-24). */
 html:not(#a4r-guard) .a4r-detail-top{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:28px;}
-html:not(#a4r-guard) .a4r-format-pill{font-family:'A4R Work Sans', ui-sans-serif, system-ui, sans-serif;font-size:12px;font-weight:460;color:var(--a4r-accent);display:inline-block;margin-bottom:8px;}
-html:not(#a4r-guard) .a4r-detail-title{font-family:'A4R Work Sans', ui-sans-serif, system-ui, sans-serif;font-size:32px;font-weight:520;margin:0 0 2px;}
+html:not(#a4r-guard) .a4r-format-pill{font-family:'A4R Work Sans', system-ui, sans-serif;font-size:12px;font-weight:460;color:var(--a4r-accent);display:inline-block;margin-bottom:8px;}
+html:not(#a4r-guard) .a4r-detail-title{font-family:'A4R Work Sans', system-ui, sans-serif;font-size:32px;font-weight:520;margin:0 0 2px;}
 html:not(#a4r-guard) .a4r-detail-author{color:var(--a4r-ink-dim);font-size:14px;margin-bottom:18px;}
 html:not(#a4r-guard) .a4r-detail-left-block{width:220px;}
 html:not(#a4r-guard) .a4r-detail-cover{aspect-ratio:2/3;border-radius:9px;border:1px solid var(--a4r-line);box-shadow:0 4px 12px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;text-align:center;padding:26px 20px;font-family:'A4R Fraunces', Georgia, serif;position:relative;overflow:hidden;background-size:cover;background-position:center;background-color:var(--a4r-accent-soft);}
@@ -510,7 +510,7 @@ html:not(#a4r-guard) button.a4r-nav-circle:disabled{opacity:.3;}
 html:not(#a4r-guard) button.a4r-nav-circle:focus-visible{box-shadow:0 0 0 2px var(--a4r-accent);}
 html:not(#a4r-guard) .a4r-nav-label{display:none;}
 html:not(#a4r-guard) .a4r-reader-page-wrap{flex:1;position:relative;overflow:hidden;border-radius:10px;border:1px solid var(--a4r-line);}
-html:not(#a4r-guard) .a4r-reader-page{position:absolute;inset:0;overflow:hidden;background:var(--a4r-page);padding:34px 44px;font-family:'A4R Fraunces', Georgia, serif;font-size:16px;line-height:1.85;color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-reader-page{position:absolute;inset:0;overflow:hidden;background:var(--a4r-page);padding:var(--a4r-page-padding,34px 44px);font-family:'A4R Fraunces', Georgia, serif;font-size:16px;line-height:1.85;color:var(--a4r-ink);}
 html:not(#a4r-guard) .a4r-reader-page.a4r-dark{background:#221f18;color:#ece5d5;}
 html:not(#a4r-guard) .a4r-reader-page h1,html:not(#a4r-guard) .a4r-reader-page h2,html:not(#a4r-guard) .a4r-reader-page h3{font-family:'A4R Fraunces', Georgia, serif;font-weight:700;letter-spacing:.02em;}
 html:not(#a4r-guard) .a4r-reader-page mark{background:var(--a4r-hl-yellow);color:#2b2622;padding:1px 0;border-radius:1px;cursor:pointer;}
@@ -581,7 +581,7 @@ html:not(#a4r-guard) .a4r-hl-triage-left{border:1px solid var(--a4r-line);border
 html:not(#a4r-guard) .a4r-hl-triage-left .a4r-inner{border:1px solid var(--a4r-accent);border-radius:10px;padding:14px 16px;background:var(--a4r-accent-soft);}
 html:not(#a4r-guard) .a4r-hl-triage-arrow{padding:36px 18px 0;color:var(--a4r-ink-dim);font-size:1.1rem;}
 html:not(#a4r-guard) .a4r-hl-triage-right{border:1px solid var(--a4r-line);border-radius:12px;padding:20px 22px;background:var(--a4r-card);}
-html:not(#a4r-guard) .a4r-hl-triage-right .a4r-quote{font-family:'A4R Work Sans', ui-sans-serif, system-ui, sans-serif;font-style:italic;font-size:16.8px;line-height:27px;border-left:3px solid var(--a4r-accent);padding-left:14px;margin:0 0 18px;}
+html:not(#a4r-guard) .a4r-hl-triage-right .a4r-quote{font-family:'A4R Work Sans', system-ui, sans-serif;font-style:italic;font-size:16.8px;line-height:27px;border-left:3px solid var(--a4r-accent);padding-left:14px;margin:0 0 18px;}
 html:not(#a4r-guard) .a4r-hl-search-box{background:var(--a4r-status-gray-soft);border-radius:9px;padding:0;margin-bottom:12px;}
 html:not(#a4r-guard) .a4r-hl-search-box input{width:100%;border:none;background:none;padding:11px 14px;font-size:13.5px;color:var(--a4r-ink);outline:none;}
 html:not(#a4r-guard) .a4r-hl-topic-hint{font-size:12.5px;color:var(--a4r-ink-dim);margin:0 0 14px;}
@@ -856,7 +856,7 @@ html:not(#a4r-guard) .a4r-dash{padding:22px 24px 28px;max-width:1080px;margin:0 
 html:not(#a4r-guard) .a4r-dash-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
 html:not(#a4r-guard) .a4r-dash-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 html:not(#a4r-guard) .a4r-dash-title h2{font-family:'A4R Fraunces', Georgia, serif;font-size:24px;font-weight:700;margin:0;letter-spacing:-.01em;color:var(--a4r-ink);}
-html:not(#a4r-guard) .a4r-dash-pro{font:600 10.5px 'A4R IBM Plex Mono', ui-monospace, monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-accent);border:1px solid var(--a4r-accent);border-radius:999px;padding:2px 8px;}
+html:not(#a4r-guard) .a4r-dash-pro{font:600 10.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-accent);border:1px solid var(--a4r-accent);border-radius:999px;padding:2px 8px;}
 html:not(#a4r-guard) .a4r-dash-date{font-size:13px;color:var(--a4r-ink-dim);}
 html:not(#a4r-guard) .a4r-dash-root button.a4r-dash-btn{border:1px solid var(--a4r-line);background:var(--a4r-card);background-color:var(--a4r-card);color:var(--a4r-ink);border-radius:8px;padding:7px 12px;font-weight:600;font-size:12.5px;box-shadow:none;height:auto;}
 html:not(#a4r-guard) .a4r-dash-root button.a4r-dash-btn:hover{border-color:var(--a4r-accent);color:var(--a4r-accent);}
@@ -865,13 +865,13 @@ html:not(#a4r-guard) .a4r-dash-g-today{grid-template-columns:minmax(0,1fr) minma
 html:not(#a4r-guard) .a4r-dash-g-3{grid-template-columns:repeat(3,minmax(0,1fr));}
 html:not(#a4r-guard) .a4r-dash-g-2,html:not(#a4r-guard) .a4r-dash-g-books{grid-template-columns:minmax(0,3fr) minmax(0,2fr);}
 html:not(#a4r-guard) .a4r-dash-g-1{grid-template-columns:minmax(0,1fr);margin-top:14px;}
-html:not(#a4r-guard) .a4r-dash-label{font:600 11px 'A4R IBM Plex Mono', ui-monospace, monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-ink-dim);margin:24px 0 9px 2px;}
+html:not(#a4r-guard) .a4r-dash-label{font:600 11px 'A4R IBM Plex Mono', monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-ink-dim);margin:24px 0 9px 2px;}
 html:not(#a4r-guard) .a4r-dash-label-first{margin-top:0;}
 html:not(#a4r-guard) .a4r-dash-card{background:var(--a4r-card);border:1px solid var(--a4r-line);border-radius:12px;padding:16px 18px;min-width:0;}
 html:not(#a4r-guard) .a4r-dash-card h3{font-size:13.5px;font-weight:600;margin:0 0 2px;color:var(--a4r-ink);}
 html:not(#a4r-guard) .a4r-dash-sub{font-size:12px;color:var(--a4r-ink-dim);margin:0 0 12px;line-height:1.45;}
 html:not(#a4r-guard) .a4r-dash-sub-tight{margin:0;}
-html:not(#a4r-guard) .a4r-dash-goal-flag{font:600 9.5px 'A4R IBM Plex Mono', ui-monospace, monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--a4r-ink-dim);border:1px dashed var(--a4r-ink-dim);border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:1px;}
+html:not(#a4r-guard) .a4r-dash-goal-flag{font:600 9.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--a4r-ink-dim);border:1px dashed var(--a4r-ink-dim);border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:1px;}
 html:not(#a4r-guard) .a4r-dash-empty{font-size:13px;color:var(--a4r-ink-dim);padding:24px 0;}
 html:not(#a4r-guard) .a4r-dash-empty-line{font-size:12.5px;color:var(--a4r-ink-dim);padding:6px 0 2px;}
 
@@ -890,7 +890,7 @@ html:not(#a4r-guard) .a4r-dash-stats{display:grid;grid-template-columns:repeat(4
 html:not(#a4r-guard) .a4r-dash-stat{background:var(--a4r-page);border:1px solid var(--a4r-line);border-radius:10px;padding:12px 12px 11px;min-width:0;}
 html:not(#a4r-guard) .a4r-dash-k{font-size:11.5px;color:var(--a4r-ink-dim);}
 html:not(#a4r-guard) .a4r-dash-v{font-family:'A4R Fraunces', Georgia, serif;font-size:26px;font-weight:700;margin-top:4px;line-height:1.05;color:var(--a4r-ink);}
-html:not(#a4r-guard) .a4r-dash-v small,html:not(#a4r-guard) .a4r-dash-pill-v small{font-family:'A4R Work Sans', ui-sans-serif, system-ui, sans-serif;font-size:12.5px;font-weight:500;color:var(--a4r-ink-dim);}
+html:not(#a4r-guard) .a4r-dash-v small,html:not(#a4r-guard) .a4r-dash-pill-v small{font-family:'A4R Work Sans', system-ui, sans-serif;font-size:12.5px;font-weight:500;color:var(--a4r-ink-dim);}
 html:not(#a4r-guard) .a4r-dash-n{font-size:11.5px;color:var(--a4r-ink-dim);margin-top:4px;line-height:1.35;}
 html:not(#a4r-guard) .a4r-dash-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none;}
 html:not(#a4r-guard) .a4r-dash-dot-read{background:var(--a4r-accent);}
@@ -915,14 +915,14 @@ html:not(#a4r-guard) .a4r-dash-stepper-lbl{font-size:12px;color:var(--a4r-ink-di
 html:not(#a4r-guard) .a4r-dash-stepper-ctrl{display:flex;align-items:center;border:1px solid var(--a4r-line);border-radius:8px;overflow:hidden;background:var(--a4r-page);}
 html:not(#a4r-guard) .a4r-dash-root .a4r-dash-stepper-ctrl button{border:none;background:transparent;background-color:transparent;box-shadow:none;color:var(--a4r-ink);width:28px;height:28px;padding:0;font-size:15px;border-radius:0;}
 html:not(#a4r-guard) .a4r-dash-root .a4r-dash-stepper-ctrl button:hover{color:var(--a4r-accent);background-color:var(--a4r-accent-soft);}
-html:not(#a4r-guard) .a4r-dash-stepper-val{font:600 12.5px 'A4R IBM Plex Mono', ui-monospace, monospace;padding:0 8px;min-width:64px;text-align:center;color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-dash-stepper-val{font:600 12.5px 'A4R IBM Plex Mono', monospace;padding:0 8px;min-width:64px;text-align:center;color:var(--a4r-ink);}
 html:not(#a4r-guard) .a4r-dash-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;align-items:end;height:74px;margin-top:4px;}
 html:not(#a4r-guard) .a4r-dash-week-col{display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end;}
 html:not(#a4r-guard) .a4r-dash-week-bar{width:100%;max-width:26px;border-radius:5px 5px 2px 2px;background:var(--a4r-accent);min-height:3px;}
 html:not(#a4r-guard) .a4r-dash-week-bar.is-none{background:var(--a4r-line);height:3px;}
 html:not(#a4r-guard) .a4r-dash-week-bar.is-before{background:repeating-linear-gradient(135deg,var(--a4r-hatch) 0 3px,transparent 3px 6px);border:1px dashed var(--a4r-hatch);height:100%;opacity:.9;}
 html:not(#a4r-guard) .a4r-dash-week-bar.is-future{background:transparent;border:1px dashed var(--a4r-line);height:22px;}
-html:not(#a4r-guard) .a4r-dash-week-d{font:500 10.5px 'A4R IBM Plex Mono', ui-monospace, monospace;color:var(--a4r-ink-dim);}
+html:not(#a4r-guard) .a4r-dash-week-d{font:500 10.5px 'A4R IBM Plex Mono', monospace;color:var(--a4r-ink-dim);}
 html:not(#a4r-guard) .a4r-dash-week-d.is-today{color:var(--a4r-ink);font-weight:700;}
 html:not(#a4r-guard) .a4r-dash-meter{height:8px;border-radius:4px;background:var(--a4r-line);overflow:hidden;margin-top:12px;}
 html:not(#a4r-guard) .a4r-dash-meter span{display:block;height:100%;background:var(--a4r-accent);border-radius:4px;}
@@ -939,7 +939,7 @@ html:not(#a4r-guard) .a4r-dash-habit-top{display:flex;gap:10px;flex-wrap:wrap;ma
 html:not(#a4r-guard) .a4r-dash-pill{background:var(--a4r-page);border:1px solid var(--a4r-line);border-radius:10px;padding:8px 12px;min-width:110px;}
 html:not(#a4r-guard) .a4r-dash-pill-v{font-family:'A4R Fraunces', Georgia, serif;font-size:20px;font-weight:700;color:var(--a4r-ink);}
 html:not(#a4r-guard) .a4r-dash-heat svg{width:100%;max-width:760px;height:auto;display:block;}
-html:not(#a4r-guard) .a4r-dash-root svg text{font-family:'A4R IBM Plex Mono', ui-monospace, monospace;}
+html:not(#a4r-guard) .a4r-dash-root svg text{font-family:'A4R IBM Plex Mono', monospace;}
 html:not(#a4r-guard) .a4r-dash-legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--a4r-ink-dim);margin-top:10px;}
 html:not(#a4r-guard) .a4r-dash-scale{display:flex;align-items:center;gap:3px;}
 html:not(#a4r-guard) .a4r-dash-sw{width:11px;height:11px;border-radius:3px;display:inline-block;}
@@ -973,7 +973,7 @@ html:not(#a4r-guard) .a4r-dash-book.is-paused{opacity:.72;}
 html:not(#a4r-guard) .a4r-dash-root button.a4r-dash-linkish{background:none;background-color:transparent;border:none;box-shadow:none;padding:0;height:auto;font-size:12px;color:var(--a4r-ink-dim);text-decoration:underline;text-decoration-color:var(--a4r-line);text-underline-offset:2px;}
 html:not(#a4r-guard) .a4r-dash-root button.a4r-dash-linkish:hover{color:var(--a4r-accent);}
 html:not(#a4r-guard) .a4r-dash-shelf{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
-html:not(#a4r-guard) .a4r-dash-slot{width:52px;height:78px;border-radius:5px;border:1.5px dashed var(--a4r-line);display:flex;align-items:center;justify-content:center;font:500 10px 'A4R IBM Plex Mono', ui-monospace, monospace;color:var(--a4r-ink-dim);text-align:center;}
+html:not(#a4r-guard) .a4r-dash-slot{width:52px;height:78px;border-radius:5px;border:1.5px dashed var(--a4r-line);display:flex;align-items:center;justify-content:center;font:500 10px 'A4R IBM Plex Mono', monospace;color:var(--a4r-ink-dim);text-align:center;}
 html:not(#a4r-guard) .a4r-dash-shelf figure{margin:0;width:52px;position:relative;cursor:pointer;}
 html:not(#a4r-guard) .a4r-dash-shelf-cover{width:52px;height:78px;border-radius:5px;object-fit:cover;display:block;box-shadow:0 1px 4px rgba(0,0,0,.18);}
 html:not(#a4r-guard) .a4r-dash-shelf figcaption{overflow-wrap:anywhere;font-size:10px;color:var(--a4r-ink-dim);margin-top:4px;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
@@ -1042,7 +1042,7 @@ html:not(#a4r-guard) .a4r-rv-cue .a4r-rv-dim{font-size:12.5px;margin-bottom:16px
 html:not(#a4r-guard) .a4r-rv-dim{color:var(--a4r-ink-dim);}
 html:not(#a4r-guard) .a4r-rv-note{margin-top:18px;padding-top:14px;border-top:1px solid var(--a4r-line);}
 html:not(#a4r-guard) .a4r-rv-note p{margin:0;font-size:14px;line-height:1.5;white-space:pre-wrap;}
-html:not(#a4r-guard) .a4r-rv-k{font:600 10.5px 'A4R IBM Plex Mono', ui-monospace, monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-ink-dim);margin-bottom:6px;}
+html:not(#a4r-guard) .a4r-rv-k{font:600 10.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-ink-dim);margin-bottom:6px;}
 html:not(#a4r-guard) .a4r-rv-thought{width:100%;min-height:64px;margin-top:8px;border:1px solid var(--a4r-line);border-radius:8px;background:var(--a4r-page);color:var(--a4r-ink);font-family:inherit;font-size:14px;line-height:1.45;padding:8px 10px;resize:vertical;}
 html:not(#a4r-guard) .a4r-root button.a4r-rv-quiet{background:none;background-color:transparent;border:none;box-shadow:none;color:var(--a4r-ink-dim);font-weight:600;font-size:13px;padding:4px 6px;margin-top:8px;height:auto;cursor:pointer;}
 html:not(#a4r-guard) .a4r-root button.a4r-rv-quiet:hover{color:var(--a4r-ink);}
@@ -1093,7 +1093,7 @@ html:not(#a4r-guard) .a4r-root button.a4r-rv-btn:disabled:hover{border-color:var
 
 /* ---------- Ask the book (v0.10.0), built to mockup-ask-the-book.html ---------- */
 html:not(#a4r-guard) .a4r-ask{display:flex;flex-direction:column;gap:14px;padding:4px 2px 12px;}
-html:not(#a4r-guard) .a4r-ask-k{font:600 10.5px 'A4R IBM Plex Mono', ui-monospace, monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-ink-dim);display:flex;align-items:center;gap:6px;}
+html:not(#a4r-guard) .a4r-ask-k{font:600 10.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-ink-dim);display:flex;align-items:center;gap:6px;}
 html:not(#a4r-guard) .a4r-ask-k .a4r-dash-pro{font-size:9.5px;padding:1px 7px;}
 html:not(#a4r-guard) .a4r-ask-empty{border:1px dashed var(--a4r-line);border-radius:10px;padding:22px 16px;text-align:center;background:var(--a4r-page);}
 html:not(#a4r-guard) .a4r-ask-empty h4{margin:0 0 6px;font-size:15px;}
@@ -1118,7 +1118,7 @@ html:not(#a4r-guard) .a4r-ask-error{font-size:13px;line-height:1.5;color:var(--a
 html:not(#a4r-guard) .a4r-ask-a{font-size:14px;line-height:1.6;}
 html:not(#a4r-guard) .a4r-ask-a p{margin:0 0 .7em;}
 html:not(#a4r-guard) .a4r-ask-a p:last-child{margin-bottom:0;}
-html:not(#a4r-guard) .a4r-ask-cite,html:not(#a4r-guard) .a4r-root button.a4r-ask-cite{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;margin:0 1px;border-radius:9px;background:var(--a4r-accent-soft);color:var(--a4r-accent);font:600 10.5px 'A4R IBM Plex Mono', ui-monospace, monospace;vertical-align:1px;border:none;box-shadow:none;cursor:pointer;}
+html:not(#a4r-guard) .a4r-ask-cite,html:not(#a4r-guard) .a4r-root button.a4r-ask-cite{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;margin:0 1px;border-radius:9px;background:var(--a4r-accent-soft);color:var(--a4r-accent);font:600 10.5px 'A4R IBM Plex Mono', monospace;vertical-align:1px;border:none;box-shadow:none;cursor:pointer;}
 html:not(#a4r-guard) .a4r-ask-sources{display:grid;gap:8px;}
 html:not(#a4r-guard) .a4r-ask-src{border:1px solid var(--a4r-line);border-radius:8px;padding:8px 10px;background:var(--a4r-page);font-size:12.5px;line-height:1.45;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:start;}
 html:not(#a4r-guard) .a4r-ask-src.is-link{cursor:pointer;}
@@ -1142,7 +1142,7 @@ html:not(#a4r-guard) .a4r-settings-status.is-none,html:not(#a4r-guard) .a4r-sett
 
 /* ---------- Export highlights (v0.11.0), built to mockup-export-highlights.html ---------- */
 html:not(#a4r-guard) .a4r-hl-h-row{display:flex;justify-content:space-between;align-items:center;gap:10px;}
-html:not(#a4r-guard) .a4r-root button.a4r-export-open{border:1px solid var(--a4r-line);background:var(--a4r-card);color:var(--a4r-ink);border-radius:8px;padding:5px 11px;font-family:'A4R Work Sans', ui-sans-serif, system-ui, sans-serif;font-size:12.5px;font-weight:600;letter-spacing:0;text-transform:none;height:auto;box-shadow:none;cursor:pointer;}
+html:not(#a4r-guard) .a4r-root button.a4r-export-open{border:1px solid var(--a4r-line);background:var(--a4r-card);color:var(--a4r-ink);border-radius:8px;padding:5px 11px;font-family:'A4R Work Sans', system-ui, sans-serif;font-size:12.5px;font-weight:600;letter-spacing:0;text-transform:none;height:auto;box-shadow:none;cursor:pointer;}
 html:not(#a4r-guard) .a4r-root button.a4r-export-open:hover{border-color:var(--a4r-accent);color:var(--a4r-accent);}
 html:not(#a4r-guard) .a4r-hl-triage-header .a4r-export-open{margin-left:auto;}
 html:not(#a4r-guard) .modal.a4r-export-modal{width:min(900px,94vw);max-width:94vw;padding:0;overflow:hidden;}
@@ -1156,7 +1156,7 @@ html:not(#a4r-guard) .a4r-export-left h3{font-family:'A4R Fraunces', Georgia, se
 html:not(#a4r-guard) .a4r-export-sub{font-size:12.5px;color:var(--a4r-ink-dim);margin:3px 0 0;line-height:1.45;}
 html:not(#a4r-guard) .a4r-export-group{border:none;margin:0;padding:0;display:grid;gap:7px;min-width:0;}
 html:not(#a4r-guard) .a4r-export-group legend{padding:0;margin-bottom:7px;}
-html:not(#a4r-guard) .a4r-export-k{font:600 10.5px 'A4R IBM Plex Mono', ui-monospace, monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-ink-dim);}
+html:not(#a4r-guard) .a4r-export-k{font:600 10.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-ink-dim);}
 html:not(#a4r-guard) .a4r-export-opt{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;line-height:1.35;cursor:pointer;color:var(--a4r-ink);}
 html:not(#a4r-guard) .a4r-export-opt input{margin:2px 0 0;accent-color:var(--a4r-accent);flex:none;}
 html:not(#a4r-guard) .a4r-export-opt small{display:block;color:var(--a4r-ink-dim);font-size:12px;margin-top:1px;}
@@ -1170,8 +1170,8 @@ html:not(#a4r-guard) .a4r-root button.a4r-export-btn.is-quiet{border-color:trans
 html:not(#a4r-guard) .a4r-root button.a4r-export-btn:disabled{opacity:.5;cursor:default;}
 html:not(#a4r-guard) .a4r-export-right{background:var(--a4r-page);display:flex;flex-direction:column;min-width:0;min-height:0;}
 html:not(#a4r-guard) .a4r-export-phead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 44px 12px 16px;border-bottom:1px solid var(--a4r-line);}
-html:not(#a4r-guard) .a4r-export-fname{font:500 12px 'A4R IBM Plex Mono', ui-monospace, monospace;color:var(--a4r-ink-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}
-html:not(#a4r-guard) .a4r-export-preview{margin:0;padding:14px 16px 18px;font:12.5px/1.6 'A4R IBM Plex Mono', ui-monospace, monospace;white-space:pre-wrap;word-break:break-word;overflow:auto;flex:1;min-height:0;color:var(--a4r-ink);background:transparent;border:none;}
+html:not(#a4r-guard) .a4r-export-fname{font:500 12px 'A4R IBM Plex Mono', monospace;color:var(--a4r-ink-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}
+html:not(#a4r-guard) .a4r-export-preview{margin:0;padding:14px 16px 18px;font:12.5px/1.6 'A4R IBM Plex Mono', monospace;white-space:pre-wrap;word-break:break-word;overflow:auto;flex:1;min-height:0;color:var(--a4r-ink);background:transparent;border:none;}
 @media (max-width:820px){
   html:not(#a4r-guard) .a4r-export{grid-template-columns:minmax(0,1fr);max-height:none;}
   html:not(#a4r-guard) .a4r-export-left{border-right:none;border-bottom:1px solid var(--a4r-line);}
@@ -1188,7 +1188,7 @@ html:not(#a4r-guard) .a4r-screen-body{container-type:inline-size;}
 
 /* ---------- Shelves (v0.12.0), built to mockup-shelves.html ---------- */
 html:not(#a4r-guard) .a4r-shelves-h{justify-content:space-between;}
-html:not(#a4r-guard) .a4r-root button.a4r-shelf-new{background:none;background-color:transparent;border:none;box-shadow:none;height:auto;padding:2px 4px;font-family:'A4R Work Sans', ui-sans-serif, system-ui, sans-serif;font-size:12px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--a4r-accent);cursor:pointer;}
+html:not(#a4r-guard) .a4r-root button.a4r-shelf-new{background:none;background-color:transparent;border:none;box-shadow:none;height:auto;padding:2px 4px;font-family:'A4R Work Sans', system-ui, sans-serif;font-size:12px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--a4r-accent);cursor:pointer;}
 html:not(#a4r-guard) .a4r-shelf-rows{display:grid;gap:2px;margin-bottom:6px;}
 html:not(#a4r-guard) .a4r-shelf-row{border:1px dashed transparent;}
 html:not(#a4r-guard) .a4r-shelf-row.a4r-drop{border-color:var(--a4r-accent);background:var(--a4r-accent-soft);}
@@ -1235,7 +1235,7 @@ html:not(#a4r-guard) .a4r-lookup-none{font-size:13.5px;color:var(--a4r-ink-dim);
 html:not(#a4r-guard) .a4r-lookup-ai{margin-top:12px;border-top:1px solid var(--a4r-line);padding-top:12px;}
 html:not(#a4r-guard) .a4r-lookup-ai.is-empty{display:none;}
 html:not(#a4r-guard) .a4r-lookup-ai p{margin:0;font-size:14px;}
-html:not(#a4r-guard) .a4r-lookup-k{font:600 10.5px 'A4R IBM Plex Mono', ui-monospace, monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-ink-dim);display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+html:not(#a4r-guard) .a4r-lookup-k{font:600 10.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--a4r-ink-dim);display:flex;align-items:center;gap:6px;margin-bottom:6px;}
 html:not(#a4r-guard) .a4r-lookup-k .a4r-dash-pro{font-size:9.5px;padding:1px 6px;}
 html:not(#a4r-guard) .a4r-lookup-dim{color:var(--a4r-ink-dim);font-size:13px;}
 html:not(#a4r-guard) .a4r-lookup-meta{font-size:11.5px;color:var(--a4r-ink-dim);margin-top:6px;}
@@ -1313,15 +1313,15 @@ html:not(#a4r-guard) .a4r-fs.a4r-fs-top .a4r-reader-toolbar{opacity:1;visibility
 html:not(#a4r-guard) .a4r-fs .a4r-rt-title{font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 html:not(#a4r-guard) .a4r-fs .a4r-rt-title .a4r-author{display:none;}
 html:not(#a4r-guard) .a4r-fs .a4r-rt-fs-where{display:inline;font-weight:400;color:var(--a4r-ink-dim);}
-html:not(#a4r-guard) .a4r-fs .a4r-loc-pct,html:not(#a4r-guard) .a4r-fs .a4r-back-to-pos,html:not(#a4r-guard) .a4r-fs .a4r-rt-fs-btn{display:none !important;}
+html:not(#a4r-guard) .a4r-fs .a4r-loc-pct:not(#a4r-strong),html:not(#a4r-guard) .a4r-fs .a4r-back-to-pos:not(#a4r-strong),html:not(#a4r-guard) .a4r-fs .a4r-rt-fs-btn:not(#a4r-strong){display:none;}
 html:not(#a4r-guard) .a4r-root button.a4r-rt-fs-exit{border:1px solid var(--a4r-line);background:var(--a4r-card);color:var(--a4r-ink);border-radius:7px;height:34px;padding:0 10px;font-size:12.5px;font-weight:600;align-items:center;gap:6px;box-shadow:none;white-space:nowrap;}
 html:not(#a4r-guard) .a4r-fs button.a4r-rt-fs-exit{display:inline-flex;}
-html:not(#a4r-guard) .a4r-rt-fs-exit kbd{font:500 10px 'A4R IBM Plex Mono', ui-monospace, monospace;border:1px solid var(--a4r-line);border-radius:4px;padding:0 4px;color:var(--a4r-ink-dim);background:none;}
+html:not(#a4r-guard) .a4r-rt-fs-exit kbd{font:500 10px 'A4R IBM Plex Mono', monospace;border:1px solid var(--a4r-line);border-radius:4px;padding:0 4px;color:var(--a4r-ink-dim);background:none;}
 /* Just the page, centred, a comfortable line length. */
 html:not(#a4r-guard) .a4r-fs .a4r-reader-body{flex:1;height:auto;min-height:0;padding:0;position:relative;gap:0;}
 html:not(#a4r-guard) .a4r-fs .a4r-reader-page-wrap{border:none;border-radius:0;max-width:820px;margin:0 auto;width:100%;}
-html:not(#a4r-guard) .a4r-fs .a4r-reader-page-wrap:has(.a4r-pdf-page){max-width:none;}
-html:not(#a4r-guard) .a4r-fs .a4r-reader-page:not(.a4r-pdf-page){padding-top:64px !important;padding-bottom:44px !important;}
+html:not(#a4r-guard) .a4r-fs .a4r-reader-page-wrap.a4r-page-wrap-pdf{max-width:none;}
+html:not(#a4r-guard) .a4r-fs .a4r-reader-page:not(.a4r-pdf-page):not(#a4r-strong){padding-top:64px;padding-bottom:44px;}
 /* Full screen arrows (buyer test item 17): easy to see, fully on the page,
    with "Prev"/"Next" under them. */
 html:not(#a4r-guard) .a4r-fs button.a4r-nav-circle{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:auto;height:auto;border:none;background:none;box-shadow:none;border-radius:0;flex-direction:column;gap:4px;padding:0;color:var(--a4r-ink);opacity:.9;transition:opacity .2s;}
@@ -1338,7 +1338,7 @@ html:not(#a4r-guard) .a4r-fs.a4r-fs-moved button.a4r-fs-exit-float{display:inlin
 html:not(#a4r-guard) .a4r-fs.a4r-fs-top button.a4r-fs-exit-float{display:none;}
 html:not(#a4r-guard) .a4r-fs .a4r-fs-progress{display:block;position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--a4r-line);z-index:5;}
 html:not(#a4r-guard) .a4r-fs-progress-fill{height:100%;background:var(--a4r-accent);width:0;}
-html:not(#a4r-guard) .a4r-fs .a4r-fs-pct{display:block;position:absolute;right:16px;bottom:10px;z-index:5;font:500 10.5px 'A4R IBM Plex Mono', ui-monospace, monospace;color:var(--a4r-ink-dim);opacity:.7;}
+html:not(#a4r-guard) .a4r-fs .a4r-fs-pct{display:block;position:absolute;right:16px;bottom:10px;z-index:5;font:500 10.5px 'A4R IBM Plex Mono', monospace;color:var(--a4r-ink-dim);opacity:.7;}
 html:not(#a4r-guard) .a4r-fs .a4r-fs-hint{display:block;position:absolute;left:50%;top:14px;transform:translateX(-50%);z-index:25;font:500 12px var(--font-interface, system-ui, sans-serif);color:var(--a4r-card);background:var(--a4r-ink);border-radius:999px;padding:6px 14px;white-space:nowrap;pointer-events:none;}
 html:not(#a4r-guard) .a4r-fs.a4r-fs-top .a4r-fs-hint{display:none;}
 /* Listen controls: a small bar at the top centre, only while Listen plays
@@ -1402,7 +1402,7 @@ html:not(#a4r-guard) .a4r-reader-page ::highlight(a4r-ab-read){color:#9a917f;}
 html:not(#a4r-guard) .a4r-reader-page.a4r-dark ::highlight(a4r-ab-word){background-color:#d0a668;color:#1b140b;}
 html:not(#a4r-guard) .a4r-reader-page.a4r-dark ::highlight(a4r-ab-read){color:#a89c85;}
 html:not(#a4r-guard) .a4r-ab-menu{position:absolute;top:calc(100% + 4px);background:var(--a4r-card);border:1px solid var(--a4r-line);border-radius:10px;box-shadow:0 10px 26px rgba(0,0,0,.18);padding:6px;min-width:210px;z-index:30;}
-html:not(#a4r-guard) .a4r-ab-mh{font:600 10.5px 'A4R IBM Plex Mono', ui-monospace, monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--a4r-ink-dim);padding:6px 10px 4px;}
+html:not(#a4r-guard) .a4r-ab-mh{font:600 10.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--a4r-ink-dim);padding:6px 10px 4px;}
 html:not(#a4r-guard) .a4r-ab-menu button{display:flex;width:100%;border:none;background:none;box-shadow:none;color:var(--a4r-ink);padding:8px 10px;border-radius:7px;font-size:13px;cursor:pointer;text-align:left;justify-content:flex-start;height:auto;}
 html:not(#a4r-guard) .a4r-ab-menu button:hover{background:var(--a4r-status-gray-soft);}
 html:not(#a4r-guard) .a4r-ab-menu button.a4r-sel{color:var(--a4r-accent);font-weight:600;}
@@ -1424,7 +1424,7 @@ html:not(#a4r-guard) .a4r-root .a4r-get-pro-row,html:not(#a4r-guard) .a4r-get-pr
 html:not(#a4r-guard) .a4r-get-pro-row button.a4r-get-pro{font-size:12px;padding:6px 12px;cursor:pointer;}
 
 /* Visually hidden, still read by screen readers (a picture title page's own text). */
-html:not(#a4r-guard) .a4r-reader-page .a4r-sr-only{position:absolute !important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+html:not(#a4r-guard) .a4r-reader-page .a4r-sr-only:not(#a4r-strong){position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 /* Front and back matter in Contents: no chapter number, a little quieter. */
 html:not(#a4r-guard) .a4r-toc-item.a4r-toc-matter{color:var(--a4r-ink-dim);}
 
@@ -1447,7 +1447,7 @@ html:not(#a4r-guard) body .a4r-root a,html:not(#a4r-guard) body .a4r-hl-color-po
 html:not(#a4r-guard) .a4r-hl-triage-sub b{color:var(--a4r-ink);font-weight:600;}
 html:not(#a4r-guard) .a4r-hl-topic-what{font-size:12.5px;color:var(--a4r-ink-dim);line-height:1.45;margin:0 0 10px;}
 /* Item 52 (v0.27.1): the already-linked card had no spacing. Group 1 = "Currently linked to: <topic>" on one line; group 2 = relink hint + Unlink button; then a clear gap before the Topic explainer + search. */
-html:not(#a4r-guard) .a4r-hl-linked-info{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:2px;margin:0 0 14px;padding:10px 12px;background:var(--a4r-page);border:1px solid var(--a4r-line);border-radius:9px;}
+html:not(#a4r-guard) .a4r-hl-linked-info{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:0 0 14px;padding:10px 12px;background:var(--a4r-page);border:1px solid var(--a4r-line);border-radius:9px;}
 html:not(#a4r-guard) .a4r-hl-linked-label{font-size:12.5px;color:var(--a4r-ink-dim);}
 html:not(#a4r-guard) .a4r-hl-linked-topic{font-size:15px;font-weight:600;color:var(--a4r-accent);}
 html:not(#a4r-guard) .a4r-hl-linked-hint{font-size:13px;line-height:1.45;color:var(--a4r-ink);margin:0 0 10px;}
@@ -1468,11 +1468,15 @@ html:not(#a4r-guard) .a4r-hl-plain-pro{font-size:12.5px;color:var(--a4r-ink-dim)
 html:not(#a4r-guard) .a4r-root button.a4r-get-pro.a4r-link-btn{border:none;background:none;box-shadow:none;color:var(--a4r-accent);padding:0;height:auto;font-weight:600;font-size:12.5px;cursor:pointer;}
 html:not(#a4r-guard) .a4r-root button.a4r-get-pro.a4r-link-btn:hover{text-decoration:underline;}
 /* 1.0.1: styles that main.js used to set inline, moved here (Obsidian's plugin
-   guidelines: no hardcoded styling). Each keeps !important so it wins exactly
-   where the inline style did; nothing looks different. */
-html:not(#a4r-guard) .a4r-display-none{display:none !important;}
-html:not(#a4r-guard) .a4r-page-columns .a4r-no-top-gap{margin-top:0 !important;}
-html:not(#a4r-guard) .a4r-hl-h.a4r-hl-h-spaced{margin-top:20px !important;}
-html:not(#a4r-guard) .a4r-page-viewport.a4r-page-viewport-scroll{overflow-y:auto !important;}
-html:not(#a4r-guard) .a4r-reader-page.a4r-pdf-page{padding:0 !important;background:#282828 !important;}
-html:not(#a4r-guard) .a4r-swatch-btn.a4r-swatch-current{outline:2px solid var(--text-normal) !important;}
+   guidelines: no hardcoded styling). 1.0.2: no !important (the directory's
+   style check): a trailing :not(#a4r-strong) gives these rules an
+   extra id's weight so they beat every other plugin rule and any theme rule
+   without an id, and main.js no longer sets the inline values they used to
+   compete with (the PDF page's colour, the EPUB page's padding, a book's own
+   inline top margin or position). Nothing looks different. */
+html:not(#a4r-guard) .a4r-display-none:not(#a4r-strong){display:none;}
+html:not(#a4r-guard) .a4r-page-columns .a4r-no-top-gap:not(#a4r-strong){margin-top:0;}
+html:not(#a4r-guard) .a4r-hl-h.a4r-hl-h-spaced:not(#a4r-strong){margin-top:20px;}
+html:not(#a4r-guard) .a4r-page-viewport.a4r-page-viewport-scroll:not(#a4r-strong){overflow-y:auto;}
+html:not(#a4r-guard) .a4r-reader-page.a4r-pdf-page:not(#a4r-strong){padding:0;background:#282828;}
+html:not(#a4r-guard) .a4r-swatch-btn.a4r-swatch-current:not(#a4r-strong){outline:2px solid var(--text-normal);}

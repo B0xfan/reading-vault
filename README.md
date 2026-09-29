@@ -134,6 +134,20 @@ Reading Vault works offline. It never sends anything about you or your reading a
 
 "Open in Apple Dictionary" (on a Mac) opens the dictionary app on your computer; it doesn't go online.
 
+## Files kept outside your vault
+
+Everything you make with Reading Vault (books, highlights, notes, saved words, reading history) lives inside your vault. Only these things are kept outside it, and only because you asked for them:
+
+- **Natural voices.** The voice model and voices you download (Pro), and the short voice samples you play in Settings, are saved in a folder called `a4-reading-kokoro`: in `Library/Application Support` in your home folder on a Mac, or in `AppData\Roaming` on Windows. They stay outside the vault on purpose: at about 325 MB they would fill up Obsidian Sync, iCloud or any backup of your notes, and one download serves every vault on your computer. To remove them, quit Obsidian and delete that folder.
+- **Word lookup dictionary.** The dictionary you download (about 5.5 MB) is saved in a folder called `a4-reading-dictionaries` in the same place, for the same reasons. Settings → Word lookup → Remove deletes it.
+- **Export highlights, "Save file…" (Pro).** Your computer's own save window opens, and the file goes where you choose, which can be outside the vault.
+
+The plugin only reads and writes those two folders and the file you save; it never looks anywhere else on your computer.
+
+## Copying to the clipboard
+
+The **Copy** buttons in Export highlights (Pro) and under an Ask the book answer (Pro) put that text on your clipboard, only when you press them. Reading Vault never reads your clipboard.
+
 ## Install
 
 Reading Vault is desktop only: it needs Obsidian on a computer and doesn't run on phones or tablets. Tested on Mac; Windows is untested. Obsidian 1.4 or later; the AI features need Obsidian 1.11.4 or later for its secure key storage.
