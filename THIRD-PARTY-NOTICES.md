@@ -2,13 +2,13 @@
 
 Reading Vault's own code is under the PolyForm Shield License 1.0.0 (`LICENSE`).
 It also contains, or downloads when you ask, the parts below. Each keeps its own
-licence. None of them is under the GPL or any other copyleft licence.
+license. None of them is under the GPL or any other copyleft license.
 
 ## Inside the plugin (`main.js`)
 
 The natural-voice engine, in the block marked "Kokoro engine" at the end of `main.js`:
 
-| Part | Version | Licence | Copyright | Licence text |
+| Part | Version | License | Copyright | License text |
 |---|---|---|---|---|
 | kokoro-js | 1.2.1 | Apache-2.0 | hexgrad and contributors (github.com/hexgrad/kokoro) | [licenses/Apache-2.0.txt](licenses/Apache-2.0.txt) |
 | @huggingface/transformers (transformers.js) | 3.8.1 | Apache-2.0 | Hugging Face | [licenses/Apache-2.0.txt](licenses/Apache-2.0.txt) |
@@ -28,7 +28,7 @@ The fonts in `styles.css` are under the SIL Open Font License 1.1; see [`fonts/`
 
 ## Downloaded when you choose the natural voices
 
-| Part | From | Licence |
+| Part | From | License |
 |---|---|---|
 | Kokoro-82M voice model (full precision, about 325 MB) and voices, by hexgrad, converted to ONNX by onnx-community | huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX (fixed revision 1939ad2a) | Apache-2.0 |
 | English pronunciation lists from misaki, by hexgrad | github.com/B0xfan/reading-vault-voices (copied from github.com/hexgrad/misaki) | Apache-2.0 |
@@ -40,7 +40,7 @@ file of github.com/B0xfan/reading-vault-voices.
 
 ## Downloaded when you press "Add sample books"
 
-| Part | From | Licence |
+| Part | From | License |
 |---|---|---|
 | Meditations, by Marcus Aurelius, translated by George Long | standardebooks.org/ebooks/marcus-aurelius/meditations/george-long, mirrored at github.com/B0xfan/a4-reading-sample-books | CC0 1.0 (public domain) |
 | Pride and Prejudice, by Jane Austen | standardebooks.org/ebooks/jane-austen/pride-and-prejudice, mirrored at github.com/B0xfan/a4-reading-sample-books | CC0 1.0 (public domain) |
@@ -52,3 +52,7 @@ a volunteer project that produces carefully typeset editions of already-public-d
 books. Standard Ebooks dedicates the entirety of each ebook file to the public domain
 under CC0 1.0 (see standardebooks.org/about), so no attribution is legally required;
 it's given here anyway, as thanks to the project.
+
+Small copies of these four books' own covers (120 by 180 pixels) are inside the
+plugin, so the empty Library can show them before anything is downloaded. They
+come from the same CC0 files.
