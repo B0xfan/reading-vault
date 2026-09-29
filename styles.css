@@ -1467,3 +1467,12 @@ html:not(#a4r-guard) .a4r-hl-plain-row .a4r-hl-linked-topic-link{display:inline-
 html:not(#a4r-guard) .a4r-hl-plain-pro{font-size:12.5px;color:var(--a4r-ink-dim);margin-top:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 html:not(#a4r-guard) .a4r-root button.a4r-get-pro.a4r-link-btn{border:none;background:none;box-shadow:none;color:var(--a4r-accent);padding:0;height:auto;font-weight:600;font-size:12.5px;cursor:pointer;}
 html:not(#a4r-guard) .a4r-root button.a4r-get-pro.a4r-link-btn:hover{text-decoration:underline;}
+/* 1.0.1: styles that main.js used to set inline, moved here (Obsidian's plugin
+   guidelines: no hardcoded styling). Each keeps !important so it wins exactly
+   where the inline style did; nothing looks different. */
+html:not(#a4r-guard) .a4r-display-none{display:none !important;}
+html:not(#a4r-guard) .a4r-page-columns .a4r-no-top-gap{margin-top:0 !important;}
+html:not(#a4r-guard) .a4r-hl-h.a4r-hl-h-spaced{margin-top:20px !important;}
+html:not(#a4r-guard) .a4r-page-viewport.a4r-page-viewport-scroll{overflow-y:auto !important;}
+html:not(#a4r-guard) .a4r-reader-page.a4r-pdf-page{padding:0 !important;background:#282828 !important;}
+html:not(#a4r-guard) .a4r-swatch-btn.a4r-swatch-current{outline:2px solid var(--text-normal) !important;}

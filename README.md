@@ -108,10 +108,10 @@ Inside the plugin, Pro features carry a small "Pro" tag, and Settings has a "Get
 
 ## Buy Pro
 
-**[Buy Reading Vault Pro](https://payhip.com/b/aTBZL)** ($19 founding price, $29 later; one-time).
+**[Buy Reading Vault Pro](https://payhip.com/WorkbenchGoods)** ($19 founding price, $29 later; one-time).
 
 - One payment, no subscription. Every future update is included.
-- Your key arrives by email right after purchase. Paste it into Settings → Reading Vault → Reading Vault Pro.
+- Your key arrives by email right after purchase. Paste it into Settings → Reading Vault → Pro license.
 - The key is checked on your own computer, offline. Nothing is sent anywhere to check it.
 - The AI features (Ask the book, "Write with AI" summaries, "Explain in this sentence") are off until you add a key for your own account with Anthropic, OpenAI or OpenRouter. That provider bills you separately for what you use.
 

@@ -446,13 +446,17 @@ const MARGIN_STEPS = [
 // brought its own top space on top of the page margin, so the first line
 // sat well down the page. Clears the top margin of the first element with
 // real content and every wrapper above it (and of any empty elements
-// before it). Inline styles are copied along if Listen later splits the
-// heading into a sentence, so the fix survives that too.
+// before it). The a4r-no-top-gap class (styles.css, 1.0.1: was an inline
+// style) is copied along with the element if Listen later splits the
+// heading into a sentence, so the fix survives that too. The book's own
+// inline top margin is dropped first so the class wins exactly as the old
+// inline style did, even against an inline !important in the book.
 function trimChapterTopGap(root) {
   let el = root.firstElementChild;
   for (let guard = 0; el && guard < 16; guard++) {
     const empty = !el.textContent.trim() && !el.querySelector('img,svg,image,video');
-    el.style.marginTop = '0';
+    el.style.removeProperty('margin-top');
+    el.classList.add('a4r-no-top-gap');
     if (empty) { el = el.nextElementSibling; continue; }
     const lead = el.firstChild;
     if (lead && lead.nodeType === 3 && lead.nodeValue.trim()) break;
@@ -3235,8 +3239,7 @@ class ReadingView extends ItemView {
     titleWrap.createEl('h2', { text: 'Reading' });
     const addBtn = head.createEl('button', { cls: 'a4r-add-btn', text: '+ Add Books' });
 
-    const fileInput = body.createEl('input', { type: 'file', attr: { accept: '.pdf,.epub', multiple: true } });
-    fileInput.style.display = 'none';
+    const fileInput = body.createEl('input', { type: 'file', cls: 'a4r-display-none', attr: { accept: '.pdf,.epub', multiple: true } });
     fileInput.onchange = () => { this.handleFiles(fileInput.files); fileInput.value = ''; };
     addBtn.onclick = () => fileInput.click();
 
@@ -4113,8 +4116,7 @@ class ReadingView extends ItemView {
     // never reused, so the filter can never hide a new bookmark.
     const deletedBm = this.deletedBookmarkIds || (this.deletedBookmarkIds = new Set());
     const bookmarks = (Array.isArray(fm.bookmarks) ? fm.bookmarks : []).filter((b) => !(b && deletedBm.has(b.id)));
-    const bmHead = leftCol.createDiv({ cls: 'a4r-hl-h', text: `BOOKMARKS (${bookmarks.length})` });
-    bmHead.style.marginTop = '20px';
+    leftCol.createDiv({ cls: 'a4r-hl-h a4r-hl-h-spaced', text: `BOOKMARKS (${bookmarks.length})` });
     if (!bookmarks.length) {
       leftCol.createDiv({ cls: 'a4r-notes-empty', text: 'No bookmarks yet.' });
     } else {
@@ -4154,8 +4156,7 @@ class ReadingView extends ItemView {
     // Words (v0.13.0): words saved with Look up from this book.
     const wordFiles = this.store.listWordFiles(file.path);
     if (wordFiles.length) {
-      const wHead = leftCol.createDiv({ cls: 'a4r-hl-h', text: `WORDS (${wordFiles.length})` });
-      wHead.style.marginTop = '20px';
+      leftCol.createDiv({ cls: 'a4r-hl-h a4r-hl-h-spaced', text: `WORDS (${wordFiles.length})` });
       const wBox = leftCol.createDiv({ cls: 'a4r-detail-bm-box a4r-detail-words' });
       for (const wf of wordFiles) {
         const row = wBox.createDiv({ cls: 'a4r-detail-bm-row' });
@@ -4257,8 +4258,7 @@ class ReadingView extends ItemView {
 
     const coverField = side.createDiv({ cls: 'a4r-field' });
     coverField.createEl('label', { text: '🖼 Cover' });
-    const coverInput = coverField.createEl('input', { type: 'file', attr: { accept: 'image/png,image/jpeg,image/gif,image/webp' } });
-    coverInput.style.display = 'none';
+    const coverInput = coverField.createEl('input', { type: 'file', cls: 'a4r-display-none', attr: { accept: 'image/png,image/jpeg,image/gif,image/webp' } });
     coverInput.onchange = async () => {
       const f = coverInput.files[0];
       if (!f) return;
@@ -4389,8 +4389,7 @@ class ReadingView extends ItemView {
     // "Back to p. N" chip (v0.5.0) -- sits right beside the p.X/Y · N%
     // indicator it explains, per the approved mockup. Populated/shown by
     // updateBackToPosChip() below, once `r` exists.
-    const backToPosEl = controls.createSpan({ cls: 'a4r-back-to-pos' });
-    backToPosEl.style.display = 'none';
+    const backToPosEl = controls.createSpan({ cls: 'a4r-back-to-pos a4r-display-none' });
     const tocBtn = controls.createEl('button', { cls: 'a4r-rt-icon-btn', text: '☰' });
     setTooltip(tocBtn, 'Contents / Bookmarks / Highlights');
     const searchBtn = controls.createEl('button', { cls: 'a4r-rt-icon-btn', text: '🔍' });
@@ -4655,11 +4654,11 @@ class ReadingView extends ItemView {
     const updateBackToPosChip = () => {
       backToPosEl.empty();
       if (!r.backToPos) {
-        backToPosEl.style.display = 'none';
+        backToPosEl.addClass('a4r-display-none');
         backToPosEl.onclick = null;
         return;
       }
-      backToPosEl.style.display = '';
+      backToPosEl.removeClass('a4r-display-none');
       backToPosEl.createSpan({ cls: 'a4r-bp-arrow', text: '↩' });
       backToPosEl.appendText(` Back to ${r.backToPos.label}`);
       setTooltip(backToPosEl, `Return to ${r.backToPos.label}, where you were reading before this jump`);
@@ -5935,18 +5934,13 @@ class ReadingView extends ItemView {
     // -- text stays visible -- and let the ResizeObserver re-run
     // layoutEpubColumns() for real once the pane actually has a size.
     if (viewport.clientWidth <= 0 || viewport.clientHeight <= 0) {
-      columnsHost.style.columnWidth = '';
-      columnsHost.style.columnGap = '';
-      columnsHost.style.width = '';
-      columnsHost.style.height = '';
-      columnsHost.style.transform = '';
-      viewport.style.overflowY = 'auto';
+      this.unpaginateEpub(viewport, columnsHost);
       r.epub.pageWidth = 0;
       r.epub.pageGap = 56;
       r.epub.pageCountInChapter = 1;
       return 1;
     }
-    viewport.style.overflowY = 'hidden';
+    viewport.removeClass('a4r-page-viewport-scroll');
     const { width, height } = this.computeEpubPageMetrics(viewport);
     const gap = 56;
     columnsHost.style.columnWidth = `${width}px`;
@@ -5965,6 +5959,15 @@ class ReadingView extends ItemView {
     return totalPages;
   }
 
+  // A plain scrolling page instead of columns (0-size pane, or pagination
+  // failed): drop the measured column sizes and offset, and let the
+  // viewport scroll (a4r-page-viewport-scroll in styles.css; until 1.0.1
+  // these were inline styles set to '' and 'auto').
+  unpaginateEpub(viewport, columnsHost) {
+    for (const prop of ['column-width', 'column-gap', 'width', 'height', 'transform']) columnsHost.style.removeProperty(prop);
+    viewport.addClass('a4r-page-viewport-scroll');
+  }
+
   applyEpubPageOffset(columnsHost, r) {
     // Never let a bad/NaN state (stale frontmatter, a page index left over
     // from a chapter with a different page count, etc.) produce an invalid
@@ -5974,7 +5977,7 @@ class ReadingView extends ItemView {
     const page = Number.isFinite(r.epub.page) ? r.epub.page : 0;
     const width = Number.isFinite(r.epub.pageWidth) ? r.epub.pageWidth : 0;
     const gap = Number.isFinite(r.epub.pageGap) ? r.epub.pageGap : 0;
-    if (!width) { columnsHost.style.transform = ''; return; }
+    if (!width) { columnsHost.style.removeProperty('transform'); return; }
     const offset = page * (width + gap);
     columnsHost.style.transform = Number.isFinite(offset) ? `translateX(-${offset}px)` : '';
   }
@@ -5997,7 +6000,6 @@ class ReadingView extends ItemView {
     this.containerEl.querySelectorAll('.a4r-reader-page').forEach((page) => {
       page.toggleClass('a4r-dark', this.readerIsDark(r));
       this.applyReaderPageColors(page, r);
-      if (page.hasClass('a4r-pdf-page')) page.style.background = '#282828'; // the PDF backdrop never changes
     });
   }
 
@@ -6020,9 +6022,9 @@ class ReadingView extends ItemView {
     pageWrap.empty();
     if (r.pdf.resizeObserver) { r.pdf.resizeObserver.disconnect(); r.pdf.resizeObserver = null; }
     const page = pageWrap.createDiv({ cls: `a4r-reader-page a4r-pdf-page${this.readerIsDark(r) ? ' a4r-dark' : ''}` });
+    // The PDF backdrop (#282828, no padding) never changes: styles.css
+    // (.a4r-pdf-page, 1.0.1) holds it over the page colour set here.
     this.applyReaderPageColors(page, r);
-    page.style.padding = '0';
-    page.style.background = '#282828';
     this.wireScrollFollowRelease(page);
     if (!fm.file_path) { page.createDiv({ cls: 'a4r-reader-empty', text: 'No file on this book.' }); return; }
     // A newer render (page turn, resize) supersedes this one mid-await.
@@ -6564,12 +6566,7 @@ class ReadingView extends ItemView {
       this.applyEpubPageOffset(columnsHost, r);
     } catch (err) {
       console.error('Reading Vault: pagination failed, showing this chapter as a plain scrolling page instead', err);
-      columnsHost.style.columnWidth = '';
-      columnsHost.style.columnGap = '';
-      columnsHost.style.width = '';
-      columnsHost.style.height = '';
-      columnsHost.style.transform = '';
-      viewport.style.overflowY = 'auto';
+      this.unpaginateEpub(viewport, columnsHost);
       r.epub.page = 0;
       r.epub.pageWidth = 0;
       r.epub.pageCountInChapter = 1;
@@ -7417,15 +7414,15 @@ class ReadingView extends ItemView {
       ? `p. ${(r.epub.page || 0) + 1} of ${r.epub.pageCountInChapter}`
       : null;
     const label = [tts && tts.chapterLabel ? tts.chapterLabel : '', pageInChapter].filter(Boolean).join(' · ');
+    let pct = 0;
     if (hasSentences) {
       const from = Math.max(0, tts.currentIndex);
       lb.chapEl.setText([label, `${this.minutesLeftInChapter(from)} min left in chapter`].filter(Boolean).join(' · '));
-      const pct = tts.currentIndex >= 0 && tts.sentenceTexts.length ? ((tts.currentIndex + 1) / tts.sentenceTexts.length) * 100 : 0;
-      lb.meterFill.style.width = `${Math.min(100, pct)}%`;
+      if (tts.currentIndex >= 0 && tts.sentenceTexts.length) pct = Math.min(100, ((tts.currentIndex + 1) / tts.sentenceTexts.length) * 100);
     } else {
       lb.chapEl.setText(label);
-      lb.meterFill.style.width = '0%';
     }
+    lb.meterFill.style.width = `${pct}%`;
     // "Loading…" only while the chapter's sentences haven't been computed
     // at all (tts still null). Once they have and there are none (a
     // picture-only page, e.g. a cover), say so instead of loading forever.
@@ -7623,7 +7620,7 @@ class ReadingView extends ItemView {
     if (!r || !r.progressStrip) return;
     const ps = r.progressStrip;
     const file = this.currentBook;
-    if (!file) { ps.root.style.display = 'none'; return; }
+    if (!file) { ps.root.addClass('a4r-display-none'); return; }
     const fm = this.store.getFm(file);
     let data = null;
     try {
@@ -7631,8 +7628,8 @@ class ReadingView extends ItemView {
     } catch (err) {
       console.error('Reading Vault: progress strip computation failed', err);
     }
-    if (!data) { ps.root.style.display = 'none'; return; }
-    ps.root.style.display = '';
+    if (!data) { ps.root.addClass('a4r-display-none'); return; }
+    ps.root.removeClass('a4r-display-none');
     ps.labelEl.setText(data.label);
     ps.meterFill.style.width = `${Math.round(data.fillPercent)}%`;
     ps.captionEl.empty();
@@ -9117,6 +9114,7 @@ class ReadingView extends ItemView {
     // The page number is already in the toolbar (buyer test 2026-09-26:
     // "Page 1 of 152" showed twice), so this line names the section.
     const secLabel = sec.chapters ? (sec.title || '') : `Pages ${sec.start} to ${sec.end}`;
+    let pct = 0;
     if (info && tts.sentenceTexts[tts.currentIndex]) {
       // "Time left on this page" and a meter across this page's sentences.
       const onPage = tts.sentenceInfo.map((x, i) => i).filter((i) => tts.sentenceInfo[i].startPage === info.startPage);
@@ -9125,11 +9123,11 @@ class ReadingView extends ItemView {
       const mins = Math.max(1, Math.round(words / (155 * (this.plugin.settings.ttsSpeed || 1))));
       lb.chapEl.setText([secLabel, `${mins} min left on this page`].filter(Boolean).join(' · '));
       const pos = onPage.indexOf(tts.currentIndex);
-      lb.meterFill.style.width = `${onPage.length ? Math.min(100, ((pos + 1) / onPage.length) * 100) : 0}%`;
+      if (onPage.length) pct = Math.min(100, ((pos + 1) / onPage.length) * 100);
     } else {
       lb.chapEl.setText(secLabel);
-      lb.meterFill.style.width = '0%';
     }
+    lb.meterFill.style.width = `${pct}%`;
     if (gettingReady) this.setListenRule(lb.sentEl, [gettingReady]);
     else if (!has) this.setListenRule(lb.sentEl, [loading ? 'Loading…' : 'This PDF has no text to read aloud (scanned pages).']);
     else this.setListenRule(lb.sentEl, this.pdfListenRule(r, sec));
@@ -9566,7 +9564,7 @@ class ReadingView extends ItemView {
       const btn = swatchRow.createEl('button', { cls: 'a4r-swatch-btn' });
       setTooltip(btn, c.label);
       btn.style.background = c.hex;
-      if (c.hex === currentColor) btn.style.outline = '2px solid var(--text-normal)';
+      if (c.hex === currentColor) btn.addClass('a4r-swatch-current');
       btn.onclick = async () => {
         this.dismissHighlightPopup();
         await this.store.updateColor(hlFile, c.hex);
@@ -11307,7 +11305,8 @@ class ReadingSettingTab extends PluginSettingTab {
   // everyone has Pro and this says so.
   proSettings(el) {
     const plugin = this.plugin;
-    const head = new Setting(el).setName('Reading Vault Pro').setHeading();
+    // No plugin name in a settings heading (Obsidian's plugin guidelines, 1.0.1).
+    const head = new Setting(el).setName('Pro license').setHeading();
     head.nameEl.createSpan({ cls: 'a4r-dash-pro a4r-settings-pro-badge', text: 'Pro' });
     if (!plugin.proPublicKeys().length) {
       if (PRO_BUILD === 'local') new Setting(el).setName('Pro is unlocked').setDesc('Everyone has Pro in this copy of Reading Vault while Pro keys are being set up.');
@@ -11927,9 +11926,9 @@ const PRO_KEY_RE = /^RVPK-K(\d{6})\.([A-Za-z0-9_-]{86})$/;
 // Pro's English default voice before the computer's voice list is ready:
 // "the computer's own English voice", i.e. Natural voices off (v0.30.0).
 const EN_COMPUTER_VOICE = 'computer:en';
-// The Payhip product page "Buy Pro" opens (1.0.0, 2026-09-29; the same link
+// The Payhip store page "Buy Pro" opens (1.0.1, 2026-09-29; the same link
 // is the Buy link in public/README.md).
-const PRO_BUY_URL = 'https://payhip.com/b/aTBZL';
+const PRO_BUY_URL = 'https://payhip.com/WorkbenchGoods';
 // For "contact support" when a key doesn't work (John, 2026-09-24).
 const PRO_SUPPORT_EMAIL = 'jhesch@gmail.com';
 // The Get Pro list in Settings, Audiobook mode first (buyer test item 24,
@@ -13863,7 +13862,6 @@ module.exports = class A4ReadingPlugin extends Plugin {
     this.settings.highlightsBackfillDone = true;
     await this.saveSettings();
     this.lastHighlightsBackfillCount = changedCount;
-    console.info(`Reading Vault: highlights backfill touched ${changedCount} of ${books.length} book note(s).`);
   }
 
   async saveSettings() {

@@ -20,11 +20,11 @@ Everything else in this manual is free.
 
 ## Get Pro
 
-1. Go to Settings, then Reading Vault. **Reading Vault Pro** is at the top.
+1. Go to Settings, then Reading Vault. **Pro license** is at the top.
 2. Under **Get Pro**, press **Buy Pro ↗**. This opens my store, Workbench Goods, on Payhip.
 3. After you pay, you'll get an email with your Pro key.
 
-![The Reading Vault Pro section with Get Pro and the Pro key box](images/pro-section.png)
+![The Pro license section with Get Pro and the Pro key box](images/pro-section.png)
 
 ## Unlock Pro
 
@@ -40,7 +40,7 @@ If a key doesn't work, a short message says why. Check you copied the whole key.
 
 ## Moving to a new computer
 
-On your old computer, go to the Reading Vault Pro section and press **Remove key** (it asks you to confirm). Then unlock Pro on your new computer with the same key.
+On your old computer, go to the Pro license section and press **Remove key** (it asks you to confirm). Then unlock Pro on your new computer with the same key.
 
 ## Good to know
 

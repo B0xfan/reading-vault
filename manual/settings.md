@@ -6,7 +6,7 @@ To open the settings, go to Obsidian's Settings, then Community plugins, then **
 
 ![The top of Reading Vault's settings page](images/settings-top.png)
 
-## Reading Vault Pro
+## Pro license
 
 Where you unlock Pro with your key. See [Reading Vault Pro](reading-vault-pro.md).
 
