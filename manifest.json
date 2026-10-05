@@ -1,7 +1,7 @@
 {
   "id": "reading-vault",
   "name": "Reading Vault",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "minAppVersion": "1.4.0",
   "description": "Read EPUB and PDF books in your vault, with highlights, notes, bookmarks, shelves, word lookup and read-aloud that follows along. Pro adds 28 natural voices, Ask the book with your own AI key, summaries, highlight review and a dashboard.",
   "author": "John Hesch",

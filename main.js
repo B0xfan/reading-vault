@@ -6867,14 +6867,38 @@ class ReadingView extends ItemView {
     return range;
   }
 
-  wrapRangeInMark(range, color, hlFile) {
-    const mark = document.createElement('mark');
-    if (color) mark.style.background = color;
-    if (hlFile) mark.dataset.a4rHighlightPath = hlFile.path;
-    const frag = range.extractContents();
-    mark.appendChild(frag);
-    range.insertNode(mark);
-    return mark;
+  // v1.0.4: one <mark> per piece of text the range covers, each wrapped
+  // where it already sits. The old single <mark> (extractContents +
+  // insertNode) cut a highlight that crossed a paragraph break out of both
+  // paragraphs and re-inserted them as blocks inside an inline <mark>: the
+  // paragraph split mid-sentence, the colour didn't paint, and the text
+  // after it was pushed off the page (John, Limitless foreword, 2026-10-05).
+  // Returns the marks in reading order (empty when nothing was wrapped).
+  wrapRangeInMarks(range, color, hlFile) {
+    const root = range.commonAncestorContainer;
+    const texts = [];
+    if (root.nodeType === Node.TEXT_NODE) texts.push(root);
+    else {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      let n;
+      while ((n = walker.nextNode())) if (range.intersectsNode(n)) texts.push(n);
+    }
+    const marks = [];
+    for (const textNode of texts) {
+      let node = textNode;
+      const start = node === range.startContainer ? range.startOffset : 0;
+      const end = node === range.endContainer ? range.endOffset : node.nodeValue.length;
+      if (end <= start) continue;
+      if (end < node.nodeValue.length) node.splitText(end);
+      if (start > 0) node = node.splitText(start);
+      const mark = document.createElement('mark');
+      if (color) mark.style.background = color;
+      if (hlFile) mark.dataset.a4rHighlightPath = hlFile.path;
+      node.parentNode.insertBefore(mark, node);
+      mark.appendChild(node);
+      marks.push(mark);
+    }
+    return marks;
   }
 
   // Where in its chapter a saved "spine:i:page:p:of:t" spot is, 0 to 1
@@ -6924,8 +6948,8 @@ class ReadingView extends ItemView {
       if (!excerpt) continue;
       const range = this.findTextRange(contentHost, excerpt, ReadingView.chapterFractionOf(h.location_cfi)) || this.findTextRangeFuzzy(contentHost, excerpt);
       if (!range) continue; // no exact or fuzzy match in this chapter; skip rather than crash
-      const mark = this.wrapRangeInMark(range, h.color, h.file);
-      if (mark && h.note) mark.addClass('a4r-has-note');
+      const marks = this.wrapRangeInMarks(range, h.color, h.file);
+      if (marks.length && h.note) marks[marks.length - 1].addClass('a4r-has-note');
     }
   }
 
@@ -9476,12 +9500,12 @@ class ReadingView extends ItemView {
     const excerpt = picked.map((i) => r.tts.sentenceTexts[i]).join(' ').replace(/\s+/g, ' ').trim();
     if (!excerpt) return false;
     const color = HIGHLIGHT_COLORS[0].hex;
-    let mark = null;
+    let marks = [];
     try {
       const whole = document.createRange();
       whole.setStartBefore(first);
       whole.setEndAfter(last);
-      mark = this.wrapRangeInMark(whole, color, null);
+      marks = this.wrapRangeInMarks(whole, color, null);
     } catch { /* the note is still saved; the next redraw shows it */ }
     sel.removeAllRanges();
     this.dismissHighlightPopup();
@@ -9489,57 +9513,38 @@ class ReadingView extends ItemView {
     this.store.createHighlight({
       bookFile: this.currentBook, format: 'epub', locationPage: null, locationCfi: this.currentLocationString(r), excerpt, color,
       chapterTitle: this.highlightChapterTitleFor(r),
-    }).then((hlFile) => { if (mark && mark.isConnected) mark.dataset.a4rHighlightPath = hlFile.path; })
+    }).then((hlFile) => { for (const m of marks) if (m.isConnected) m.dataset.a4rHighlightPath = hlFile.path; })
       .catch((err) => console.error('Reading Vault: could not save highlight', err));
     return true;
   }
 
   wireHighlighting(contentHost, r, appEl) {
+    // v1.0.4: the release is heard on the whole document, not on the text
+    // block alone. A drag that started in the text often ends just past it
+    // (the margin after a line's last word, below the page, outside the
+    // page), and a listener on the text block never heard that release: the
+    // selection showed but the colour pop-up never came. A release outside
+    // the text still counts only when the press started in it, so a click
+    // on the pop-up itself (or anywhere else in Obsidian) is never mistaken
+    // for the end of a selection.
+    let pressedHere = false;
     // Where/when the press started, so the sentence click handler can tell a
     // real click apart from the end of a drag-selection.
     contentHost.addEventListener('mousedown', (ev) => {
       contentHost._a4rPointerDown = { x: ev.clientX, y: ev.clientY, t: Date.now() };
+      pressedHere = true;
     });
-    contentHost.addEventListener('mouseup', () => {
-      const sel = window.getSelection();
-      if (!sel || sel.isCollapsed || !sel.rangeCount) return;
-      if (!sel.toString().trim()) return;
-      if (!contentHost.contains(sel.anchorNode)) return;
-      // A highlight never starts or ends mid-word (buyer test item 46: one
-      // ended "...with the thin"): the selection grows to whole words.
-      if (r.format === 'epub') snapRangeToWords(sel.getRangeAt(0));
-      const text = sel.toString().trim();
-      if (!text || text.length > 10000) return;
-      const range = sel.getRangeAt(0);
-      const rect = this.visibleRangeRect(range);
-      // Dragging a selection pauses the voice (Listen feature) — it resumes
-      // from the same sentence once this color popup closes, whether the
-      // selection became a highlight or was just dismissed.
-      const wasPlaying = !!(r.tts && r.tts.playing);
-      if (wasPlaying) this.pausePlayback();
-      const lookupWord = lookupWordFrom(text);
-      const lookup = lookupWord ? { word: lookupWord, sentence: this.lookupSentence(range, lookupWord), r } : null;
-      this.showColorPopup(rect, async (color) => {
-        // PDF text-layer selections carry line breaks between text runs;
-        // store one clean line so triage cards read naturally.
-        const excerpt = r.format === 'pdf' ? text.replace(/\s+/g, ' ') : text;
-        let locationCfi = null; let locationPage = null;
-        if (r.format === 'epub') locationCfi = this.currentLocationString(r);
-        else locationPage = r.pdf.page;
-        const hlFile = await this.store.createHighlight({
-          bookFile: this.currentBook, format: r.format, locationPage, locationCfi, excerpt, color,
-          chapterTitle: this.highlightChapterTitleFor(r, { page: locationPage }),
-        });
-        try {
-          if (r.format === 'pdf') this.drawPdfMark(contentHost, range, color, hlFile);
-          else this.wrapRangeInMark(range, color, hlFile);
-        } catch { /* selection spans an awkward boundary — data is still saved, redraw will catch it */ }
-        sel.removeAllRanges();
-        new Notice('Highlight saved.');
-      }, () => {
-        if (wasPlaying) this.resumePlayback(appEl);
-      }, lookup);
-    });
+    const doc = contentHost.ownerDocument || document;
+    const onRelease = (ev) => {
+      // The page was turned or the reader closed: this text block is gone.
+      if (!contentHost.isConnected) { doc.removeEventListener('mouseup', onRelease); return; }
+      const started = pressedHere;
+      pressedHere = false;
+      const inside = !!(ev.target && ev.target.nodeType && contentHost.contains(ev.target));
+      if (!started && !inside) return;
+      this.selectionReleased(contentHost, r, appEl);
+    };
+    doc.addEventListener('mouseup', onRelease);
 
     // Click-to-open on any highlight <mark> — both ones just created above
     // and ones redrawn by drawSavedHighlights() on chapter open. Delegated
@@ -9557,6 +9562,49 @@ class ReadingView extends ItemView {
       const rect = markEl.getBoundingClientRect();
       this.showHighlightActionsPopup(rect, hlFile, fm.color, appEl);
     });
+  }
+
+  // The end of a selection drag in the reader's text: snaps it to whole
+  // words and opens the colour pop-up (with Look up for a single word).
+  selectionReleased(contentHost, r, appEl) {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.rangeCount) return;
+    if (!sel.toString().trim()) return;
+    if (!contentHost.contains(sel.anchorNode)) return;
+    // A highlight never starts or ends mid-word (buyer test item 46: one
+    // ended "...with the thin"): the selection grows to whole words.
+    if (r.format === 'epub') snapRangeToWords(sel.getRangeAt(0));
+    const text = sel.toString().trim();
+    if (!text || text.length > 10000) return;
+    const range = sel.getRangeAt(0);
+    const rect = this.visibleRangeRect(range);
+    // Dragging a selection pauses the voice (Listen feature) — it resumes
+    // from the same sentence once this color popup closes, whether the
+    // selection became a highlight or was just dismissed.
+    const wasPlaying = !!(r.tts && r.tts.playing);
+    if (wasPlaying) this.pausePlayback();
+    const lookupWord = lookupWordFrom(text);
+    const lookup = lookupWord ? { word: lookupWord, sentence: this.lookupSentence(range, lookupWord), r } : null;
+    this.showColorPopup(rect, async (color) => {
+      // PDF text-layer selections carry line breaks between text runs;
+      // store one clean line so triage cards read naturally.
+      const excerpt = r.format === 'pdf' ? text.replace(/\s+/g, ' ') : text;
+      let locationCfi = null; let locationPage = null;
+      if (r.format === 'epub') locationCfi = this.currentLocationString(r);
+      else locationPage = r.pdf.page;
+      const hlFile = await this.store.createHighlight({
+        bookFile: this.currentBook, format: r.format, locationPage, locationCfi, excerpt, color,
+        chapterTitle: this.highlightChapterTitleFor(r, { page: locationPage }),
+      });
+      try {
+        if (r.format === 'pdf') this.drawPdfMark(contentHost, range, color, hlFile);
+        else this.wrapRangeInMarks(range, color, hlFile);
+      } catch { /* selection spans an awkward boundary — data is still saved, redraw will catch it */ }
+      sel.removeAllRanges();
+      new Notice('Highlight saved.');
+    }, () => {
+      if (wasPlaying) this.resumePlayback(appEl);
+    }, lookup);
   }
 
   // Opens on a click on an existing highlight: recolor (reuses the same
@@ -9615,6 +9663,7 @@ class ReadingView extends ItemView {
     const root = this.containerEl;
     const marks = Array.from(root.querySelectorAll('mark')).filter((m) => m.dataset.a4rHighlightPath === path);
     for (const mark of marks) {
+      const last = mark === marks[marks.length - 1];
       const pdf = mark.querySelector(':scope > .a4r-pdf-hl-part');
       if (remove) {
         if (pdf) { mark.remove(); continue; }
@@ -9628,7 +9677,7 @@ class ReadingView extends ItemView {
         if (pdf) mark.querySelectorAll(':scope > .a4r-pdf-hl-part').forEach((part) => { part.style.background = color; });
         else mark.style.background = color;
       }
-      if (note !== undefined) mark.classList.toggle('a4r-has-note', !!String(note).trim());
+      if (note !== undefined) mark.classList.toggle('a4r-has-note', (pdf || last) && !!String(note).trim());
     }
   }
 
