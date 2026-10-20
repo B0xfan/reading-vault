@@ -38,10 +38,11 @@ Most of Reading Vault is free. Pro adds extras on top, for a one-time payment. E
 | [Audiobook mode](audiobook-mode.md) | Pro |
 | [Saving words](saved-words.md) | Pro |
 | [Export highlights](export.md) | Pro |
+| [On your iPhone or iPad](phone.md) | Pro |
 
 To learn how to get Pro, see [Reading Vault Pro](reading-vault-pro.md).
 
 ## Good to know
 
-- Reading Vault works in Obsidian on desktop computers only, not on phones or tablets. Tested on Mac; Windows is untested.
+- The free version works in Obsidian on computers. On an iPhone or iPad, Reading Vault needs Pro; see [On your iPhone or iPad](phone.md). Tested on Mac and iPhone; Windows is untested. Android isn't supported yet.
 - Nothing is hidden in a private database. If you stop using Reading Vault, your books, highlights and notes all stay in your vault.

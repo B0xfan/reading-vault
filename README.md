@@ -23,6 +23,7 @@ New here? The [user manual](manual/README.md) has a short page for every feature
 - **Book summaries (Pro).** A short summary on each book's page, from the book's description, your own words, or AI.
 - **Export highlights.** Preview a book's highlights and notes as Markdown; with Pro, save them to a file or copy them.
 - **Full screen reading.** Just the page, nothing else on screen.
+- **On your iPhone or iPad (Pro).** Your library, books and highlights on the phone, laid out for a small screen, with the same Pro license as your computer. Listening uses the phone's own built-in voices and stops when you lock the phone. Needs iOS 17 or newer. Android isn't supported yet.
 - **Your files stay yours.** Choose which folders it uses. Uninstall it and every note is still there, readable in Obsidian or any text editor.
 
 ## Screenshots
@@ -103,6 +104,7 @@ Payment is required for full access: the features marked Pro below unlock with a
 | "Explain in this sentence" in Word lookup (AI, uses your own AI account) |  | ✓ |
 | Reading dashboard: goals, streaks, charts |  | ✓ |
 | Highlight review |  | ✓ |
+| iPhone and iPad (iOS 17 or newer), with the phone's built-in voices |  | ✓ |
 
 Inside the plugin, Pro features carry a small "Pro" tag, and Settings has a "Get Pro" section with a Buy Pro button that opens the store page. That's the only promotion in the plugin, and nothing in it is loaded from the internet.
 
@@ -150,7 +152,7 @@ The **Copy** buttons in Export highlights (Pro) and under an Ask the book answer
 
 ## Install
 
-Reading Vault is desktop only: it needs Obsidian on a computer and doesn't run on phones or tablets. Tested on Mac; Windows is untested. Obsidian 1.4 or later; the AI features need Obsidian 1.11.4 or later for its secure key storage.
+The free version runs in Obsidian on a computer. On an iPhone or iPad (iOS 17 or newer) it needs Pro: without a Pro key, the phone shows a screen to buy or unlock Pro instead of your books. One license covers your computer and your phone. On the phone, listening uses the phone's own built-in voices (the natural voices are computer only) and stops when you lock the phone. It installs on Android but doesn't support it yet: it shows a short message instead of your books. Tested on Mac and iPhone; Windows is untested. Obsidian 1.8.9 or later; the AI features need Obsidian 1.11.4 or later for its secure key storage.
 
 **From Obsidian (once it's listed):** Settings → Community plugins → Browse, search for "Reading Vault", then Install and Enable.
 

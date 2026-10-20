@@ -499,7 +499,9 @@ html:not(#a4r-guard) .a4r-reader-page.a4r-dark .a4r-tts-sentence.a4r-tts-done{co
    main.js) -- shown small and superscript like a real footnote number
    instead of full-size link-colored text that can wrap mid-marker onto its
    own line; never a click target, never selectable as if it were prose. */
-html:not(#a4r-guard) .a4r-footnote-marker{white-space:nowrap;font-size:0.7em;vertical-align:super;opacity:0.7;text-decoration:none;color:var(--a4r-ink-dim);pointer-events:none;}
+html:not(#a4r-guard) .a4r-footnote-marker{white-space:nowrap;font-size:0.7em;vertical-align:super;opacity:0.7;text-decoration:none;color:var(--a4r-ink-dim);}
+/* A <sup> already makes it small and raised; don't do it twice (v1.2.1). */
+html:not(#a4r-guard) sup .a4r-footnote-marker,html:not(#a4r-guard) .a4r-footnote-marker sup{font-size:inherit;vertical-align:baseline;}
 
 html:not(#a4r-guard) .a4r-reader-body{display:flex;align-items:stretch;gap:16px;padding:12px 26px 34px;height:60vh;min-height:420px;position:relative;}
 /* The Contents/Bookmarks/Highlights panel opens OVER the page, never beside
@@ -524,7 +526,7 @@ html:not(#a4r-guard) .a4r-pdf-box .textLayer br::selection{background:transparen
 html:not(#a4r-guard) .a4r-pdf-hl-layer{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;}
 html:not(#a4r-guard) .a4r-reader-page .a4r-pdf-hl-layer mark{position:absolute;display:block;background:none;padding:0;border-radius:0;}
 html:not(#a4r-guard) .a4r-pdf-hl-part{position:absolute;background:var(--a4r-hl-yellow);border-radius:2px;}
-html:not(#a4r-guard) .a4r-pdf-listen .a4r-pdf-hl-part{background:none;box-shadow:inset 0 -2px 0 var(--a4r-accent);border-radius:0;}
+html:not(#a4r-guard) .a4r-pdf-listen .a4r-pdf-hl-part{background:var(--a4r-accent);box-shadow:none;border-radius:1px;}
 /* Pagination: viewport clips to exactly one screen-page; a4r-page-columns is
    laid out as CSS multi-columns (column-width == viewport width) and paged
    by translateX in JS -- see layoutEpubColumns()/applyEpubPageOffset() in
@@ -1480,3 +1482,230 @@ html:not(#a4r-guard) .a4r-hl-h.a4r-hl-h-spaced:not(#a4r-strong){margin-top:20px;
 html:not(#a4r-guard) .a4r-page-viewport.a4r-page-viewport-scroll:not(#a4r-strong){overflow-y:auto;}
 html:not(#a4r-guard) .a4r-reader-page.a4r-pdf-page:not(#a4r-strong){padding:0;background:#282828;}
 html:not(#a4r-guard) .a4r-swatch-btn.a4r-swatch-current:not(#a4r-strong){outline:2px solid var(--text-normal);}
+/* ==== Phones and tablets (iPhone plan step 4, v1.1.0), built to the
+ * approved 2026-10-09_reading-vault-phone-mockups.html. Every rule sits under
+ * .a4r-phone (or a phone-only class), which main.js adds only when Obsidian
+ * says it is on a phone or tablet (rvPhoneLayout), so the computer layout is
+ * untouched. Obsidian's floating phone bar overlaps the bottom of a view;
+ * --view-bottom-spacing is Obsidian's own measure of it. On a phone without
+ * the floating bar Obsidian sets it to a bare 0, which calc() can't add to a
+ * length, so it is only ever used on its own: as a transparent bottom border
+ * (the background still fills it). */
+html:not(#a4r-guard) .view-content.a4r-ph-host{padding:0;}
+html:not(#a4r-guard) .a4r-root.a4r-phone{padding:0;background:var(--a4r-card);-webkit-text-size-adjust:100%;}
+html:not(#a4r-guard) .a4r-phone .a4r-app{border:none;border-radius:0;box-shadow:none;min-height:100%;background:var(--a4r-card);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-body{padding:14px 16px 28px;border-bottom:var(--view-bottom-spacing, 0px) solid transparent;}
+html:not(#a4r-guard) .a4r-phone button{-webkit-tap-highlight-color:transparent;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-back{background:none;border:none;box-shadow:none;padding:4px 0;color:var(--a4r-ink-dim);font-size:15px;height:auto;margin-bottom:6px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-eyebrow{font:500 10.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.07em;color:var(--a4r-ink-dim);text-transform:uppercase;}
+/* Library */
+html:not(#a4r-guard) .a4r-phone .a4r-ph-lib-top{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-h{font-family:'A4R Fraunces', Georgia, serif;font-size:27px;font-weight:600;margin:0;line-height:1.2;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-stats{font:12px 'A4R IBM Plex Mono', monospace;color:var(--a4r-ink-dim);margin-top:2px;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-add,html:not(#a4r-guard) .a4r-phone button.a4r-ph-primary{font:600 14px 'A4R Work Sans', system-ui, sans-serif;background:var(--a4r-accent);color:var(--a4r-on-accent);border:0;border-radius:9px;padding:9px 14px;height:auto;box-shadow:none;flex:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-search{margin-top:12px;display:flex;align-items:center;gap:8px;border:1px solid var(--a4r-line);border-radius:10px;padding:0 12px;color:var(--a4r-ink-dim);background:var(--a4r-card);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-search input{flex:1;min-width:0;border:none;background:none;box-shadow:none;font-size:16px;padding:10px 0;color:var(--a4r-ink);height:auto;outline:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-chips{display:flex;gap:8px;margin:12px -16px 0 0;padding-right:16px;overflow-x:auto;scrollbar-width:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-chips::-webkit-scrollbar{display:none;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-chip{flex:none;font:500 14px 'A4R Work Sans', system-ui, sans-serif;padding:7px 13px;border-radius:999px;border:1px solid var(--a4r-line);color:var(--a4r-ink);background:var(--a4r-card);white-space:nowrap;height:auto;box-shadow:none;max-width:200px;overflow:hidden;text-overflow:ellipsis;display:block;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-chip.a4r-on{background:var(--a4r-accent);color:var(--a4r-on-accent);border-color:var(--a4r-accent);font-weight:600;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cont-row{margin:14px -16px 0 0;padding-right:16px;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cont-row::-webkit-scrollbar{display:none;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-cont{flex:0 0 calc(100% - 28px);min-width:0;display:flex;gap:12px;align-items:center;background:var(--a4r-page);border:1px solid var(--a4r-line);border-radius:12px;padding:10px;scroll-snap-align:start;height:auto;box-shadow:none;text-align:left;justify-content:flex-start;color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cont-cv{width:46px;height:68px;flex:none;border-radius:5px;overflow:hidden;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cont-info{flex:1;min-width:0;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cont-t{font-family:'A4R Fraunces', Georgia, serif;font-weight:600;font-size:17px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cont-a{font-size:13px;color:var(--a4r-ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-bar{height:5px;border-radius:3px;background:var(--a4r-line);margin-top:7px;overflow:hidden;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-bar i{display:block;height:100%;background:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-dots{display:flex;justify-content:center;gap:6px;margin-top:7px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-dots i{width:6px;height:6px;border-radius:50%;background:var(--a4r-line);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-dots i.a4r-on{background:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-covers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 10px;margin-top:14px;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-book{display:block;min-width:0;background:none;border:none;box-shadow:none;padding:0;height:auto;text-align:left;color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cv{aspect-ratio:2/3;border-radius:6px;position:relative;overflow:hidden;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 6px rgba(0,0,0,.12);display:flex;flex-direction:column;justify-content:flex-end;padding:7px;font-family:'A4R Fraunces', Georgia, serif;font-weight:600;font-size:12px;line-height:1.15;overflow-wrap:anywhere;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cv small{font:500 9px 'A4R Work Sans', system-ui, sans-serif;opacity:.85;margin-top:2px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cv-img{padding:0;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cv-img img,html:not(#a4r-guard) .a4r-phone .a4r-ph-cont-cv img,html:not(#a4r-guard) .a4r-phone .a4r-ph-hl-cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cont-cv,html:not(#a4r-guard) .a4r-phone .a4r-ph-hl-cv{position:relative;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-st{position:absolute;top:6px;right:6px;font:600 9px 'A4R Work Sans', system-ui, sans-serif;background:var(--a4r-status-blue-soft);color:var(--a4r-status-blue);border-radius:999px;padding:2px 6px;z-index:1;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-bt{font-size:13px;font-weight:600;margin-top:5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-ba{font-size:12px;color:var(--a4r-ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-empty{grid-column:1 / -1;margin-top:18px;}
+/* Highlights */
+html:not(#a4r-guard) .a4r-phone .a4r-ph-hl-head{display:flex;gap:12px;align-items:center;margin-top:4px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-hl-cv{width:44px;height:64px;flex:none;border-radius:5px;overflow:hidden;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-hl-title{font-family:'A4R Fraunces', Georgia, serif;font-size:22px;font-weight:600;margin:1px 0 0;line-height:1.15;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-by{font-size:13px;color:var(--a4r-ink-dim);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-wait{margin-top:12px;font-size:14px;background:var(--a4r-accent-soft);border-radius:10px;padding:9px 12px;line-height:1.4;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-card{margin-top:12px;border:1px solid var(--a4r-line);border-radius:12px;padding:12px 14px;background:var(--a4r-card);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-card-h{font:500 10.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.06em;color:var(--a4r-ink-dim);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-more{background:none;border:none;box-shadow:none;color:var(--a4r-ink-dim);font-size:18px;padding:0 4px;height:28px;min-width:32px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-quote{margin:8px 0 10px;padding-left:12px;border-left:3px solid var(--a4r-accent);font-family:'A4R Fraunces', Georgia, serif;font-style:italic;font-size:17px;line-height:1.5;-webkit-user-select:text;user-select:text;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-note{font-size:13px;color:var(--a4r-ink-dim);margin:-4px 0 10px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-acts button.a4r-ph-primary{font-size:13px;padding:7px 12px;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-ghost{font:600 13px 'A4R Work Sans', system-ui, sans-serif;background:transparent;color:var(--a4r-accent);border:1px solid var(--a4r-line);border-radius:9px;padding:7px 12px;height:auto;box-shadow:none;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-tag{font:500 12px 'A4R Work Sans', system-ui, sans-serif;background:var(--a4r-status-blue-soft);color:var(--a4r-status-blue);border:none;border-radius:999px;padding:3px 9px;height:auto;box-shadow:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-hl-chips{margin-top:12px;}
+/* Bottom sheet: "Link to a topic" */
+html:not(#a4r-guard) .a4r-phone .a4r-ph-sheet-wrap{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;justify-content:flex-end;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-shade{position:absolute;inset:0;background:rgba(0,0,0,.28);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-bottom{position:relative;background:var(--a4r-card);border-radius:18px 18px 0 0;border-top:1px solid var(--a4r-line);box-shadow:0 -6px 24px rgba(60,40,10,.12);padding:8px 16px calc(18px + env(safe-area-inset-bottom, 0px));border-bottom:var(--view-bottom-spacing, 0px) solid transparent;max-height:78%;display:flex;flex-direction:column;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-bottom h5{font-family:'A4R Fraunces', Georgia, serif;font-size:18px;font-weight:600;margin:4px 0 6px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-sheet-quote{font-family:'A4R Fraunces', Georgia, serif;font-style:italic;font-size:14px;color:var(--a4r-ink-dim);margin-bottom:10px;}
+html:not(#a4r-guard) .a4r-phone input.a4r-ph-sheet-search{width:100%;font-size:16px;border:1px solid var(--a4r-line);border-radius:10px;padding:10px 12px;background:var(--a4r-card);color:var(--a4r-ink);height:auto;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-topic-list{overflow-y:auto;margin:8px 0;display:flex;flex-direction:column;min-height:0;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-topic{text-align:left;justify-content:flex-start;background:none;border:none;border-top:1px solid var(--a4r-line);border-radius:0;box-shadow:none;padding:12px 4px;font-size:16px;color:var(--a4r-ink);height:auto;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-topic-new{color:var(--a4r-accent);font-weight:600;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-hint{font-size:14px;color:var(--a4r-ink-dim);padding:8px 4px;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-unlink,html:not(#a4r-guard) .a4r-phone button.a4r-ph-cancel{margin-top:8px;width:100%;padding:11px;font-size:15px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-grab,html:not(#a4r-guard) .a4r-ph-export .a4r-ph-grab{width:38px;height:5px;border-radius:3px;background:var(--a4r-line);margin:0 auto 8px;flex:none;}
+/* Pro license needed */
+html:not(#a4r-guard) .a4r-phone .a4r-ph-pro{padding:34px 24px 40px;border-bottom:var(--view-bottom-spacing, 0px) solid transparent;display:flex;flex-direction:column;align-items:center;text-align:center;max-width:460px;margin:0 auto;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-pro-badge{width:64px;height:64px;border-radius:16px;background:var(--a4r-accent-soft);color:var(--a4r-accent);display:flex;align-items:center;justify-content:center;font-size:30px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-pro h3{font-family:'A4R Fraunces', Georgia, serif;font-size:25px;font-weight:600;margin:16px 0 8px;line-height:1.2;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-pro p{font-size:16px;color:var(--a4r-ink-dim);margin:0 0 12px;line-height:1.5;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-pro-buy{width:100%;padding:14px;font:600 17px 'A4R Work Sans', system-ui, sans-serif;border-radius:12px;margin-top:6px;background:var(--a4r-accent);color:var(--a4r-on-accent);border:0;height:auto;box-shadow:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-pro .a4r-ph-note{font-size:13px;color:var(--a4r-ink-dim);margin:6px 0 0;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-or{width:100%;display:flex;align-items:center;gap:10px;color:var(--a4r-ink-dim);font-size:13px;margin:22px 0 12px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-or::before,html:not(#a4r-guard) .a4r-phone .a4r-ph-or::after{content:"";flex:1;height:1px;background:var(--a4r-line);}
+html:not(#a4r-guard) .a4r-phone input.a4r-ph-key{width:100%;border:1px solid var(--a4r-line);border-radius:10px;padding:12px;text-align:left;color:var(--a4r-ink);font:14px 'A4R IBM Plex Mono', monospace;background:var(--a4r-page);height:auto;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-pro-unlock{width:100%;margin-top:10px;font:600 16px 'A4R Work Sans', system-ui, sans-serif;padding:12px;background:transparent;color:var(--a4r-accent);border:1px solid var(--a4r-line);border-radius:9px;height:auto;box-shadow:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-pro-msg{font-size:14px;color:var(--a4r-danger-text);margin-top:8px;min-height:1px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-pro .a4r-ph-pro-foot{margin-top:16px;}
+/* Reader: one thin bar, the page, one small line at the bottom */
+html:not(#a4r-guard) .a4r-root.a4r-phone.a4r-ph-reading{overflow:hidden;}
+html:not(#a4r-guard) .a4r-ph-reading .a4r-app{height:100%;display:flex;flex-direction:column;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader{flex:1;min-height:0;display:flex;flex-direction:column;position:relative;background:var(--a4r-page);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-reader-toolbar{order:0;flex:none;height:44px;flex-wrap:nowrap;gap:4px;padding:0 6px 0 4px;background:var(--a4r-page);}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-rd-back{flex:none;background:none;border:none;box-shadow:none;color:var(--a4r-ink-dim);font-size:15px;padding:0 6px;height:38px;min-width:70px;justify-content:flex-start;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-rd-mid{flex:1;min-width:0;text-align:center;font:500 14px 'A4R Work Sans', system-ui, sans-serif;color:var(--a4r-ink-dim);letter-spacing:0;text-transform:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-rt-title,html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-loc-pct,html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-rt-controls > .a4r-rt-icon-btn:not(.a4r-rt-listen-btn):not(:first-of-type),html:not(#a4r-guard) .a4r-phone .a4r-ph-reader button.a4r-rt-fs-exit,html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-fs-progress,html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-fs-pct{display:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-rt-controls{flex:none;flex-wrap:nowrap;gap:2px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader button.a4r-rt-icon-btn,html:not(#a4r-guard) .a4r-phone .a4r-ph-reader button.a4r-rt-aa-btn{width:38px;height:38px;padding:0;border:none;border-radius:9px;background:transparent;font-size:17px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader button.a4r-rt-icon-btn.a4r-on,html:not(#a4r-guard) .a4r-phone .a4r-ph-reader button.a4r-rt-aa-btn.a4r-on{background:var(--a4r-accent);color:var(--a4r-on-accent);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-back-to-pos{font-size:11px;padding:3px 7px;white-space:nowrap;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader.a4r-ph-bar-hidden .a4r-reader-toolbar{display:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-reader-body{order:1;flex:1;height:auto;min-height:0;padding:0;gap:0;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader button.a4r-nav-circle{display:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-reader-page-wrap{border:none;border-radius:0;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-side-panel{left:0;right:0;top:0;bottom:0;width:auto;border-radius:0;border:none;box-shadow:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-progress-strip{order:2;flex:none;border-bottom:none;border-top:1px solid var(--a4r-line);background:var(--a4r-page);padding:8px 20px 10px;border-bottom:var(--view-bottom-spacing, 0px) solid transparent;gap:10px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-ps-label{text-transform:none;min-width:0;overflow:hidden;text-overflow:ellipsis;flex:0 1 auto;max-width:45%;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-ps-meter{min-width:30px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-ps-caption,html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-ps-firsttime{font-size:12px;flex:none;white-space:nowrap;}
+/* Listening sheet: slides up over the bottom line, under half the screen */
+html:not(#a4r-guard) .a4r-phone .a4r-ph-sheet{order:3;flex:none;display:none;position:relative;background:var(--a4r-card);border-top:1px solid var(--a4r-line);border-radius:18px 18px 0 0;box-shadow:0 -6px 24px rgba(60,40,10,.12);padding:8px 16px 14px;border-bottom:var(--view-bottom-spacing, 0px) solid transparent;}
+html:not(#a4r-guard) .theme-dark .a4r-phone .a4r-ph-sheet{box-shadow:0 -6px 24px rgba(0,0,0,.5);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader.a4r-ph-listen-open .a4r-ph-sheet{display:block;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader.a4r-ph-listen-open .a4r-progress-strip{display:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-play-row{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-play-info{font-size:13px;color:var(--a4r-ink-dim);line-height:1.3;min-width:0;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-voice{background:var(--a4r-card);border:1px solid var(--a4r-line);box-shadow:none;border-radius:999px;padding:4px 10px 4px 12px;height:auto;min-height:30px;color:var(--a4r-ink);font:600 14px 'A4R Work Sans', system-ui, sans-serif;display:inline-flex;align-items:center;gap:6px;max-width:100%;text-align:left;margin-bottom:3px;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-voice .a4r-ph-voice-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-voice svg{flex:none;width:16px;height:16px;color:var(--a4r-accent);stroke-width:2.4;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-status{font-size:12px;color:var(--a4r-ink-dim);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-ctl{display:flex;align-items:center;gap:10px;flex:none;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-round{width:40px;height:40px;border-radius:50%;border:1px solid var(--a4r-line);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--a4r-ink);background:var(--a4r-card);box-shadow:none;padding:0;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-round.a4r-ph-round-big{width:52px;height:52px;background:var(--a4r-accent);color:var(--a4r-on-accent);border:0;font-size:20px;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-round:disabled{opacity:.45;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-lbl{font:500 10.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.07em;color:var(--a4r-ink-dim);text-transform:uppercase;margin:12px 0 6px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-seg{display:flex;border:1px solid var(--a4r-line);border-radius:10px;overflow:hidden;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-seg button{flex:1;text-align:center;padding:8px 0;font:500 14px 'A4R Work Sans', system-ui, sans-serif;border:none;border-left:1px solid var(--a4r-line);border-radius:0;background:var(--a4r-card);color:var(--a4r-ink);height:auto;box-shadow:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-seg button:first-child{border-left:0;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-seg button.a4r-on{background:var(--a4r-accent);color:var(--a4r-on-accent);font-weight:600;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-opts{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;position:relative;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-opt{font:500 13px 'A4R Work Sans', system-ui, sans-serif;border:1px solid var(--a4r-line);border-radius:999px;padding:6px 11px;display:flex;align-items:center;gap:6px;background:var(--a4r-card);color:var(--a4r-ink);height:auto;box-shadow:none;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-opt.a4r-on{background:var(--a4r-accent);color:var(--a4r-on-accent);border-color:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-opt .a4r-ph-tick{display:none;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-opt.a4r-on .a4r-ph-tick{display:inline;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-sheet .a4r-ab-menu{top:auto;bottom:calc(100% - 60px);left:16px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-sheet .a4r-ab-toast{top:auto;bottom:calc(100% + 8px);white-space:normal;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-lockline{margin-top:10px;font-size:13px;color:var(--a4r-ink-dim);display:flex;gap:7px;align-items:flex-start;line-height:1.35;}
+html:not(#a4r-guard) .a4r-ph-voice-pop{left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom, 0px));margin-bottom:var(--view-bottom-spacing, 0px);top:auto;max-height:60%;min-width:0;padding:8px;}
+html:not(#a4r-guard) .a4r-ph-voice-pop button.a4r-voice-row{font-size:15px;padding:10px 12px;}
+html:not(#a4r-guard) .a4r-ph-voice-pop .a4r-ph-voice-note{font-size:13px;color:var(--a4r-ink-dim);padding:8px 12px 4px;}
+/* Export: three ways out */
+html:not(#a4r-guard) .modal-container.a4r-ph-export-wrap{align-items:flex-end;}
+html:not(#a4r-guard) .modal.a4r-export-modal.a4r-ph-export{width:100vw;max-width:100vw;margin-top:auto;border-radius:16px 16px 0 0;}
+html:not(#a4r-guard) .a4r-ph-export .modal-content.a4r-root{padding:8px 16px calc(16px + env(safe-area-inset-bottom, 0px));}
+html:not(#a4r-guard) .a4r-ph-export .a4r-ph-exp{padding:4px 2px;}
+html:not(#a4r-guard) .a4r-ph-export .a4r-ph-exp h5{font-family:'A4R Fraunces', Georgia, serif;font-size:18px;font-weight:600;margin:4px 0 4px;}
+html:not(#a4r-guard) .a4r-ph-export .a4r-ph-exp-sub,html:not(#a4r-guard) .a4r-ph-export .a4r-ph-exp-empty{font-size:13px;color:var(--a4r-ink-dim);margin-bottom:8px;}
+html:not(#a4r-guard) .a4r-ph-export button.a4r-ph-exp-row{display:flex;width:100%;justify-content:space-between;align-items:center;padding:13px 2px;border:none;border-top:1px solid var(--a4r-line);border-radius:0;background:none;box-shadow:none;font-size:16px;color:var(--a4r-ink);height:auto;}
+html:not(#a4r-guard) .a4r-ph-export button.a4r-ph-exp-row svg{flex:none;}
+html:not(#a4r-guard) .a4r-ph-export .a4r-ph-toast{margin:10px 0 0;background:var(--a4r-ink);color:var(--a4r-card);border-radius:10px;padding:9px 12px;font-size:13px;line-height:1.35;}
+/* The book's page and Highlight review on a phone (their own phone
+ * mockups are still to come): one column, nothing wider than the screen. */
+html:not(#a4r-guard) .a4r-phone .a4r-detail-top{display:block;}
+html:not(#a4r-guard) .a4r-phone .a4r-detail-cover-row{flex-wrap:wrap;}
+html:not(#a4r-guard) .a4r-phone .a4r-side-card{margin-top:18px;width:auto;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-body img{max-width:100%;}
+/* ==== Phone fixes 1.1.1 (John's iPhone check, 2026-10-09). Phone-only,
+ * like the block above. */
+/* Drawn icons in place of symbols an iPhone shows as emoji */
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-round svg{width:18px;height:18px;flex:none;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-round.a4r-ph-round-big svg{width:22px;height:22px;stroke-width:2.6;}
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-opt svg{width:14px;height:14px;flex:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-lockline svg{width:14px;height:14px;flex:none;margin-top:2px;}
+html:not(#a4r-guard) .a4r-phone label.a4r-ph-field-label{display:flex;align-items:center;gap:6px;}
+html:not(#a4r-guard) .a4r-phone label.a4r-ph-field-label svg{width:14px;height:14px;flex:none;}
+/* Sheets: a full-width strip around the handle; a tap on it closes */
+html:not(#a4r-guard) .a4r-phone .a4r-ph-grab-zone{margin:-8px -16px 2px;padding:10px 16px 11px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-grab-zone .a4r-ph-grab{margin:0 auto;}
+/* Contents / Bookmarks / Highlights / Ask: a close button on the tab row */
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-sp-tabs{align-items:stretch;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader button.a4r-ph-sp-close{flex:none;width:46px;height:auto;padding:0;background:none;border:none;border-radius:0;box-shadow:none;color:var(--a4r-ink-dim);display:flex;align-items:center;justify-content:center;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader button.a4r-ph-sp-close svg{width:19px;height:19px;}
+/* The ☰ and 🎧 buttons apart, as in the mockup */
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-rt-controls{gap:6px;}
+/* Listening: text already read stays bright; one solid underline */
+html:not(#a4r-guard) .a4r-phone .a4r-reader-page .a4r-tts-sentence.a4r-tts-done:not(#a4r-strong){color:inherit;}
+/* Library: a placeholder cover's title wraps instead of being cut off
+ * (Obsidian's buttons don't wrap their text) */
+html:not(#a4r-guard) .a4r-phone button.a4r-ph-book .a4r-ph-cv{white-space:normal;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cv .a4r-ph-cv-t{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-cv small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+/* PDF: the page on the page colour, no dark band below it */
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-reader-page.a4r-pdf-page:not(#a4r-strong){background:var(--a4r-page);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-pdf-box{margin:0 auto;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-reader .a4r-progress-strip .a4r-ps-label.a4r-display-none{display:none;}
+/* Text settings ("Aa"): a compact sheet at the bottom, under half the
+ * screen, one row per setting */
+html:not(#a4r-guard) .a4r-phone .a4r-textset-popover.a4r-ph-textset{position:absolute;top:auto;left:0;right:0;bottom:0;width:auto;max-height:48%;display:flex;flex-direction:column;padding:8px 16px 0;border:none;border-top:1px solid var(--a4r-line);border-radius:18px 18px 0 0;box-shadow:0 -6px 24px rgba(60,40,10,.12);background:var(--a4r-card);overflow:hidden;z-index:30;border-bottom:var(--view-bottom-spacing, 0px) solid transparent;}
+html:not(#a4r-guard) .theme-dark .a4r-phone .a4r-textset-popover.a4r-ph-textset{box-shadow:0 -6px 24px rgba(0,0,0,.5);}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:10px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-section{display:flex;align-items:center;gap:10px;padding:6px 0;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-section > .a4r-ts-label{flex:0 0 84px;margin:0;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-section > :not(.a4r-ts-label){flex:1;min-width:0;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-row-flex .a4r-ts-label{margin:0;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-caption{display:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-section.a4r-ph-ts-fonts{display:block;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-section.a4r-ph-ts-fonts > .a4r-ts-label{margin-bottom:6px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-fontlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-font-opt{font-size:14px;font-weight:400;line-height:1.25;padding:7px 9px;border:1px solid var(--a4r-line);border-radius:9px;display:flex;align-items:center;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-font-opt:not(.a4r-on):hover{background:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-font-opt.a4r-on{background:var(--a4r-accent);border-color:var(--a4r-accent);color:var(--a4r-on-accent);font-weight:600;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-font-opt .a4r-ts-check{display:none;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-size-row{justify-content:flex-start;}
+/* Segments: square inner buttons, so the chosen one has no curved edges */
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-seg{border-radius:9px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-seg button{border-radius:0;height:auto;margin:0;padding:7px 2px;font-size:13px;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-textset .a4r-ts-disabled-note{flex-basis:100%;}
+/* ==== PDF Text view and the Page | Text switch (1.1.2, approved mockup 2026-10-10_reading-vault-pdf-phone-mockup.html) ==== */
+html:not(#a4r-guard) .a4r-pdf-viewsw{display:inline-flex;flex:none;border:1px solid var(--a4r-line);border-radius:999px;overflow:hidden;background:var(--a4r-card);}
+html:not(#a4r-guard) .a4r-pdf-viewsw button.a4r-pdf-viewsw-btn{background:none;border:none;box-shadow:none;border-radius:0;margin:0;height:auto;min-height:0;padding:4px 12px;font:600 12px 'A4R Work Sans', system-ui, sans-serif;color:var(--a4r-ink-dim);cursor:pointer;}
+html:not(#a4r-guard) .a4r-pdf-viewsw button.a4r-pdf-viewsw-btn.a4r-on{background:var(--a4r-accent);color:var(--a4r-on-accent);}
+html:not(#a4r-guard) .a4r-pdf-viewsw button.a4r-pdf-viewsw-btn.a4r-pdf-viewsw-off{opacity:.45;}
+html:not(#a4r-guard) .a4r-phone .a4r-ph-rd-mid.a4r-ph-rd-mid-sw{display:flex;justify-content:center;align-items:center;overflow:visible;}
+html:not(#a4r-guard) .a4r-phone .a4r-pdf-viewsw button.a4r-pdf-viewsw-btn{font-size:13px;padding:5px 13px;}
+html:not(#a4r-guard) .a4r-pdft .a4r-pdft-pg{display:flex;align-items:center;gap:8px;margin:.3em 0 .9em;font:500 11px/1.4 'A4R IBM Plex Mono', monospace;letter-spacing:.05em;text-transform:uppercase;-webkit-user-select:none;user-select:none;break-after:avoid;-webkit-column-break-after:avoid;}
+html:not(#a4r-guard) .a4r-pdft .a4r-pdft-pg::before,html:not(#a4r-guard) .a4r-pdft .a4r-pdft-pg::after{content:"";flex:1;height:1px;background:currentColor;opacity:.18;}
+html:not(#a4r-guard) .a4r-pdft .a4r-pdft-pg-l{opacity:.6;}
+html:not(#a4r-guard) .a4r-pdft .a4r-pdft-pg-l::before{content:attr(data-label);}
+html:not(#a4r-guard) .a4r-pdft .a4r-pdft-empty{margin:0 0 1em;-webkit-user-select:none;user-select:none;}
+html:not(#a4r-guard) .a4r-pdft .a4r-pdft-empty::before{content:attr(data-label);font-style:italic;opacity:.6;}
+html:not(#a4r-guard) .a4r-pdft p.a4r-pdft-b{margin:0 0 .8em;}
+html:not(#a4r-guard) .a4r-pdft h3.a4r-pdft-h{font-size:1.3em;font-weight:600;line-height:1.3;letter-spacing:0;margin:.5em 0 .6em;break-after:avoid;-webkit-column-break-after:avoid;}
+html:not(#a4r-guard) i.a4r-baseline-probe{display:inline-block;width:0;height:0;padding:0;margin:0;border:0;vertical-align:baseline;}

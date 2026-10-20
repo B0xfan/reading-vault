@@ -15,6 +15,7 @@ Pro is a one-time payment. You get every Pro feature for life, including every f
 - [Reading Dashboard](reading-dashboard.md)
 - [Saving words](saved-words.md), and "Explain in this sentence" in [Word lookup](word-lookup.md)
 - [Export highlights](export.md)
+- [Reading Vault on your iPhone or iPad](phone.md): on a phone or tablet, Reading Vault needs Pro, and the same license unlocks it
 
 Everything else in this manual is free.
 
@@ -34,7 +35,7 @@ Everything else in this manual is free.
 
 The section then says **Pro is unlocked**, with your key's number, for example "Pro key #1042".
 
-Your key is checked on your own computer. It never goes online, and it never expires.
+Your key is checked on your own computer or phone. It never goes online, and it never expires.
 
 If a key doesn't work, a short message says why. Check you copied the whole key. If it still doesn't work, email me at jhesch@gmail.com (the message shows the same address).
 
@@ -44,5 +45,5 @@ On your old computer, go to the Pro license section and press **Remove key** (it
 
 ## Good to know
 
-- Pro works in Obsidian on desktop computers only, not on phones or tablets. Tested on Mac; Windows is untested.
+- Pro works on your computer and on an iPhone or iPad (iOS 17 or newer), with one license. On the phone, listening uses the phone's own built-in voices; the natural voices are computer only. Tested on Mac and iPhone; Windows is untested. Android isn't supported yet.
 - If you remove your key, your notes, highlights and saved words all stay in your vault.

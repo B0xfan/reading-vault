@@ -26,7 +26,7 @@ It usually takes less than a minute. The dictionary is kept outside your vault, 
 
 ## Look up a word
 
-1. Double-click a word, or select it.
+1. Double-click a word, or select it. On a phone or tablet, touch and hold the word.
 2. In the small panel that appears, press **Look up**.
 
 The card shows the word, its base form when it's different (for example "frittered" comes from *fritter*), and its meanings with examples. On a Mac, **Open in Apple Dictionary ↗** opens the same word in the Mac's own dictionary.
