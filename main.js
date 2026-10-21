@@ -42,7 +42,7 @@
  * hand from the Detail sidebar.
  */
 const {
-  Plugin, ItemView, Modal, Notice, Setting, Menu, PluginSettingTab, loadPdfJs, setTooltip, TFile, requestUrl, Platform,
+  Plugin, ItemView, Modal, Notice, Setting, Menu, PluginSettingTab, loadPdfJs, setTooltip, setIcon, TFile, requestUrl, Platform,
 } = require('obsidian');
 // ---------------------------------------------------------------------------
 // Computer-only parts, and the phone's stand-ins (iPhone plan step 2, v1.0.7)
@@ -4579,7 +4579,9 @@ class ReadingView extends ItemView {
     const tl = top.createDiv();
     tl.createEl('h3', { cls: 'a4r-ph-h', text: 'Library' });
     tl.createDiv({ cls: 'a4r-ph-stats', text: `${books.length} book${books.length === 1 ? '' : 's'} · ${reading.length} reading` });
-    const add = top.createEl('button', { cls: 'a4r-ph-add', text: '+ Add books' });
+    const right = top.createDiv({ cls: 'a4r-ph-lib-right' });
+    const add = right.createEl('button', { cls: 'a4r-ph-add', text: '+ Add books' });
+    manualLink(right);
     // The iPhone opens its own Files app for a file box like this one.
     const fileInput = body.createEl('input', { type: 'file', cls: 'a4r-display-none', attr: { accept: '.epub,.pdf,application/epub+zip,application/pdf', multiple: true } });
     fileInput.onchange = () => { this.handleFiles(fileInput.files); fileInput.value = ''; };
@@ -5150,7 +5152,9 @@ class ReadingView extends ItemView {
     const titleWrap = head.createDiv({ cls: 'a4r-grid-title' });
     titleWrap.createDiv({ cls: 'a4r-icon', text: '📖' });
     titleWrap.createEl('h2', { text: 'Reading' });
-    const addBtn = head.createEl('button', { cls: 'a4r-add-btn', text: '+ Add Books' });
+    const headRight = head.createDiv({ cls: 'a4r-grid-head-right' });
+    manualLink(headRight);
+    const addBtn = headRight.createEl('button', { cls: 'a4r-add-btn', text: '+ Add Books' });
 
     const fileInput = body.createEl('input', { type: 'file', cls: 'a4r-display-none', attr: { accept: '.pdf,.epub', multiple: true } });
     fileInput.onchange = () => { this.handleFiles(fileInput.files); fileInput.value = ''; };
@@ -14223,6 +14227,10 @@ class ReadingSettingTab extends PluginSettingTab {
       this.listeningForVoices = true;
     }
 
+    new Setting(el)
+      .setName('User manual')
+      .setDesc('Short how-to pages for every feature, with pictures. Opens in your web browser.')
+      .addButton((b) => b.setButtonText('Open manual').onClick(() => window.open(MANUAL_URL)));
     this.proSettings(el);
     this.foldersSection(el);
 
@@ -15276,6 +15284,18 @@ const EN_COMPUTER_VOICE = 'computer:en';
 // The Payhip store page "Buy Pro" opens (1.0.1, 2026-09-29; the same link
 // is the Buy link in public/README.md).
 const PRO_BUY_URL = 'https://payhip.com/WorkbenchGoods';
+// The user manual as a plain web page (GitHub Pages on the public repo, from its manual/ folder).
+const MANUAL_URL = 'https://b0xfan.github.io/reading-vault/manual/';
+
+// The quiet "Manual" link in the Library header (computer and phone).
+function manualLink(parent) {
+  const a = parent.createEl('a', { cls: 'a4r-manual-link', href: MANUAL_URL, attr: { 'aria-label': 'Open the user manual' } });
+  setIcon(a.createSpan({ cls: 'a4r-manual-ic' }), 'book-open');
+  a.createSpan({ text: 'Manual' });
+  setTooltip(a, 'Open the user manual');
+  a.onclick = (e) => { e.preventDefault(); window.open(MANUAL_URL); };
+  return a;
+}
 // The price on the phone's "Pro license needed" screen ($19 for now, John,
 // 2026-10-08; $29 later, date not set).
 const PRO_PRICE_TEXT = '$19';
