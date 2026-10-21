@@ -29,6 +29,8 @@ Everything else in this manual is free.
 
 ## Unlock Pro
 
+Unlock Pro on your computer. Your iPhone or iPad picks the key up with your vault, so you only do this once (see [Reading Vault on your iPhone or iPad](phone.md)).
+
 1. Copy the key from your purchase email. It starts with **RVPK-**.
 2. Paste it into the **Pro key** box.
 3. Press **Unlock Pro**.
@@ -39,9 +41,11 @@ Your key is checked on your own computer or phone. It never goes online, and it 
 
 If a key doesn't work, a short message says why. Check you copied the whole key. If it still doesn't work, email me at jhesch@gmail.com (the message shows the same address).
 
-## Moving to a new computer
+## Moving to a new computer or phone
 
-On your old computer, go to the Pro license section and press **Remove key** (it asks you to confirm). Then unlock Pro on your new computer with the same key.
+Your key works on your next computer or phone too. If it doesn't come across with your vault, paste the same key again.
+
+**Remove key** (in the Pro license section, it asks you to confirm) takes the key out of the vault's plugin settings. Only use it on a device that no longer shares the vault: on a synced vault it turns Pro off on your other devices too.
 
 ## Good to know
 

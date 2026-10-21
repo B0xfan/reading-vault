@@ -113,8 +113,8 @@ Inside the plugin, Pro features carry a small "Pro" tag, and Settings has a "Get
 **[Buy Reading Vault Pro](https://payhip.com/WorkbenchGoods)** ($19 founding price, $29 later; one-time).
 
 - One payment, no subscription. Every future update is included.
-- Your key arrives by email right after purchase. Paste it into Settings → Reading Vault → Pro license.
-- The key is checked on your own computer, offline. Nothing is sent anywhere to check it.
+- Your key arrives by email right after purchase. Paste it in on your computer: Settings → Reading Vault → Pro license. Your iPhone or iPad picks it up with your vault, as long as your sync copies plugin settings.
+- The key is checked on your computer or phone, offline. Nothing is sent anywhere to check it.
 - The AI features (Ask the book, "Write with AI" summaries, "Explain in this sentence") are off until you add a key for your own account with Anthropic, OpenAI or OpenRouter. That provider bills you separately for what you use.
 
 **Refunds:** if Reading Vault Pro doesn't work for you, email me at jhesch@gmail.com within 14 days for a full refund. Refunded keys are switched off in the next update.

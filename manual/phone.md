@@ -12,12 +12,16 @@ On a computer, the free version keeps working as before. One Pro license covers 
 
 ## Unlock Pro on the phone
 
-Without Pro, the phone shows one screen: "Reading Vault on phones is part of Pro".
+Enter your key on your computer: Settings, Reading Vault, **Pro license** (see [Reading Vault Pro](reading-vault-pro.md)). The key is saved in Reading Vault's settings inside your vault, so your phone picks it up with the vault. Then close Obsidian on the phone completely and open it again, because Reading Vault reads its settings when Obsidian starts.
+
+Your sync needs to copy plugin settings. With Obsidian Sync, turn on **Installed community plugin list** on the phone under Settings, Sync, Vault configuration sync (it's off by default), wait for it to sync, then close and reopen Obsidian.
+
+If the phone still shows "Reading Vault on phones is part of Pro", unlock it right there:
 
 1. Copy your key from your purchase email. It starts with **RVPK-**.
 2. Paste it into the box on that screen and tap **Unlock**.
 
-Your key is checked on the phone itself. It never goes online.
+Either way, your key is checked on your computer or phone, offline. It never goes online.
 
 ## What works on the phone
 
