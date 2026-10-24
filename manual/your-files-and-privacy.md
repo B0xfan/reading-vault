@@ -16,6 +16,8 @@ Everything is a regular note or file in your vault. You can open any of it in Ob
 
 You choose these folders yourself. See [Settings and folders](settings.md).
 
+Text that comes from a book or an AI service (passages, chapter names, a book's description, summaries and answers) is saved into your notes as plain words. It reads the same, but it can't run as code in other plugins such as Dataview or Templater.
+
 ## What stays on your computer
 
 Your reading history for the Reading Dashboard and your settings are stored with the plugin, in your vault's settings folder. They never leave your computer unless your own vault sync copies them.

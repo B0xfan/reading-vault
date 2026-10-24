@@ -137,6 +137,8 @@ Reading Vault works offline. It never sends anything about you or your reading a
 
 "Open in Apple Dictionary" (on a Mac) opens the dictionary app on your computer; it doesn't go online.
 
+Text that comes from a book or an AI service (passages, chapter names, a book's description, summaries and answers) is saved into your notes as plain words. It reads the same, but it can't run as code in other plugins such as Dataview or Templater.
+
 ## Files kept outside your vault
 
 Everything you make with Reading Vault (books, highlights, notes, saved words, reading history) lives inside your vault. Only these things are kept outside it, and only because you asked for them:

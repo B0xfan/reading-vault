@@ -1075,7 +1075,7 @@ const LISTEN_UNSTARTED_RUN = 3;
 // reading-progress strip (buildProgressStrip()) takes the Listen bar's
 // slot instead. Per the approved mockup (mockup-reading-mode.html).
 const DEFAULT_SETTINGS = {
-  ttsSpeed: 1.0, ttsLanguage: 'en', ttsVoices: {}, pageColour: 'auto', highlightsInBookNote: true, highlightsBackfillDone: false,
+  ttsSpeed: 1.0, ttsLanguage: 'en', ttsVoices: {}, pageColour: 'auto', highlightsInBookNote: true, highlightsBackfillDone: false, inertHighlightsDone: false,
   textFont: 'serif', textSize: 16, lineSpacing: 1.85, textMargins: [34, 44], justifyText: false,
   listenBarHidden: false,
   // The phone's own speed step (shown value, see PHONE_TTS_SPEEDS), kept apart
@@ -1840,9 +1840,92 @@ function cleanBookDescription(raw) {
   s = s.replace(/<\s*br\s*\/?>/gi, '\n').replace(/<\/\s*(p|div|li|h[1-6])\s*>/gi, '\n\n').replace(/<[^>]+>/g, '');
   const paras = s.split(/\n\s*\n/).map((p) => p.replace(/\s+/g, ' ').trim()).filter(Boolean);
   const text = paras.join('\n\n');
-  return text.length >= 40 ? text.slice(0, SUMMARY_MAX_CHARS).trim() : null;
+  return text.length >= 40 ? neutralizeNoteText(text.slice(0, SUMMARY_MAX_CHARS).trim()) : null;
 }
 const SUMMARY_MAX_CHARS = 4000;
+
+// Text from outside the reader (a book's description, an AI answer or
+// summary, the book passages an answer quotes) is written into notes, where
+// other plugins may run code: a Dataview JS block or inline `$=` query, a
+// Templater <% %> tag, raw HTML, a remote picture that reports when the
+// note was opened (security audit RV-1, 2026-10-23). Backslash escapes keep
+// every character readable when the note is shown; only the meaning goes.
+// "<" becomes &lt; (shown as "<") because Templater reads the raw file, where
+// a backslash would still leave "<%". Run once, at the moment of writing.
+function neutralizeNoteText(text) {
+  return String(text || '')
+    .replace(/\\/g, '\\\\') // first, so an escape in the text can't undo ours
+    .replace(/`/g, '\\`') // code fences and inline code (Dataview `$= ...`)
+    // The other fence spelling: every tilde of a run of 3+, anywhere on a line,
+    // so one behind a list marker or quote ("- ~~~", "1. > ~~~") is caught too
+    // (escaping only the first leaves "~~" that pairs up as strikethrough).
+    .replace(/~{3,}/g, (m) => m.replace(/~/g, '\\~'))
+    .replace(/</g, '&lt;') // HTML, <script>, Templater <% %>
+    .replace(/!\[/g, '\\!['); // embeds: remote pictures, ![[other notes]]
+}
+
+// The reverse, for showing such text as plain words in Reading Vault's own
+// screens (never written back).
+function noteTextForDisplay(text) {
+  return String(text || '').replace(/&lt;/g, '<').replace(/\\([\\`~!])/g, '$1');
+}
+
+// True when text is already in the inert form (or has nothing to escape).
+function isInertText(text) {
+  return neutralizeNoteText(noteTextForDisplay(text)) === text;
+}
+
+// 1.2.5's one-time rewrite (RV-1) replaces a Highlights block written by any
+// earlier version as a whole. Such a block can hold book text that broke it
+// up (a chapter name with a "# " heading, line breaks, or a fake
+// "[Open in Reader]" link), so the normal section end is not enough: it runs
+// from the "## Highlights" just above the first generated entry to the next
+// heading after the last highlight link. Null when the note has none.
+const HL_LINK_RE = /\[Open in Reader\]\(obsidian:\/\/open-reading-highlight\?hl=([^)\s]*)\)/g;
+function oldHighlightsExtent(content) {
+  const sec = findNoteSection(content, 'Highlights');
+  if (!sec) return null;
+  const entry = /^> \[!a4-hl-[\w-]+\][ \t]*$/m.exec(content);
+  const heads = entry ? [...content.slice(0, entry.index).matchAll(/^## Highlights[ \t]*$/gm)] : [];
+  const start = heads.length ? heads[heads.length - 1].index : sec.start;
+  const links = [...content.slice(start).matchAll(HL_LINK_RE)];
+  const last = links[links.length - 1];
+  const from = last ? start + last.index + last[0].length : start + 1;
+  const lineEnd = content.slice(from).search(/[\r\n]/) + from;
+  if (lineEnd < from) return { start, end: content.length };
+  const next = /^#{1,6} \S/m.exec(content.slice(lineEnd + 1));
+  return { start, end: next ? lineEnd + 1 + next.index : content.length };
+}
+
+// The book note path an "[Open in Reader]" link points at.
+function hlLinkPath(param) {
+  try { return decodeURIComponent(param); } catch { return param; }
+}
+
+// An older layout ("Ch. 7 ·", from the time the chapter was counted, not
+// named) has a place the highlight note itself no longer gives. Kept as it
+// was, so a rebuilt block looks the same. Only that exact shape, so book
+// text can't come back this way.
+function oldHighlightPlaces(block) {
+  const places = new Map();
+  for (const m of block.matchAll(/^(Ch\. \d+(?: · p\.\d+)?) · \[Open in Reader\]\(obsidian:\/\/open-reading-highlight\?hl=([^)\s]*)\)[ \t]*$/gm)) places.set(hlLinkPath(m[2]), m[1]);
+  return places;
+}
+
+// The rewrite's check before it counts itself done: book text left live in a
+// Highlights block. The reader's own "**Note:**" text and the plugin's own
+// links are not book text.
+function highlightsBlockHasLiveText(block) {
+  const text = block.replace(/\n\n\*\*Note:\*\* [\s\S]*?(?=\n\n---\n\n|$)/g, '').replace(HL_LINK_RE, '');
+  return /(^|[^\\])(\\\\)*(`|!\[)|~~~|<|^#{1,6} (?!Highlights[ \t]*$)/m.test(text);
+}
+
+// An old entry whose highlight note is gone is kept, made inert. A heading
+// mark becomes "&#35;", not "\#", so a second pass leaves the line as is. Also
+// after U+2028/U+2029, which the done check's "^" counts as a line start.
+function inertOldLine(line) {
+  return neutralizeNoteText(noteTextForDisplay(line)).replace(/(^|[\r\u2028\u2029])#/g, '$1&#35;');
+}
 
 // The raw <dc:description>, keeping its line breaks and markup for
 // cleanBookDescription (extractFirstElement flattens whitespace).
@@ -2969,9 +3052,11 @@ class ReadingStore {
     const path = `${WORDS_DIR}/${name}.md`;
     const bookLink = `[[${bookFile.basename}]]`;
     const lines = [];
-    if (quote) lines.push(`**In ${bookLink}:** "${String(quote).replace(/\s+/g, ' ').trim()}"`);
+    // The word, its meaning, the book's sentence and the AI's explanation all
+    // come from outside the reader, so they are written inert (RV-1).
+    if (quote) lines.push(`**In ${bookLink}:** "${neutralizeNoteText(String(quote).replace(/\s+/g, ' ').trim())}"`);
     else lines.push(`**In ${bookLink}**`);
-    if (explanation) lines.push('', `**In this sentence:** ${String(explanation).trim()}`);
+    if (explanation) lines.push('', `**In this sentence:** ${neutralizeNoteText(String(explanation).trim())}`);
     const existing = this.app.vault.getAbstractFileByPath(path);
     if (existing instanceof TFile) {
       await this.app.vault.process(existing, (text) => `${text.replace(/\s+$/, '')}\n\n${lines.join('\n')}\n`);
@@ -2990,9 +3075,9 @@ class ReadingStore {
       `saved_at: ${localDayKey(new Date())}`,
       '---',
       '',
-      `# ${clean}`,
+      `# ${neutralizeNoteText(clean.replace(/\s+/g, ' '))}`,
       '',
-      meaning ? `**Meaning:** ${String(meaning).trim()}` : '',
+      meaning ? `**Meaning:** ${neutralizeNoteText(String(meaning).trim())}` : '',
       meaning ? '' : null,
       ...lines,
       '',
@@ -3319,7 +3404,9 @@ class ReadingStore {
   async saveAnswerToBookNote(bookFile, { question, markdown, model, date }) {
     // An answer's own headings sit under its question (QA fix v0.17.2): a
     // "## " line in an answer used to end the Questions section early.
-    const body = String(markdown).trim().replace(/^#{1,3} /gm, '#### ');
+    // The answer and the book passages it quotes come from outside the
+    // reader, so they are made inert first (security audit RV-1).
+    const body = neutralizeNoteText(String(markdown).trim()).replace(/^#{1,3} /gm, '#### ');
     const entry = `### ${String(question).replace(/\s+/g, ' ').trim()}\n\n*${date} · ${model}*\n\n${body}\n`;
     await this.app.vault.process(bookFile, (content) => {
     const qSec = findNoteSection(content, 'Questions');
@@ -3464,13 +3551,149 @@ class ReadingStore {
     return wrote;
   }
 
+  // 1.2.5 one-time rewrite (RV-1) of one book note: an old Highlights block
+  // is rebuilt from the highlight notes, as a sync writes it, and a summary
+  // from the book or an AI is stored inert. Returns the new text.
+  inertBookNote(bookFile, content) {
+    let out = content;
+    const src = this.getFm(bookFile).summary_source;
+    const sum = (src === 'book' || src === 'ai') ? readNoteSection(out, 'Summary') : '';
+    if (sum && !isInertText(sum)) out = writeSummarySection(out, neutralizeNoteText(sum));
+    const ext = oldHighlightsExtent(out);
+    if (!ext) return out;
+    const block = out.slice(ext.start, ext.end);
+    const items = this.oldHighlightsItems(bookFile, block);
+    if (!items.some((it) => it.entry || it.inert)) return out; // nothing the plugin wrote: leave it
+    const eol = /\r\n?|\n/.exec(block)[0]; // written back with the note's own line ending
+    const places = oldHighlightPlaces(block);
+    const only = this.plugin && this.plugin.settings.highlightsInBookNote ? null
+      : new Set(items.filter((it) => it.path).map((it) => it.path));
+    const hs = this.highlightsForBlock(bookFile, only);
+    // What the plugin didn't make from a current highlight note (the reader's
+    // own lines, an entry whose highlight is gone) stays after the entry it
+    // followed, or at the top when it came before them all.
+    const kept = new Map(hs.map((h) => [h.file.path, []]));
+    const head = [];
+    let into = head;
+    for (const it of items) {
+      if (it.entry && kept.has(it.path)) into = kept.get(it.path);
+      else if (!it.entry) into.push({ inert: it.inert, text: (it.inert ? it.lines.map(inertOldLine) : it.lines).join('\n') }); // the reader's, as typed
+      else if (!it.known) into.push({ entry: true, text: it.lines.map(inertOldLine).join('\n') });
+    }
+    const pieces = [...head];
+    for (const h of hs) pieces.push({ entry: true, text: this.formatHighlightEntry(h, places.get(h.file.path)) }, ...kept.get(h.file.path));
+    if (!pieces.some((p) => p.entry || p.inert)) pieces.unshift({ entry: true, text: '*No highlights yet.*' });
+    // "---" before every entry but the first; the reader's lines just follow.
+    const body = pieces.map((p, k) => `${!k ? '' : p.entry && pieces.slice(0, k).some((q) => q.entry) ? '\n\n---\n\n' : '\n\n'}${p.text}`).join('');
+    const fresh = `${HL_SECTION_HEADING}\n\n${body}\n`.replace(/\n/g, eol);
+    if (block.trimEnd() === fresh.trimEnd()) return out;
+    const after = out.slice(ext.end);
+    return `${out.slice(0, ext.start)}${fresh}${after ? `${eol}${after}` : ''}`;
+  }
+
+  // Book text still live in a note after that rewrite (summary or Highlights).
+  bookNoteHasLiveText(bookFile, content) {
+    const src = this.getFm(bookFile).summary_source;
+    if ((src === 'book' || src === 'ai') && !isInertText(readNoteSection(content, 'Summary'))) return true;
+    const ext = oldHighlightsExtent(content);
+    if (!ext) return false;
+    // The reader's own lines are theirs to keep as typed, so never checked.
+    const items = this.oldHighlightsItems(bookFile, content.slice(ext.start, ext.end));
+    return highlightsBlockHasLiveText(items.filter((it) => it.entry || it.inert).map((it) => it.lines.join('\n')).join('\n\n---\n\n'));
+  }
+
+  // An old Highlights block (oldHighlightsExtent) split into what the plugin
+  // wrote and what it didn't. An entry runs from its callout line to its
+  // "[Open in Reader]" link, so book text that broke it up stays inside it,
+  // plus its "**Note:**" (the whole note when it matches the highlight's).
+  // An entry starts at the last callout before its link; lines from an
+  // earlier callout up to it, or a callout with no link, could be the
+  // reader's or book text: kept, made inert. Every other line is the
+  // reader's, except after an entry that is not exactly its highlight's
+  // (see close and known).
+  // Any CR is a line break, as Obsidian reads it.
+  // Items: { entry, lines, path, known (exactly its highlight's entry), inert }.
+  oldHighlightsItems(bookFile, block) {
+    const recs = new Map(this.listHighlights(bookFile.path).map((h) => [h.file.path, h]));
+    const lines = block.split(/\r\n?|\n/).slice(1);
+    const linkOf = (l) => { const m = [...l.matchAll(HL_LINK_RE)].pop(); return m ? hlLinkPath(m[1]) : null; };
+    const items = [];
+    const theirs = (from, to) => {
+      let run = [];
+      const close = () => {
+        while (run.length && run[run.length - 1] === '') run.pop();
+        // After an entry that is not exactly its highlight's (gone, or a fake
+        // link in book text), book text can't be told from the reader's: kept
+        // in place, made inert. A run after such a run is too.
+        const prev = items[items.length - 1];
+        if (run.length) items.push({ entry: false, inert: !!prev && (prev.entry ? !prev.known : !!prev.inert), lines: run });
+        run = [];
+      };
+      // "---" is the plugin's only right before an entry that has one above it.
+      const sep = (k) => to < lines.length && items.some((it) => it.entry) && lines.slice(k + 1, to).every((x) => !x.trim());
+      for (let k = from; k < to; k += 1) {
+        const l = lines[k];
+        if ((l.trim() === '---' && sep(k)) || l.trim() === '*No highlights yet.*') close();
+        else if (l.trim() || run.length) run.push(l);
+      }
+      close();
+    };
+    let pos = 0;
+    while (pos < lines.length) {
+      const at = (test) => { for (let k = pos; k < lines.length; k += 1) if (test(lines[k])) return k; return -1; };
+      const callout = (l) => /^> \[!a4-hl-[\w-]+\][ \t]*$/.test(l);
+      const link = at(linkOf);
+      const start = at(callout);
+      if (link < 0 && start < 0) break;
+      let s = pos;
+      if (start >= 0 && (link < 0 || start < link)) {
+        s = link < 0 ? lines.length : link;
+        if (link >= 0) while (!callout(lines[s])) s -= 1; // the last callout before the link
+        theirs(pos, start);
+        let e = s;
+        while (e > start && (!lines[e - 1].trim() || (link >= 0 && lines[e - 1].trim() === '---'))) e -= 1;
+        if (e > start) items.push({ entry: false, inert: true, lines: lines.slice(start, e) });
+        pos = s;
+        if (link < 0) break;
+      }
+      let e = link + 1;
+      const path = linkOf(lines[link]);
+      if (path && lines[e] === '' && /^\*\*Note:\*\* /.test(lines[e + 1] || '')) {
+        const n = recs.get(path) && recs.get(path).note ? String(recs.get(path).note).trim() : null;
+        const hit = n == null ? null : [n.replace(/^(#+ )/gm, '\\$1'), n].map((x) => `**Note:** ${x}`.split('\n'))
+          .find((w) => w.every((l, k) => lines[e + 1 + k] === l));
+        let end = e + 1 + (hit ? hit.length : 1);
+        if (!hit) while (end < lines.length && lines[end] !== '') end += 1;
+        e = end;
+      }
+      theirs(pos, s);
+      // Known: laid out exactly as the plugin wrote it (callout, its passage,
+      // blank, link line) and the only link to that highlight in the block.
+      const h = recs.get(path);
+      const q = h && String(h.excerpt || '').replace(/\s+/g, ' ').trim();
+      const known = !!h && link === s + 3 && lines[s + 2] === '' && [q, neutralizeNoteText(q)].some((x) => lines[s + 1] === `> "${x}"`)
+        && lines.filter((l) => linkOf(l) === path).length === 1;
+      items.push({ entry: true, lines: lines.slice(s, e), path, known });
+      pos = e;
+    }
+    theirs(pos, lines.length);
+    return items;
+  }
+
   // The markdown that lives BETWEEN the two markers -- never includes the
   // markers or the heading themselves, so callers can diff it directly
   // against what's already on disk between the same two markers.
   buildHighlightsBlockBody(bookFile) {
-    const highlights = this.listHighlights(bookFile.path).filter((h) => h.status !== 'dismissed');
+    const highlights = this.highlightsForBlock(bookFile);
     if (!highlights.length) return '*No highlights yet.*';
     return highlights.map((h) => this.formatHighlightEntry(h)).join('\n\n---\n\n');
+  }
+
+  // `only` (the 1.2.5 rewrite with the setting off): every highlight the old
+  // block listed, a dismissed one too, since no sync has run on that note.
+  highlightsForBlock(bookFile, only = null) {
+    return this.listHighlights(bookFile.path)
+      .filter((h) => (only ? only.has(h.file.path) : h.status !== 'dismissed'));
   }
 
   // One highlight's markdown. Colour is shown as a plugin-styled callout
@@ -3497,12 +3720,16 @@ class ReadingStore {
   // underlying data doesn't have it" rule (describeHighlightLocationForNote,
   // below), so an entry with no recorded colour simply omits the colour
   // signal too rather than inventing one.
-  formatHighlightEntry(h) {
+  formatHighlightEntry(h, oldPlace = null) {
     const colorInfo = HIGHLIGHT_COLORS.find((c) => c.hex === h.color);
     const calloutType = colorInfo ? HL_CALLOUT_TYPE[colorInfo.label] : 'a4-hl-none';
-    const quote = String(h.excerpt || '').replace(/\s+/g, ' ').trim();
+    // The passage and its chapter name come from the book: written inert
+    // (RV-1). The chapter starts its line, so a "# " in it is kept as text
+    // too, or it would end this generated section early.
+    const quote = neutralizeNoteText(String(h.excerpt || '').replace(/\s+/g, ' ').trim());
     const quoteLines = [`> [!${calloutType}]`, `> "${quote}"`];
-    const locLabel = describeHighlightLocationForNote(h);
+    const loc = describeHighlightLocationForNote(h) || oldPlace;
+    const locLabel = loc && neutralizeNoteText(loc.replace(/\s+/g, ' ')).replace(/^(#+ )/, '\\$1');
     const hlLink = `obsidian://open-reading-highlight?hl=${encodeUriForMdLink(h.file.path)}`;
     const metaParts = [];
     if (locLabel) metaParts.push(locLabel);
@@ -3584,7 +3811,9 @@ function bufToArrayBuffer(buf) {
   return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
 }
 function escapeYaml(s) {
-  return String(s || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n');
+  // "<%" is spelled "<\x25" (YAML reads it back as "<%") so a book title or
+  // passage can't hold a Templater tag in the new note's raw text (RV-1).
+  return String(s || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/<%/g, '<\\x25');
 }
 
 // ---------------------------------------------------------------------------
@@ -5839,14 +6068,21 @@ class ReadingView extends ItemView {
     const drawWith = (head, sum) => {
       if (this.editingSummary) {
         const ta = el.createEl('textarea', { cls: 'a4r-notes-textarea a4r-summary-textarea', attr: { 'aria-label': 'Summary' } });
-        ta.value = sum.text;
+        // The box shows plain words, not the escapes a book's or AI's text is
+        // stored with. Unchanged, the stored text is kept as it is; edited
+        // book or AI text is stored inert again with source "edited" (RV-1),
+        // so it still shows as plain words; the reader's own as typed.
+        const outside = sum.source === 'book' || sum.source === 'ai' || sum.source === 'edited';
+        const shown = outside ? noteTextForDisplay(sum.text) : sum.text;
+        ta.value = shown;
         const row = el.createDiv({ cls: 'a4r-notes-save-row' });
         const save = row.createEl('button', { cls: 'a4r-btn-primary', text: 'Save' });
         save.onclick = async () => {
           save.disabled = true;
-          const changed = ta.value.trim() !== sum.text.trim();
+          const changed = ta.value.trim() !== shown.trim();
+          const typed = changed && outside ? neutralizeNoteText(ta.value.trim()) : ta.value;
           try {
-            await store.setSummary(file, ta.value, changed ? { source: 'you' } : { source: sum.source || 'you', ai: sum.ai });
+            await store.setSummary(file, changed ? typed : sum.text, changed ? { source: outside ? 'edited' : 'you' } : { source: sum.source || 'you', ai: sum.ai });
           } catch (err) {
             console.error('Reading Vault: could not save the summary', err);
             new Notice("Couldn't save the summary. Your text is still in the box, so try again.");
@@ -5896,7 +6132,8 @@ class ReadingView extends ItemView {
       // Cut to about the cover's height (John, 2026-09-24); "Show more"
       // only when something is actually hidden.
       const body = el.createDiv({ cls: `a4r-summary-text${this.summaryExpanded ? '' : ' is-clamped'}` });
-      for (const p of sum.text.split(/\n\s*\n/)) body.createEl('p', { text: p.trim() });
+      const fromOutside = sum.source === 'book' || sum.source === 'ai' || sum.source === 'edited';
+      for (const p of sum.text.split(/\n\s*\n/)) body.createEl('p', { text: fromOutside ? noteTextForDisplay(p.trim()) : p.trim() });
       const long = this.summaryExpanded || body.scrollHeight > body.clientHeight + 2;
       if (!long) body.removeClass('is-clamped');
       // "Show more / Show less" sits right under the text, on its own row
@@ -6084,7 +6321,7 @@ class ReadingView extends ItemView {
         const meaningEl = left.createDiv({ cls: 'a4r-detail-bm-loc' });
         this.app.vault.cachedRead(wf).then((t) => {
           const m = /\*\*Meaning:\*\*\s*(.+)/.exec(t);
-          if (m) meaningEl.setText(truncate(m[1], 80));
+          if (m) meaningEl.setText(truncate(noteTextForDisplay(m[1]), 80));
         }).catch(() => {});
         row.onclick = () => this.app.workspace.openLinkText(wf.path, '', 'tab');
       }
@@ -15648,17 +15885,20 @@ function buildHighlightsExport({ books, allBooks, fmt, include, dateText }) {
   if (allBooks) out.push(md ? '# My highlights' : 'MY HIGHLIGHTS', exported, '');
   books.forEach((b, i) => {
     if (i > 0) out.push('', md ? '---' : '========================================', '');
-    out.push(md ? `${allBooks ? '## ' : '# '}${b.title}` : b.title.toUpperCase());
-    if (b.author) out.push(md ? `*${b.author}*` : b.author);
+    // Book text (title, author, passage, chapter) is written inert in a
+    // Markdown export, which may be saved into the vault (RV-1).
+    const inert = (x) => (md ? neutralizeNoteText(String(x).replace(/\s+/g, ' ').trim()) : x);
+    out.push(md ? `${allBooks ? '## ' : '# '}${inert(b.title)}` : b.title.toUpperCase());
+    if (b.author) out.push(md ? `*${inert(b.author)}*` : b.author);
     if (!allBooks) out.push('', exported);
     out.push('');
     if (include.bookNotes && b.notes) out.push(md ? `${sub}My notes` : 'MY NOTES', '', md ? b.notes : markdownToPlain(b.notes), '');
     out.push(md ? `${sub}Highlights` : 'HIGHLIGHTS', '');
     for (const h of b.highlights) {
       const text = String(h.text || '').replace(/\s+/g, ' ').trim();
-      out.push(md ? `> ${text}` : `"${text}"`);
+      out.push(md ? `> ${inert(text)}` : `"${text}"`);
       const meta = [];
-      if (include.where && h.where) meta.push(h.where);
+      if (include.where && h.where) meta.push(inert(h.where));
       if (include.topic && h.topic) meta.push(md ? `Topic: [[${h.topic}]]` : `Topic: ${h.topic}`);
       if (meta.length) out.push(md ? `> *${meta.join(' · ')}*` : `  (${meta.join(' · ')})`);
       if (include.notes && h.note) {
@@ -15667,7 +15907,7 @@ function buildHighlightsExport({ books, allBooks, fmt, include, dateText }) {
       }
       out.push('');
     }
-    if (include.answers && b.answers) out.push(md ? `${sub}Questions` : 'QUESTIONS', '', md ? b.answers : markdownToPlain(b.answers), '');
+    if (include.answers && b.answers) out.push(md ? `${sub}Questions` : 'QUESTIONS', '', md ? b.answers.split('\n\n').map((p) => (isInertText(p) ? p : neutralizeNoteText(p))).join('\n\n') : noteTextForDisplay(markdownToPlain(b.answers)), '');
   });
   return `${out.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }
@@ -17033,12 +17273,20 @@ module.exports = class A4ReadingPlugin extends Plugin {
     // whose generated section would actually change. Waits for the initial
     // metadata-cache pass the same way ReadingView.onOpen() does, so
     // frontmatter reads aren't racing Obsidian's own startup indexing.
+    let kicked = false;
     const kickBackfill = () => {
       this.app.metadataCache.off('resolved', kickBackfill);
-      this.runHighlightsBackfillIfNeeded().catch((err) => console.error('Reading Vault: highlights backfill failed', err));
+      if (kicked) return;
+      kicked = true;
+      this.runHighlightsBackfillIfNeeded()
+        .then(() => this.runInertHighlightsRewriteIfNeeded())
+        .catch((err) => console.error('Reading Vault: highlights backfill failed', err));
     };
     this.app.metadataCache.on('resolved', kickBackfill);
     this.register(() => this.app.metadataCache.off('resolved', kickBackfill));
+    // Updated or switched on while Obsidian runs: indexing is already done and
+    // 'resolved' may not fire again for a while, so start once the layout is ready.
+    if (this.app.workspace.layoutReady) kickBackfill();
   }
 
   // obsidian://open-reading — lets "04 Inner World/My Life/Reading/Reading.md"
@@ -17264,6 +17512,55 @@ module.exports = class A4ReadingPlugin extends Plugin {
     this.settings.highlightsBackfillDone = true;
     await this.saveSettings();
     this.lastHighlightsBackfillCount = changedCount;
+  }
+
+  // One time (1.2.5, audit RV-1): older versions wrote book passages and
+  // chapter names (the Highlights block) and book or AI summaries as live
+  // Markdown. Each such note is rewritten in the inert form (inertBookNote);
+  // a note already right is not touched. Runs even with the Highlights
+  // setting off: an old block is still in the note. Each note is copied
+  // first into the plugin's own folder (not a note, so the copy can't run
+  // anything); no copy, no change. Running it again changes nothing.
+  // Safety cap: at most inertRewriteCap notes per load, the rest next load.
+  // Done only when book notes were found and a re-check of every one finds
+  // nothing live (notes not synced in yet, or a failed check: next load).
+  async runInertHighlightsRewriteIfNeeded() {
+    if (this.settings.inertHighlightsDone) return null;
+    const store = new ReadingStore(this.app, this);
+    const books = store.listBookFiles();
+    const cap = this.inertRewriteCap ?? 25;
+    const dir = `${this.manifest.dir}/backups/1.2.5-highlights`;
+    let changed = 0;
+    let left = 0;
+    const live = [];
+    for (const f of books) {
+      // eslint-disable-next-line no-await-in-loop -- one note at a time
+      let content = await this.app.vault.read(f);
+      if (store.inertBookNote(f, content) !== content) {
+        if (changed >= cap) { left += 1; continue; }
+        for (const d of changed ? [] : [`${this.manifest.dir}/backups`, dir]) {
+          // eslint-disable-next-line no-await-in-loop -- one level at a time (phones)
+          if (!(await this.app.vault.adapter.exists(d))) await this.app.vault.adapter.mkdir(d);
+        }
+        const backup = `${dir}/${f.path.replace(/\//g, ' __ ')}`;
+        // eslint-disable-next-line no-await-in-loop
+        if (!(await this.app.vault.adapter.exists(backup))) await this.app.vault.adapter.write(backup, content);
+        // eslint-disable-next-line no-await-in-loop
+        await this.app.vault.process(f, (now) => store.inertBookNote(f, now));
+        changed += 1;
+        // eslint-disable-next-line no-await-in-loop
+        content = await this.app.vault.read(f);
+      }
+      if (store.bookNoteHasLiveText(f, content)) live.push(f.path);
+    }
+    if (changed) console.debug(`Reading Vault: rewrote ${changed} book notes in the safe form; copies are in ${dir}`);
+    if (left) console.warn(`Reading Vault: the 1.2.5 rewrite stopped at ${cap} notes; ${left} more next time Obsidian starts.`);
+    if (live.length) console.warn('Reading Vault: book text still live after the 1.2.5 rewrite, will retry next start:', live);
+    if (books.length && !left && !live.length) {
+      this.settings.inertHighlightsDone = true;
+      await this.saveSettings();
+    }
+    return { changed, left, live: live.length };
   }
 
   async saveSettings() {
@@ -17696,9 +17993,11 @@ module.exports = class A4ReadingPlugin extends Plugin {
     const description = current.source === 'book' && current.text ? current.text : details.description;
     const provider = this.settings.askProvider;
     const model = this.askModel(provider);
-    const user = buildSummaryMessage({ title: fm.title || bookFile.basename, author: fm.author, description, chapters: details.chapters });
+    // The stored text is escaped; the AI gets plain words, or its reply would
+    // come back escaped twice.
+    const user = buildSummaryMessage({ title: fm.title || bookFile.basename, author: fm.author, description: description && noteTextForDisplay(description), chapters: details.chapters });
     const res = await this.askComplete(provider, model, SUMMARY_SYSTEM_PROMPT, user);
-    const text = String(res.text || '').trim();
+    const text = neutralizeNoteText(String(res.text || '').trim());
     if (!text) throw new Error('The AI service sent back an empty summary. Try again.');
     const info = this.askModelInfo(provider, model);
     return { text, label: [info.name, ASK_PROVIDERS[provider].short, localDayKey(now)].filter(Boolean).join(' · ') };
