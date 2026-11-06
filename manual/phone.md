@@ -25,11 +25,19 @@ Either way, your key is checked on your computer or phone, offline. It never goe
 
 ## What works on the phone
 
+![The Library on an iPhone](images/library-phone.png)
+
+![A book's page on an iPhone](images/book-page-phone.png)
+
 - Your Library, reading EPUB and PDF books, highlights, notes and bookmarks, laid out for a small screen.
 - To highlight or look up a word, touch and hold it (drag the handles for a longer passage), then wait a moment: the color panel appears, with **Look up** when one word is selected.
 - **+ Add books** opens the phone's Files app, so you can pick an EPUB or PDF from there.
 - PDFs open in **Text** view, which lays the words out to fit your screen. Tap **Page** at the top to see the printed page instead.
 - In Export highlights, **Save file** offers **Save into my vault** and **Share**.
+
+![Reading a book on an iPhone](images/reader-phone.png)
+
+![The color panel after touching and holding a passage](images/highlight-new-phone.png)
 
 ## Listening on the phone
 
