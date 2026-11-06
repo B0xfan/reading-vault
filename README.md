@@ -6,7 +6,7 @@ I built Reading Vault because I wanted my books, my highlights and my notes in o
 
 ![The library: your books as covers, with shelves, authors and today's reading](assets/library-light.png)
 
-New here? The [user manual](manual/README.md) has a short page for every feature.
+Website: **[getreadingvault.app](https://getreadingvault.app)**. New here? The [user manual](manual/README.md) has a short page for every feature.
 
 **Reading Vault is free.** Some features need a one-time **Reading Vault Pro** purchase ($19 founding price, $29 later). See [Free and Pro](#free-and-pro) below.
 
