@@ -46,3 +46,4 @@ To learn how to get Pro, see [Reading Vault Pro](reading-vault-pro.md).
 
 - The free version works in Obsidian on computers. On an iPhone or iPad, Reading Vault needs Pro; see [On your iPhone or iPad](phone.md). Tested on Mac and iPhone; Windows is untested. Android isn't supported yet.
 - Nothing is hidden in a private database. If you stop using Reading Vault, your books, highlights and notes all stay in your vault.
+- Questions, problems or ideas: write to me through the [contact page](https://getreadingvault.app/contact).

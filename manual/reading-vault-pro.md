@@ -39,7 +39,7 @@ The section then says **Pro is unlocked**, with your key's number, for example "
 
 Your key is checked on your own computer or phone. It never goes online, and it never expires.
 
-If a key doesn't work, a short message says why. Check you copied the whole key. If it still doesn't work, email me at jhesch@gmail.com (the message shows the same address).
+If a key doesn't work, a short message says why. Check you copied the whole key. If it still doesn't work, write to me through the [contact page](https://getreadingvault.app/contact), or email me at jhesch@gmail.com (the message shows the same address).
 
 ## Moving to a new computer or phone
 

@@ -128,7 +128,7 @@ Inside the plugin, Pro features carry a small "Pro" tag, and Settings has a "Get
 - The key is checked on your computer or phone, offline. Nothing is sent anywhere to check it.
 - The AI features (Ask the book, "Write with AI" summaries, "Explain in this sentence") are off until you add a key for your own account with Anthropic, OpenAI or OpenRouter. That provider bills you separately for what you use.
 
-**Refunds:** if Reading Vault Pro doesn't work for you, email me at jhesch@gmail.com within 14 days for a full refund. Refunded keys are switched off in the next update.
+**Refunds:** if Reading Vault Pro doesn't work for you, write to me through the [contact page](https://getreadingvault.app/contact) or at jhesch@gmail.com within 14 days for a full refund. Refunded keys are switched off in the next update.
 
 ## What goes online, and why
 
@@ -188,7 +188,7 @@ By default, book notes go in a `Reading` folder (with `Highlights` and `Words` i
 
 ## Support
 
-Questions, problems or ideas: email me at jhesch@gmail.com.
+Questions, problems or ideas: write to me through the [contact page](https://getreadingvault.app/contact), or email me at jhesch@gmail.com.
 
 ## License
 
