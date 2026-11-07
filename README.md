@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/logo.svg" width="96" height="96" alt="Reading Vault logo: a brown book with a yellow bookmark ribbon"></p>
+
 # Reading Vault
 
 Read EPUB and PDF books inside your Obsidian vault. Everything you highlight becomes a real note, and with Pro you can link it to your own Topic notes, so your reading ends up in the same place as the rest of your thinking.
