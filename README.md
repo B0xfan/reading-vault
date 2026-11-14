@@ -20,7 +20,7 @@ Website: **[getreadingvault.app](https://getreadingvault.app)**. New here? The [
 - **Highlights that become notes.** Select text, pick one of five colors, add a note. Each book's own note lists its highlights, with links that jump straight back to the exact spot.
 - **Listen.** Have the book read aloud with your computer's built-in voices, sentence by sentence, with the sentence being read underlined and the page turning as it goes. Works for PDFs too.
 - **Natural voices (Pro).** 28 natural-sounding English voices (American and British) that sound much closer to a person reading. They're off until you switch them on, and need a one-time download of about 325 MB. After that they run on your own computer, offline.
-- **Audiobook mode (Pro).** Turn any book into an audiobook: listening keeps going past the end of a chapter instead of stopping there, each word lights up as it's read (in EPUB books), and a sleep timer pauses it and keeps your place.
+- **Audiobook mode (Pro).** Turn any book into an audiobook: listening keeps going past the end of a chapter instead of stopping there, each word lights up as it's read (EPUB and PDF), and a sleep timer pauses it and keeps your place.
 - **Word lookup.** Select a word for its meaning, from an English dictionary (about 5.5 MB) you download once and use offline. With Pro, "Explain in this sentence" asks your own AI service what the word means right there.
 - **Book summaries (Pro).** A short summary on each book's page, from the book's description, your own words, or AI.
 - **Export highlights.** Preview a book's highlights and notes as Markdown; with Pro, save them to a file or copy them.
@@ -103,7 +103,7 @@ Payment is required for full access: the features marked Pro below unlock with a
 | Highlights listed in each book's note | ✓ | ✓ |
 | Listen with your computer's built-in voices | ✓ | ✓ |
 | Natural voices: 28 English voices, offline after one download (about 325 MB) |  | ✓ |
-| Audiobook mode: keeps going past a chapter's end, word-by-word lighting (in EPUB books), sleep timer |  | ✓ |
+| Audiobook mode: keeps going past a chapter's end, word-by-word lighting (EPUB and PDF), sleep timer |  | ✓ |
 | Word lookup (offline dictionary) | ✓ | ✓ |
 | Today's reading line in the library | ✓ | ✓ |
 | Export highlights: preview | ✓ | ✓ |

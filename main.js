@@ -8382,6 +8382,9 @@ class ReadingView extends ItemView {
       const viewport = pdfPage.getViewport({ scale });
 
       const box = page.createDiv({ cls: 'a4r-pdf-box' });
+      // Which page this box shows: during a page turn the old box stays up
+      // until the new page is drawn, and must not take the new page's words.
+      box.dataset.page = String(pdfPage.pageNumber);
       box.style.width = `${Math.floor(viewport.width)}px`;
       box.style.height = `${Math.floor(viewport.height)}px`;
       box.style.setProperty('--scale-factor', String(scale));
@@ -12186,26 +12189,28 @@ class ReadingView extends ItemView {
   // comma or full stop (John approved "roughly timed", 2026-09-25).
   abWordsOn() {
     const r = this.reader;
-    // A PDF's Text view lights words too, on a phone (1.1.3: John's iPhone,
-    // Sherlock Holmes opening in Text view showed no word light at all;
-    // only EPUBs had a word light). A computer's PDF is unchanged.
-    const format = r && (r.format === 'epub' || (rvPhoneLayout() && this.pdfTextOn(r)));
+    // EPUB and PDF, both PDF views, phone and computer (1.3.1: John's
+    // computer PDF in Page view lit nothing with the switch on).
+    const format = r && (r.format === 'epub' || r.format === 'pdf');
     return !!(format && this.plugin.isPro() && this.plugin.settings.abWordHighlight !== false
       && typeof Highlight !== 'undefined' && typeof CSS !== 'undefined' && CSS.highlights);
   }
 
-  // Text view (phone): sentence idx's words, from the listening text, each
-  // with its timing weight and its Range on screen worked out when asked
-  // (the listening underline re-wraps the text, so a kept Range could go
-  // stale). null when that word isn't in the pages laid out.
-  pdftAbWords(r, idx) {
+  // A PDF sentence idx's words, from the listening text, each with its
+  // timing weight and its Range on screen worked out when asked: in Text
+  // view (the listening underline re-wraps the text) and on the printed
+  // page (a redraw replaces the text layer) a kept Range would go stale.
+  // null when that word isn't on screen (another page, or not laid out).
+  pdfAbWords(r, idx) {
     const tts = r.tts;
     const info = tts && tts.sentenceInfo && tts.sentenceInfo[idx];
     if (!info || !tts.model) return [];
     if (info.abWords) return info.abWords;
     const text = tts.sentenceTexts[idx] || '';
     const map = tts.model.map;
-    const rangeForCodes = (tv, lo, hi) => this.pdftRangeForCodes(tv, lo, hi);
+    const textOn = () => this.pdfTextOn(r);
+    const textRange = (tv, lo, hi) => this.pdftRangeForCodes(tv, lo, hi);
+    const pageRange = (from, to) => this.pdfPageRangeForMap(r, map, from, to);
     const words = [];
     const re = /\S+/g;
     let m;
@@ -12220,12 +12225,17 @@ class ReadingView extends ItemView {
       }
       const w = m[0];
       const pause = /[.!?…]["'”’)]*$/.test(w) ? 5 : /[,;:—–]["'”’)]*$/.test(w) ? 3 : 0;
+      const from = info.start + m.index;
+      const to = from + w.length;
       words.push({
         weight: speechWordFor(w).replace(/[^\p{L}\p{N}]/gu, '').length + 1.5 + pause,
         get range() {
-          const tv = r.pdf && r.pdf.tv;
-          if (lo === null || !tv || !tv.host.isConnected) return null;
-          return rangeForCodes(tv, lo, hi);
+          if (lo === null || !r.pdf) return null;
+          if (textOn()) {
+            const tv = r.pdf.tv;
+            return tv && tv.host.isConnected ? textRange(tv, lo, hi) : null;
+          }
+          return pageRange(from, to);
         },
       });
     }
@@ -12236,7 +12246,7 @@ class ReadingView extends ItemView {
   // Word Ranges inside sentence idx's element, with a timing weight each.
   abWords(idx) {
     const r = this.reader;
-    if (r && r.format === 'pdf') return rvPhoneLayout() && this.pdfTextOn(r) ? this.pdftAbWords(r, idx) : [];
+    if (r && r.format === 'pdf') return this.pdfAbWords(r, idx);
     const el = r && r.tts && r.tts.sentenceEls && r.tts.sentenceEls[idx];
     if (!el) return [];
     if (el.__abWords) return el.__abWords;
@@ -12271,8 +12281,9 @@ class ReadingView extends ItemView {
     CSS.highlights.set('a4r-ab-word', new Highlight(range));
     // A phone keeps words already read at full strength, as in the approved
     // mockup: on an iPhone the faded words also broke the sentence's
-    // underline into dashes (John's phone check, 2026-10-09).
-    if (rvPhoneLayout()) CSS.highlights.delete('a4r-ab-read');
+    // underline into dashes (John's phone check, 2026-10-09). A PDF does too:
+    // a printed page's letters can't fade.
+    if (rvPhoneLayout() || this.reader.format === 'pdf') CSS.highlights.delete('a4r-ab-read');
     else CSS.highlights.set('a4r-ab-read', new Highlight(...words.slice(0, i).map((w) => w.range)));
     this.abCurrentWord = { idx, word: i };
   }
@@ -12734,6 +12745,9 @@ class ReadingView extends ItemView {
       }
     }
     tts.currentIndex = next;
+    // The last sentence's lit word goes now, not when the next word is said
+    // (as highlightSentence does; the next sentence's light starts in speak).
+    if (this.abCurrentWord && this.abCurrentWord.idx !== next) this.abClearWords();
     this.pdfFollowSentence(next, 'start', appEl);
     this.speakCurrentSentence(appEl);
     this.saveListenPosition();
@@ -12860,22 +12874,31 @@ class ReadingView extends ItemView {
     if (!tts || !tts.playing || tts.currentIndex < 0 || !tts.model) return;
     const info = tts.sentenceInfo[tts.currentIndex];
     if (!info) return;
-    let lo = null;
-    let hi = null;
-    for (let i = info.start; i < info.end; i++) {
-      const v = tts.model.map[i];
-      if (v < 0 || v === undefined || Math.floor(v / 1e6) !== r.pdf.page) continue;
-      const nw = v % 1e6;
-      if (lo === null) lo = nw;
-      hi = nw;
-    }
-    if (lo === null) return;
-    const textDiv = box.querySelector(':scope > .textLayer');
-    const range = textDiv ? this.pdfNwRange(textDiv, lo, hi) : null;
+    const range = this.pdfPageRangeForMap(r, tts.model.map, info.start, info.end);
     if (range) {
       this.drawPdfMark(box, range, null, null, 'a4r-pdf-listen');
       this.followScrollToSentence(box.querySelector('.a4r-pdf-hl-layer > mark.a4r-pdf-listen'));
     }
+    // A redraw replaced the text layer the lit word was on; light it again
+    // (or clear it, when that word isn't on this page).
+    const lit = this.abCurrentWord;
+    if (lit && lit.idx === tts.currentIndex && this.abWordsOn()) this.abShowWord(lit.idx, lit.word);
+  }
+
+  // Range on the printed page shown for listening-text characters
+  // [from, to) (model.map indices), or null when none of them is on it.
+  pdfPageRangeForMap(r, map, from, to) {
+    let lo = null;
+    let hi = null;
+    for (let i = from; i < to; i++) {
+      const v = map[i];
+      if (v === undefined || v < 0 || Math.floor(v / 1e6) !== r.pdf.page) continue;
+      if (lo === null) lo = v % 1e6;
+      hi = v % 1e6;
+    }
+    if (lo === null) return null;
+    const textDiv = this.containerEl.querySelector(`.a4r-pdf-box[data-page="${r.pdf.page}"] > .textLayer`);
+    return textDiv ? this.pdfNwRange(textDiv, lo, hi) : null;
   }
 
   // Range from the lo-th to the hi-th non-space character of the page's

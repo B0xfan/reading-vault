@@ -8,7 +8,7 @@ Audiobook mode turns any book into an audiobook: natural voices, each word lit u
 
 - **Natural voices.** A switch: on reads with a natural voice, off with your computer's own voice. It starts off when you first get Pro. The first time you turn it on, Reading Vault asks before the one-time 325 MB download.
 - **Keep going across chapters.** A switch. On: at the end of a chapter the next one starts by itself. Off: listening stops at the end of the chapter.
-- **Light up each word.** A switch. On: the word being read lights up inside the sentence. Off: only the sentence is underlined. This works in EPUB books; in a PDF the sentence being read is underlined, without the word lighting.
+- **Light up each word.** A switch. On: the word being read lights up inside the sentence. Off: only the sentence is underlined. This works in EPUB and PDF books. On a PDF page the word gets a see-through gold mark, so the printed word still shows.
 - **🌙 Sleep timer.** Pick 15, 30 or 45 minutes, 1 hour, or the end of this chapter. When it runs out, the voice pauses and your place is kept.
 - Everything else on the bar (Play, Speed, Voice, ＋ Highlight sentence) works as described in [Listen](listen.md).
 
