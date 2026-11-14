@@ -21,7 +21,7 @@ Reading Vault reads two kinds of book files:
 To add one:
 
 1. Drag the file onto the box that says "Drag a PDF or EPUB here".
-2. Or press **+ Add Books** and pick the file.
+2. Or press **+ Add books** and pick the file.
 
 Reading Vault fills in the title, the author and the cover for you, when the file has them. You can add several books at once.
 
@@ -37,7 +37,7 @@ Click the book's cover. That opens the book's own page. Press **Start reading** 
 
 Across the top of Reading Vault you'll see four tabs:
 
-- **Grid** is your Library, with all your books.
+- **Library** has all your books.
 - **Detail** is the page for the book you picked.
 - **Reader** is where you read.
 - **Highlights** lists the passages you've highlighted.

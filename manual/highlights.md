@@ -21,7 +21,7 @@ Click the highlighted text. A small panel opens where you can:
 
 - Pick a new color.
 - Write a **Note** about this passage, then press **Save note**. On EPUB pages, a small 📝 shows the highlight has a note.
-- Press **Delete** to remove the highlight.
+- Press **Delete** to move the highlight to your vault's trash. A note at the corner of the screen offers **Undo** for a few seconds.
 
 ![The panel for an existing highlight with colors, Note and Delete](images/highlight-edit.png)
 
@@ -29,7 +29,7 @@ Click the highlighted text. A small panel opens where you can:
 
 - **In the Reader,** press **☰** and pick the **Highlights** tab. Click one to jump to it.
 - **On the book's page,** the Highlights list shows them all.
-- **The Highlights tab** at the top of Reading Vault lists highlights for one book, or across your whole library, newest first, each with a Delete button (it asks first). With Pro it is also where you link highlights to Topic notes: **Skip for now** takes one out of that list and keeps it in your notes.
+- **The Highlights tab** at the top of Reading Vault lists highlights for one book, or across your whole library, newest first, each with a trash button that moves it to your vault's trash, with **Undo** for a few seconds. With Pro it is also where you link highlights to Topic notes: **Skip for now** takes one out of that list and keeps it in your notes.
 
 ## In the book's own note
 

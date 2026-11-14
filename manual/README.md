@@ -4,7 +4,7 @@ Hi, I'm John. I made Reading Vault because I wanted my books and my notes in the
 
 This manual has one short page for each feature. Read them in any order.
 
-![The Library with a few books on the Grid tab](images/library.png)
+![The Library with a few books on the Library tab](images/library.png)
 
 ## Start here
 

@@ -8,7 +8,7 @@ The Reading Dashboard shows your reading at a glance: today, your goals, your st
 
 ## Open it
 
-- Press **Reading Dashboard →** on the Today line at the bottom of the Library.
+- Press **Reading dashboard →** on the Today line at the bottom of the Library.
 - Or press the chart icon in the ribbon on the left of Obsidian.
 - Or use the command "Open reading dashboard".
 

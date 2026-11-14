@@ -12,7 +12,7 @@ Each book has its own page, on the **Detail** tab. It's where you see your progr
 - **Start reading** or **Continue reading.** This opens the book right where you left off. **Listen**, next to it, opens the book and starts reading it aloud.
 - **Summary.** A short summary of the book, beside the cover. This is part of Pro. See [AI book summary](book-summary.md).
 - **Notes.** Your own thoughts about the whole book. See [Notes](notes.md).
-- **Highlights.** Every passage you've highlighted in this book. Click one to jump to it in the Reader.
+- **Highlights.** Every passage you've highlighted in this book, one line each. Press **···** on a line to open it in the Reader, change its color, or move it to the trash (with **Undo** for a few seconds).
 - **Bookmarks.** Every bookmark in this book, with its chapter underneath. Click one to open the book at that page, or press **Delete** beside it to remove it (it asks first).
 
   ![The Bookmarks list on a book's page, with Delete beside each bookmark](images/book-bookmarks.png)
@@ -23,12 +23,12 @@ Each book has its own page, on the **Detail** tab. It's where you see your progr
 
 On the right side you'll find:
 
-- **Status.** To Read, Reading, Finished or Abandoned.
+- **Status.** To read, Reading, Finished or Abandoned.
 - **✓ Mark as finished.** One click sets the status to Finished and remembers the date. Finished books count toward your yearly goal on the [Reading Dashboard](reading-dashboard.md).
 - **Tags.** Add or remove tags for the book.
 - **Shelves.** Put the book on a shelf, or take it off. See [Shelves](shelves.md).
 - **Upload cover** (or **Change cover** once the book has one). Pick your own cover image. A PDF gets a cover made from its first page when you add it (or the first time you open it); you can replace it here.
-- **Delete this book….** At the bottom of the Details box. Removes the book, its file, its cover and its highlights, after you confirm.
+- **Delete this book….** At the bottom of the Details box. Moves the book, its file, its cover and its highlights to your vault's trash, after you confirm.
 
 ![The Details box with Status, Tags, Shelves and Change cover](images/book-details.png)
 
