@@ -1,9 +1,9 @@
 {
   "id": "reading-vault",
   "name": "Reading Vault",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "minAppVersion": "1.8.9",
-  "description": "EPUB and PDF ebook reader for your vault. Highlights become notes, plus bookmarks, offline dictionary and read-aloud (text to speech). Pro adds natural voices, audiobook mode and AI with your own key.",
+  "description": "EPUB and PDF ebook reader for your vault. Highlights become notes and flashcards, plus bookmarks, offline dictionary and read-aloud (text to speech). Pro adds natural voices, audiobook mode and AI with your own key.",
   "author": "John Hesch",
   "authorUrl": "https://github.com/B0xfan",
   "fundingUrl": "https://buymeacoffee.com/workbenchgoods",
