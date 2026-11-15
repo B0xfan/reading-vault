@@ -21,6 +21,7 @@ Click the highlighted text. A small panel opens where you can:
 
 - Pick a new color.
 - Write a **Note** about this passage, then press **Save note**. On EPUB pages, a small 📝 shows the highlight has a note.
+- Press **Make card** to turn it into a [flashcard](flashcards.md).
 - Press **Delete** to move the highlight to your vault's trash. A note at the corner of the screen offers **Undo** for a few seconds.
 
 ![The panel for an existing highlight with colors, Note and Delete](images/highlight-edit.png)
@@ -36,5 +37,7 @@ Click the highlighted text. A small panel opens where you can:
 Reading Vault keeps an up-to-date Highlights section at the bottom of each book's note. Each one has the passage, where it is, your note, and a link that opens the Reader at that spot. You can turn this off in Settings. See [Notes](notes.md).
 
 ## Want more?
+
+You can turn any highlight into a [flashcard](flashcards.md): press **Make card** in the panel, on the book's page or in the Highlights tab.
 
 With Pro, you can [link highlights to Topic notes](topic-links.md), have them come back in [Highlight review](highlight-review.md), and [export them to a file](export.md).

@@ -15,6 +15,7 @@ Pro is a one-time payment: $19 for the first 250 copies, then $29. You get every
 - [Reading Dashboard](reading-dashboard.md)
 - [Saving words](saved-words.md), and "Explain in this sentence" in [Word lookup](word-lookup.md)
 - [Export highlights](export.md)
+- [Flashcards](flashcards.md): unlimited cards from your highlights and words, on a smart schedule, plus word cards, AI drafts, Practice all and cards outside Reading Vault (inside your notes, the side panel and more). Your first 20 cards are free.
 - [Reading Vault on your iPhone or iPad](phone.md): on a phone or tablet, Reading Vault needs Pro, and the same license unlocks it
 
 Everything else in this manual is free.

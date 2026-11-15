@@ -1418,6 +1418,8 @@ html:not(#a4r-guard) .a4r-root .a4r-hidden{visibility:hidden;}
 
 /* Get Pro in every Pro note (buyer test 2026-09-26). */
 html:not(#a4r-guard) .a4r-root .a4r-get-pro-row,html:not(#a4r-guard) .a4r-get-pro-row{margin-top:8px;}
+/* Sale line beside Get Pro (1.5.0, Nov 26 to 30 2026); Settings sits outside .a4r-root, so Obsidian's colours stand in. */
+html:not(#a4r-guard) .a4r-sale-line{margin:8px 0;padding:8px 11px;border-radius:8px;background:var(--a4r-accent-soft,var(--background-modifier-hover));color:var(--a4r-ink,var(--text-normal));border:1px solid var(--a4r-accent,var(--interactive-accent));font-size:12.5px;line-height:1.5;max-width:440px;text-align:left;flex-basis:100%;box-sizing:border-box;}
 html:not(#a4r-guard) .a4r-get-pro-row button.a4r-get-pro{font-size:12px;padding:6px 12px;cursor:pointer;}
 
 /* Visually hidden, still read by screen readers (a picture title page's own text). */
@@ -1706,3 +1708,278 @@ html:not(#a4r-guard) .a4r-pdft .a4r-pdft-empty::before{content:attr(data-label);
 html:not(#a4r-guard) .a4r-pdft p.a4r-pdft-b{margin:0 0 .8em;}
 html:not(#a4r-guard) .a4r-pdft h3.a4r-pdft-h{font-size:1.3em;font-weight:600;line-height:1.3;letter-spacing:0;margin:.5em 0 .6em;break-after:avoid;-webkit-column-break-after:avoid;}
 html:not(#a4r-guard) i.a4r-baseline-probe{display:inline-block;width:0;height:0;padding:0;margin:0;border:0;vertical-align:baseline;}
+/* Flashcards (v1.1.0), built to the approved mockup-flashcards.html: the
+ * card maker (beside the Reader's page, or its own screen), Make card in
+ * the highlight pop-up and lists, word cards on the book page, the card-21
+ * upgrade box, and the "Missed it?" line in Highlight review. --a4r-cm-dim
+ * is the mockup's darker secondary grey (5.3 to 1 on the card, measured
+ * in round 2), used for the maker's small text only. */
+html:not(#a4r-guard) .a4r-root{--a4r-cm-dim:#645a4c;--a4r-blank:#d9cfba;--a4r-blank-edge:#8b8070;--a4r-cm-good:#5e7a60;}
+html:not(#a4r-guard) .theme-dark .a4r-root{--a4r-cm-dim:#a89c85;--a4r-blank:#4a4436;--a4r-blank-edge:#9a8e76;--a4r-cm-good:#7d9a7f;}
+html:not(#a4r-guard) .a4r-cm-pane{flex:0 0 clamp(300px,38%,440px);min-width:0;overflow-y:auto;border:1px solid var(--a4r-line);border-radius:10px;background:var(--a4r-ground);}
+html:not(#a4r-guard) .a4r-cm-screen{max-width:640px;margin:6px auto 0;}
+html:not(#a4r-guard) .a4r-cm-screen .a4r-cm{border:1px solid var(--a4r-line);border-radius:12px;background:var(--a4r-ground);}
+html:not(#a4r-guard) .a4r-cm{padding:18px 20px 22px;color:var(--a4r-ink);position:relative;}
+html:not(#a4r-guard) .a4r-cm-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+html:not(#a4r-guard) .a4r-cm-title{font-family:'A4R Fraunces', Georgia, serif;font-size:19px;font-weight:700;margin:0;}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-back{border:none;background:none;box-shadow:none;color:var(--a4r-cm-dim);font-size:13.5px;font-weight:500;padding:6px 2px;height:auto;min-height:36px;margin:0 0 4px;cursor:pointer;}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-back:hover{color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-cm-hint{font-size:13px;line-height:1.45;color:var(--a4r-cm-dim);margin:0 0 10px;}
+html:not(#a4r-guard) .a4r-cm-from{margin:6px 0 0;}
+html:not(#a4r-guard) .a4r-cm-tabs{display:flex;gap:4px;margin:14px 0;border-bottom:1px solid var(--a4r-line);flex-wrap:wrap;}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-tab{border:none;border-bottom:2px solid transparent;border-radius:0;background:none;box-shadow:none;color:var(--a4r-cm-dim);font-size:13px;font-weight:600;padding:10px;min-height:40px;height:auto;margin-bottom:-1px;cursor:pointer;}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-tab[aria-selected="true"]{color:var(--a4r-ink);border-bottom-color:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-cm-panel{background:var(--a4r-card);border:1px solid var(--a4r-line);border-radius:12px;padding:14px 16px;}
+html:not(#a4r-guard) .a4r-cm-tokens{font-family:'A4R Fraunces', Georgia, serif;font-size:16.5px;line-height:2.1;}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-tok{display:inline;border:none;background:none;box-shadow:none;color:inherit;font:inherit;padding:1px 2px;margin:0;height:auto;border-radius:4px;cursor:pointer;}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-tok:hover{background:var(--a4r-accent-soft);}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-tok:focus-visible{outline:2px solid var(--a4r-accent);outline-offset:1px;}
+html:not(#a4r-guard) .a4r-cm-run{background:var(--a4r-blank);border:1.5px dashed var(--a4r-blank-edge);border-radius:5px;padding:1px 2px;}
+html:not(#a4r-guard) .a4r-cm-run .a4r-cm-tok-w{color:transparent;}
+html:not(#a4r-guard) .a4r-root .a4r-cm-run button.a4r-cm-tok:hover{background:none;outline:1px solid var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-cm-preview{margin-top:12px;padding-top:12px;border-top:1px solid var(--a4r-line);}
+html:not(#a4r-guard) .a4r-cm-k{display:flex;align-items:center;gap:6px;font:600 11.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--a4r-cm-dim);margin-bottom:6px;}
+html:not(#a4r-guard) .a4r-cm-front{font-family:'A4R Fraunces', Georgia, serif;font-size:15px;line-height:1.7;margin:0;}
+html:not(#a4r-guard) .a4r-cm-each{margin:6px 0 0;}
+html:not(#a4r-guard) .a4r-cm-blank{display:inline-block;min-width:5.5em;height:1.2em;vertical-align:-0.18em;border-radius:4px;background:var(--a4r-blank);border:1.5px dashed var(--a4r-blank-edge);}
+html:not(#a4r-guard) .a4r-cm-field{display:block;width:100%;border:1px solid var(--a4r-line);border-radius:8px;background:var(--a4r-page);color:var(--a4r-ink);font-size:14px;line-height:1.45;padding:8px 10px;margin:0 0 10px;resize:vertical;}
+html:not(#a4r-guard) .a4r-cm-field.is-book{font-family:'A4R Fraunces', Georgia, serif;font-size:15px;}
+html:not(#a4r-guard) .a4r-cm-field:disabled{opacity:.6;}
+html:not(#a4r-guard) .a4r-cm-check{display:flex;gap:8px;align-items:center;font-size:13.5px;color:var(--a4r-ink);min-height:32px;cursor:pointer;}
+html:not(#a4r-guard) .a4r-cm-check input{width:18px;height:18px;margin:0;accent-color:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-cm-need{font-size:13px;color:var(--a4r-cm-dim);margin:12px 0 0;}
+html:not(#a4r-guard) .a4r-cm-need.is-empty{display:none;}
+html:not(#a4r-guard) .a4r-cm-actions{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-btn{border:1px solid var(--a4r-line);background:var(--a4r-card);color:var(--a4r-ink);border-radius:8px;padding:8px 13px;min-height:36px;height:auto;font-size:13px;font-weight:600;box-shadow:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-btn:hover{border-color:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-btn.is-primary{background:var(--a4r-accent);border-color:var(--a4r-accent);color:var(--a4r-on-accent);}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-btn.is-quiet{border-color:transparent;background:none;color:var(--a4r-cm-dim);padding-inline:8px;}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-btn.is-quiet:hover{color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-btn:disabled{opacity:.5;cursor:default;}
+html:not(#a4r-guard) .a4r-cm-freecount{display:flex;align-items:center;gap:10px;font-size:13px;margin:12px 0 0;color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-cm-meter{width:90px;height:6px;border-radius:3px;background:var(--a4r-line);overflow:hidden;flex:none;display:block;}
+html:not(#a4r-guard) .a4r-cm-meter i{display:block;height:100%;background:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-cm-facts{display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-size:13px;margin:14px 0 0;align-items:center;}
+html:not(#a4r-guard) .a4r-cm-facts dt{color:var(--a4r-cm-dim);}
+html:not(#a4r-guard) .a4r-cm-facts dd{margin:0;min-width:0;overflow-wrap:anywhere;}
+html:not(#a4r-guard) .a4r-cm-topic{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+html:not(#a4r-guard) .a4r-cm-chip{display:inline-flex;align-items:center;font-size:13px;font-weight:600;color:var(--a4r-accent);background:var(--a4r-accent-soft);border-radius:999px;padding:4px 12px;}
+html:not(#a4r-guard) .a4r-cm-dim{color:var(--a4r-cm-dim);}
+html:not(#a4r-guard) .a4r-root button.a4r-cm-link{border:none;background:none;box-shadow:none;color:var(--a4r-accent);font-size:13px;font-weight:600;padding:6px 4px;height:auto;text-decoration:underline;text-underline-offset:2px;cursor:pointer;}
+html:not(#a4r-guard) .a4r-cm-topic-pick{font-size:13px;max-width:100%;}
+html:not(#a4r-guard) .a4r-cm-toast{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--a4r-card);border:1px solid var(--a4r-cm-good);border-radius:10px;padding:8px 8px 8px 14px;font-size:13.5px;margin-top:12px;color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-cm-upgrade{background:var(--a4r-card);border:1px solid var(--a4r-line);border-radius:12px;padding:16px;margin-top:14px;}
+html:not(#a4r-guard) .a4r-cm-upgrade h3{font-family:'A4R Fraunces', Georgia, serif;font-size:18px;margin:0 0 6px;}
+html:not(#a4r-guard) .a4r-cm-upgrade p{font-size:14px;line-height:1.5;margin:0 0 12px;color:var(--a4r-cm-dim);}
+html:not(#a4r-guard) .a4r-cm-upgrade ul{font-size:14px;line-height:1.55;margin:0 0 12px;padding-left:18px;}
+html:not(#a4r-guard) .a4r-cm-upgrade .a4r-cm-small{font-size:13px;margin:12px 0 0;color:var(--a4r-ink);}
+/* Flashcards phase 4-5: the Draft with AI tab and the Anki export window. */
+html:not(#a4r-guard) .a4r-cm-draft{border:1px solid var(--a4r-line);border-radius:10px;padding:10px 12px;background:var(--a4r-page);margin-bottom:8px;}
+html:not(#a4r-guard) .a4r-cm-draft.is-kept{border-color:var(--a4r-cm-good);}
+html:not(#a4r-guard) .a4r-cm-dq{font-family:'A4R Fraunces', Georgia, serif;font-size:15px;line-height:1.6;margin:4px 0 2px;}
+html:not(#a4r-guard) .a4r-cm-da{font-size:13px;color:var(--a4r-cm-dim);}
+html:not(#a4r-guard) .a4r-cm-cost{font-size:13px;color:var(--a4r-cm-dim);margin-top:10px;}
+html:not(#a4r-guard) .a4r-cm-aibox h3{font-family:'A4R Fraunces', Georgia, serif;font-size:17px;margin:0 0 6px;}
+html:not(#a4r-guard) .a4r-cm-aibox p{font-size:14px;line-height:1.5;margin:0 0 10px;}
+html:not(#a4r-guard) .a4r-cm-aierr{margin:0 0 10px;}
+html:not(#a4r-guard) .modal.a4r-cx-modal{width:min(520px,94vw);}
+html:not(#a4r-guard) .a4r-root select.a4r-cx-select{max-width:100%;min-height:36px;border:1px solid var(--a4r-line);border-radius:8px;background:var(--a4r-card);color:var(--a4r-ink);font-size:13px;padding:6px 10px;box-shadow:none;}
+html:not(#a4r-guard) .a4r-cx-note{margin:12px 0 0;}
+@media (max-width: 560px){
+  html:not(#a4r-guard) .a4r-root select.a4r-cx-select{min-height:44px;width:100%;}
+  html:not(#a4r-guard) .a4r-cx .a4r-cm-actions{flex-direction:column;align-items:stretch;}
+}
+/* Make card beside a highlight in a list, and in Highlight review. */
+html:not(#a4r-guard) .a4r-root .a4r-hl-actions button.a4r-make-card,html:not(#a4r-guard) .a4r-root .a4r-hl-card-actions button.a4r-make-card{color:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-root .a4r-hl-card-actions button.a4r-make-card{height:auto;border:1px solid var(--a4r-line);background:var(--a4r-card);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;box-shadow:none;cursor:pointer;}
+/* Make card in the Reader's highlight pop-up (after the colours). */
+html:not(#a4r-guard) .a4r-hl-color-popup button.a4r-hl-make-card{border:none;box-shadow:none;height:auto;min-height:28px;background:var(--a4r-accent);color:var(--a4r-on-accent);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;}
+html:not(#a4r-guard) .a4r-hl-color-popup .a4r-hl-swatch-row{flex-wrap:wrap;align-items:center;}
+html:not(#a4r-guard) .a4r-hl-color-popup.a4r-hl-has-make-card{width:auto;max-width:380px;}
+/* Word cards on the book page, and the Make card link on a word's card. */
+html:not(#a4r-guard) .a4r-word-card-state{font-size:12px;color:var(--a4r-cm-dim);flex:none;margin-left:auto;}
+html:not(#a4r-guard) .a4r-word-cards{margin:10px 0 4px;}
+html:not(#a4r-guard) .a4r-word-cards .a4r-cm-hint{margin:10px 0 0;}
+/* Highlight review: "Did not remember it? Make it a card" after Sooner. */
+html:not(#a4r-guard) .a4r-rv-missed{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px;border:1px solid var(--a4r-accent);border-radius:12px;padding:10px 10px 10px 14px;font-size:14px;line-height:1.45;background:var(--a4r-card);}
+html:not(#a4r-guard) .a4r-rv-missed-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+html:not(#a4r-guard) .a4r-root button.a4r-rv-quiet.a4r-rv-missed-next{margin-top:0;}
+/* The Undo button on a short message (Obsidian's own notice). */
+html:not(#a4r-guard) .a4r-undo-notice{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+html:not(#a4r-guard) .a4r-undo-notice button.a4r-undo-notice-btn{height:auto;padding:4px 12px;font-weight:600;cursor:pointer;}
+/* Narrow panes and phones: the maker lies over the page, the pop-up wraps
+ * onto its own full-width row, and everything tapped is 44 pixels tall. */
+@media (max-width: 720px){
+  html:not(#a4r-guard) .a4r-cm-pane{position:absolute;top:12px;right:12px;bottom:34px;left:12px;z-index:7;box-shadow:0 8px 24px rgba(0,0,0,.18);}
+}
+@media (max-width: 560px){
+  html:not(#a4r-guard) .a4r-hl-color-popup.a4r-hl-has-make-card,html:not(#a4r-guard) .a4r-hl-color-popup{box-sizing:border-box;width:calc(100vw - 16px);max-width:none;border-radius:14px;}
+  html:not(#a4r-guard) .a4r-hl-color-popup .a4r-swatch-btn{width:44px;height:44px;}
+  html:not(#a4r-guard) .a4r-hl-color-popup .a4r-hl-swatch-sep{display:none;}
+  html:not(#a4r-guard) .a4r-hl-color-popup button.a4r-hl-make-card,html:not(#a4r-guard) .a4r-hl-color-popup button.a4r-lookup-open{min-height:44px;flex:1 1 auto;}
+  html:not(#a4r-guard) .a4r-root button.a4r-cm-btn,html:not(#a4r-guard) .a4r-root button.a4r-cm-tab,html:not(#a4r-guard) .a4r-root button.a4r-cm-back,html:not(#a4r-guard) .a4r-root button.a4r-cm-link{min-height:44px;}
+  html:not(#a4r-guard) .a4r-cm-tokens{line-height:1.6;}
+  html:not(#a4r-guard) .a4r-root button.a4r-cm-tok{display:inline-block;line-height:1.4;padding:11px 1px;}
+  html:not(#a4r-guard) .a4r-cm-run{display:inline;padding:0;}
+  html:not(#a4r-guard) .a4r-cm-check{min-height:46px;}
+}
+/* Flashcards phase 2 (v1.4.0): the daily review, built to the approved
+ * mockup-flashcards.html (start screen, the card, Done for today). The four
+ * answer colours (red, amber, green, blue) are the mockup's, measured there:
+ * labels 5.3 to 1 or better on their fills, light and dark. */
+html:not(#a4r-guard) .a4r-root{--a4r-r-again:#b8293f;--a4r-r-again-ink:#9e2236;--a4r-r-hard:#b07a12;--a4r-r-hard-ink:#7d5500;--a4r-r-good:#3f7d4b;--a4r-r-good-ink:#2c6338;--a4r-r-easy:#3a6ea5;--a4r-r-easy-ink:#2b5687;--a4r-fc-danger:#9c3324;}
+html:not(#a4r-guard) .theme-dark .a4r-root{--a4r-r-again:#e86a7c;--a4r-r-again-ink:#f6a3ad;--a4r-r-hard:#d6a34a;--a4r-r-hard-ink:#ecc77a;--a4r-r-good:#6fae79;--a4r-r-good-ink:#a4d6aa;--a4r-r-easy:#6c9fd6;--a4r-r-easy-ink:#a9c9ef;--a4r-fc-danger:#f4a898;}
+html:not(#a4r-guard) .a4r-fc{padding:22px 24px 34px;max-width:860px;color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-fc-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+html:not(#a4r-guard) .a4r-fc-head h2{font-family:'A4R Fraunces', Georgia, serif;font-size:24px;font-weight:600;margin:0;}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-back,html:not(#a4r-guard) .a4r-root button.a4r-fc-link{border:none;background:none;box-shadow:none;height:auto;min-height:32px;padding:4px 2px;font-size:13.5px;font-weight:600;color:var(--a4r-cm-dim);cursor:pointer;}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-link{color:var(--a4r-accent);text-decoration:underline;text-underline-offset:2px;}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-back:hover{color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-fc-hero,html:not(#a4r-guard) .a4r-fc-card,html:not(#a4r-guard) .a4r-fc-also,html:not(#a4r-guard) .a4r-fc-backlog{background:var(--a4r-card);border:1px solid var(--a4r-line);border-radius:14px;}
+html:not(#a4r-guard) .a4r-fc-hero{padding:22px 24px;}
+html:not(#a4r-guard) .a4r-fc-big{font-family:'A4R Fraunces', Georgia, serif;font-size:30px;font-weight:600;margin:0 0 2px;}
+html:not(#a4r-guard) .a4r-fc-sub{font-size:14.5px;color:var(--a4r-cm-dim);margin:0 0 16px;}
+html:not(#a4r-guard) .a4r-fc-split{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:18px;font-size:13px;color:var(--a4r-cm-dim);}
+html:not(#a4r-guard) .a4r-fc-split b{display:block;font-family:'A4R Fraunces', Georgia, serif;font-size:22px;color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-fc-k{font:600 11.5px 'A4R IBM Plex Mono', monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--a4r-cm-dim);margin:0 0 6px;}
+html:not(#a4r-guard) .a4r-fc-scope{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px;}
+html:not(#a4r-guard) .a4r-root .a4r-fc-scope button{border:1px solid var(--a4r-line);background:var(--a4r-page);color:var(--a4r-ink);border-radius:999px;padding:6px 13px;min-height:34px;height:auto;font-size:13px;font-weight:600;box-shadow:none;cursor:pointer;}
+html:not(#a4r-guard) .a4r-root .a4r-fc-scope button[aria-pressed="true"]{background:var(--a4r-accent-soft);border-color:var(--a4r-accent);color:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-fc-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+html:not(#a4r-guard) .a4r-fc-row.is-center{justify-content:center;}
+html:not(#a4r-guard) .a4r-fc-health{display:flex;gap:6px 14px;flex-wrap:wrap;align-items:center;font-size:13.5px;color:var(--a4r-cm-dim);margin-top:16px;}
+html:not(#a4r-guard) .a4r-fc-also{margin-top:14px;font-size:13.5px;padding:6px 8px 6px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+html:not(#a4r-guard) .a4r-fc-progline{max-width:760px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:13.5px;color:var(--a4r-cm-dim);font-variant-numeric:tabular-nums;}
+html:not(#a4r-guard) .a4r-fc-bar{display:block;flex:none;width:160px;height:6px;border-radius:3px;background:var(--a4r-line);overflow:hidden;}
+html:not(#a4r-guard) .a4r-fc-bar i{display:block;height:100%;background:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-undo,html:not(#a4r-guard) .a4r-root button.a4r-fc-act{border:1px solid var(--a4r-line);background:var(--a4r-card);color:var(--a4r-ink);border-radius:999px;padding:4px 12px;min-height:32px;height:auto;font-size:13px;font-weight:600;box-shadow:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-undo[aria-disabled="true"]{opacity:.55;cursor:default;}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-undo:hover,html:not(#a4r-guard) .a4r-root button.a4r-fc-act:hover{border-color:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-act.is-icon{width:32px;padding:0;justify-content:center;}
+html:not(#a4r-guard) .a4r-fc-msg{max-width:760px;margin:0 auto 10px;text-align:center;font-size:13px;color:var(--a4r-cm-dim);}
+html:not(#a4r-guard) .a4r-fc-card{max-width:760px;margin:0 auto;padding:20px 24px 22px;box-shadow:0 2px 10px rgba(0,0,0,.04);}
+html:not(#a4r-guard) .a4r-fc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:20px;}
+html:not(#a4r-guard) .a4r-fc-top .a4r-rv-src{margin:0;}
+html:not(#a4r-guard) .a4r-fc-q{font-family:Georgia,'Iowan Old Style',serif;font-size:23px;line-height:1.6;margin:0 0 6px;}
+html:not(#a4r-guard) .a4r-fc-q.is-word{font-size:34px;font-weight:600;margin-bottom:10px;}
+html:not(#a4r-guard) .a4r-fc-q.is-meaning{font-size:22px;}
+html:not(#a4r-guard) .a4r-fc-base{font-size:14px;color:var(--a4r-cm-dim);margin:-4px 0 10px;}
+html:not(#a4r-guard) .a4r-fc-ctx{font-family:Georgia,'Iowan Old Style',serif;font-size:17px;line-height:1.65;margin:8px 0 0;}
+html:not(#a4r-guard) .a4r-fc mark{color:inherit;padding:1px 2px;border-radius:2px;background:color-mix(in srgb,var(--a4r-rv-hl,#FFD54A) 45%,transparent);}
+html:not(#a4r-guard) .a4r-fc-blank{display:inline-block;min-width:5.5em;height:1.2em;vertical-align:-0.18em;border-radius:4px;background:var(--a4r-blank);border:1.5px dashed var(--a4r-blank-edge);}
+html:not(#a4r-guard) .a4r-fc-ans{margin-top:18px;padding-top:16px;border-top:1px dashed var(--a4r-line);}
+html:not(#a4r-guard) .a4r-fc-a{font-family:Georgia,'Iowan Old Style',serif;font-size:19px;line-height:1.6;margin:0 0 12px;}
+html:not(#a4r-guard) .a4r-fc-passage{font-family:Georgia,'Iowan Old Style',serif;font-size:16px;line-height:1.65;margin:0;}
+html:not(#a4r-guard) .a4r-fc-note{margin-top:14px;font-size:14px;line-height:1.5;}
+html:not(#a4r-guard) .a4r-fc-note p{margin:0;white-space:pre-wrap;}
+html:not(#a4r-guard) .a4r-fc-acts{display:flex;align-items:center;gap:8px;margin-top:18px;flex-wrap:wrap;}
+html:not(#a4r-guard) .a4r-fc-act .a4r-settings-pro{margin:0;}
+html:not(#a4r-guard) .a4r-fc-reveal{margin-top:22px;display:flex;align-items:center;justify-content:center;gap:10px;}
+html:not(#a4r-guard) .a4r-root .a4r-fc-reveal button{min-width:240px;min-height:44px;}
+html:not(#a4r-guard) .a4r-fc-kc{display:inline-block;font:600 11px 'A4R IBM Plex Mono', monospace;color:var(--a4r-cm-dim);border:1px solid var(--a4r-line);border-bottom-width:2px;border-radius:4px;padding:0 5px;line-height:17px;background:var(--a4r-page);}
+html:not(#a4r-guard) .a4r-fc-rate{max-width:760px;margin:12px auto 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-rb{--c:var(--a4r-line);--ci:var(--a4r-ink);display:block;height:auto;border:1.5px solid color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 13%,var(--a4r-card));color:var(--ci);border-radius:10px;padding:9px 6px 8px;min-height:56px;text-align:center;box-shadow:none;cursor:pointer;white-space:normal;}
+html:not(#a4r-guard) .a4r-fc-rb b{display:block;font-size:15px;}
+html:not(#a4r-guard) .a4r-fc-rb span,html:not(#a4r-guard) .a4r-fc-rb small{display:block;color:var(--ci);font-variant-numeric:tabular-nums;}
+html:not(#a4r-guard) .a4r-fc-rb span{font-size:12.5px;margin-top:2px;font-weight:500;}
+html:not(#a4r-guard) .a4r-fc-rb small{font-size:11.5px;margin-top:1px;}
+html:not(#a4r-guard) .a4r-fc-kcs{display:flex;justify-content:center;gap:4px;margin-top:5px;}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-rb.is-again{--c:var(--a4r-r-again);--ci:var(--a4r-r-again-ink);}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-rb.is-hard{--c:var(--a4r-r-hard);--ci:var(--a4r-r-hard-ink);}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-rb.is-good{--c:var(--a4r-r-good);--ci:var(--a4r-r-good-ink);border-width:2.5px;border-color:var(--a4r-r-good);background:color-mix(in srgb,var(--a4r-r-good) 20%,var(--a4r-card));}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-rb.is-easy{--c:var(--a4r-r-easy);--ci:var(--a4r-r-easy-ink);}
+html:not(#a4r-guard) .a4r-root button.a4r-fc-rb:hover{border-color:var(--c);}
+html:not(#a4r-guard) .a4r-fc-more{position:relative;}
+html:not(#a4r-guard) .a4r-fc-menu{position:absolute;right:0;top:calc(100% + 4px);z-index:4;background:var(--a4r-card);border:1px solid var(--a4r-line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.16);min-width:250px;padding:6px;font-size:13px;}
+html:not(#a4r-guard) .a4r-root .a4r-fc-menu button[role="menuitem"]{display:block;width:100%;text-align:left;border:none;background:none;box-shadow:none;color:var(--a4r-ink);padding:9px 10px;min-height:36px;height:auto;border-radius:6px;font-size:13.5px;font-weight:500;cursor:pointer;}
+html:not(#a4r-guard) .a4r-root .a4r-fc-menu button[role="menuitem"]:hover,html:not(#a4r-guard) .a4r-root .a4r-fc-menu button[role="menuitem"]:focus{background:var(--a4r-accent-soft);outline:none;}
+html:not(#a4r-guard) .a4r-root .a4r-fc-menu button.is-danger,html:not(#a4r-guard) .a4r-root button.a4r-rv-btn.is-danger{color:var(--a4r-fc-danger);}
+html:not(#a4r-guard) .a4r-fc-menu p{margin:4px 0 10px;}
+html:not(#a4r-guard) .a4r-fc-menu b{padding:0 4px;}
+html:not(#a4r-guard) .a4r-fc-menu .a4r-fc-row{padding:0 4px 4px;}
+html:not(#a4r-guard) .a4r-fc-info{padding:8px 10px;color:var(--a4r-cm-dim);font-size:12.5px;border-top:1px solid var(--a4r-line);margin-top:4px;line-height:1.5;}
+html:not(#a4r-guard) .a4r-fc-done{max-width:620px;margin:20px auto 0;text-align:center;}
+html:not(#a4r-guard) .a4r-fc-done h3{font-family:'A4R Fraunces', Georgia, serif;font-size:26px;font-weight:600;margin:8px 0 6px;}
+html:not(#a4r-guard) .a4r-fc-done p{color:var(--a4r-cm-dim);font-size:14.5px;margin:0 0 16px;line-height:1.5;}
+html:not(#a4r-guard) .a4r-fc-done p b{color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-fc-done p.a4r-fc-streak{display:inline-block;background:var(--a4r-accent-soft);border-radius:999px;padding:4px 14px;font-size:13.5px;margin:-4px 0 18px;}
+html:not(#a4r-guard) .a4r-fc-done p.a4r-fc-streak b{color:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-fc-tick{width:46px;height:46px;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:22px;background:color-mix(in srgb,var(--a4r-cm-good) 16%,transparent);color:var(--a4r-cm-good);}
+html:not(#a4r-guard) .a4r-fc-backlog{margin:20px auto 0;max-width:620px;border-color:var(--a4r-r-hard);padding:12px 14px;font-size:14px;line-height:1.5;}
+html:not(#a4r-guard) .a4r-fc-backlog .a4r-fc-row{margin-top:10px;}
+/* Card list and Practice (phase 3). */
+html:not(#a4r-guard) .a4r-fc-cap{font-size:13px;color:var(--a4r-cm-dim);margin:8px 0 0;line-height:1.45;}
+html:not(#a4r-guard) .a4r-fc-scopenote{margin:-8px 0 14px;}
+html:not(#a4r-guard) .a4r-fc-mode{font-size:13.5px;color:var(--a4r-cm-dim);margin:-6px 0 12px;}
+html:not(#a4r-guard) .a4r-fc-rate.is-two{grid-template-columns:repeat(2,minmax(0,1fr));}
+html:not(#a4r-guard) .a4r-fc-count{font-size:14px;color:var(--a4r-cm-dim);}
+html:not(#a4r-guard) .a4r-fc-ltop{justify-content:flex-end;margin-bottom:12px;}
+html:not(#a4r-guard) .a4r-fc-ltools{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;margin-bottom:12px;}
+html:not(#a4r-guard) .a4r-fc-ltools .a4r-fc-scope{margin:0;}
+html:not(#a4r-guard) .a4r-root input.a4r-fc-search{flex:1 1 220px;min-width:0;height:auto;min-height:38px;border:1px solid var(--a4r-line);background:var(--a4r-card);color:var(--a4r-ink);border-radius:8px;padding:8px 12px;font-size:14px;}
+html:not(#a4r-guard) .a4r-fc-uncarded{font-size:14px;margin:0 0 12px;color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-fc-bulk{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--a4r-accent-soft);border:1px solid var(--a4r-line);border-radius:10px;padding:8px 12px;margin-bottom:12px;font-size:14px;}
+html:not(#a4r-guard) .a4r-fc-bulkn{flex:1;font-weight:600;}
+html:not(#a4r-guard) .a4r-fc-list{list-style:none;margin:0;padding:0;border:1px solid var(--a4r-line);border-radius:12px;background:var(--a4r-card);}
+html:not(#a4r-guard) .a4r-fc-lrow{display:flex;gap:8px 10px;flex-wrap:wrap;align-items:center;padding:10px 12px;border-top:1px solid var(--a4r-line);margin:0;}
+html:not(#a4r-guard) .a4r-fc-lrow:first-child{border-top:none;}
+html:not(#a4r-guard) .a4r-fc-selbox{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex:none;cursor:pointer;}
+html:not(#a4r-guard) .a4r-fc-selbox input{width:18px;height:18px;margin:0;accent-color:var(--a4r-accent);}
+html:not(#a4r-guard) .a4r-fc-lmain{flex:1 1 220px;min-width:0;}
+html:not(#a4r-guard) .a4r-fc-lt{font-family:Georgia,'Iowan Old Style',serif;font-size:15.5px;line-height:1.5;overflow-wrap:anywhere;}
+html:not(#a4r-guard) .a4r-fc-lt .a4r-fc-blank{min-width:3em;}
+html:not(#a4r-guard) .a4r-fc-lm{font-size:13px;color:var(--a4r-cm-dim);margin-top:2px;}
+html:not(#a4r-guard) .a4r-fc-paused{color:var(--a4r-r-hard-ink);font-weight:600;}
+html:not(#a4r-guard) .a4r-fc-lacts{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto;}
+html:not(#a4r-guard) .a4r-root button.a4r-rv-btn.is-quiet{border-color:transparent;background:none;color:var(--a4r-cm-dim);padding-inline:9px;}
+html:not(#a4r-guard) .a4r-root button.a4r-rv-btn.is-quiet:hover{color:var(--a4r-ink);}
+html:not(#a4r-guard) .a4r-root .a4r-fc-lacts button.is-danger{color:var(--a4r-fc-danger);}
+html:not(#a4r-guard) .a4r-fc-lconfirm{flex:1;font-size:14px;}
+html:not(#a4r-guard) .a4r-fc-lconfirm .a4r-fc-row{margin-top:8px;}
+html:not(#a4r-guard) .a4r-fc-lempty{padding:16px;color:var(--a4r-cm-dim);font-size:14px;margin:0;}
+@media (max-width: 560px){
+  html:not(#a4r-guard) .a4r-fc{padding-inline:12px;}
+  html:not(#a4r-guard) .a4r-fc-card{padding:16px 14px 18px;}
+  html:not(#a4r-guard) .a4r-fc-q{font-size:20px;}
+  html:not(#a4r-guard) .a4r-fc-q.is-word{font-size:30px;}
+  html:not(#a4r-guard) .a4r-root button.a4r-fc-undo,html:not(#a4r-guard) .a4r-root button.a4r-fc-act,html:not(#a4r-guard) .a4r-root button.a4r-fc-back,html:not(#a4r-guard) .a4r-root button.a4r-fc-link,html:not(#a4r-guard) .a4r-root .a4r-fc-scope button,html:not(#a4r-guard) .a4r-root .a4r-fc-menu button[role="menuitem"],html:not(#a4r-guard) .a4r-fc .a4r-rv-btn{min-height:44px;}
+  html:not(#a4r-guard) .a4r-root button.a4r-fc-act.is-icon{width:44px;}
+  html:not(#a4r-guard) .a4r-root button.a4r-fc-rb{padding:8px 2px;min-height:58px;}
+  html:not(#a4r-guard) .a4r-fc-rb b{font-size:14px;}
+  html:not(#a4r-guard) .a4r-fc-rb small,html:not(#a4r-guard) .a4r-fc-kcs,html:not(#a4r-guard) .a4r-fc-desk{display:none;}
+  html:not(#a4r-guard) .a4r-fc-rate{gap:5px;}
+  html:not(#a4r-guard) .a4r-root .a4r-fc-reveal button{min-width:0;width:100%;}
+  html:not(#a4r-guard) .a4r-fc-progline{justify-content:space-between;}
+  html:not(#a4r-guard) .a4r-fc-bar{width:110px;}
+  html:not(#a4r-guard) .a4r-fc-selbox{width:44px;height:44px;}
+  html:not(#a4r-guard) .a4r-fc-lmain{flex-basis:0;}
+  html:not(#a4r-guard) .a4r-fc-lacts{margin-left:0;width:100%;}
+  html:not(#a4r-guard) .a4r-root .a4r-fc-lacts button,html:not(#a4r-guard) .a4r-root input.a4r-fc-search{min-height:44px;}
+  html:not(#a4r-guard) .a4r-fc-ltop{justify-content:stretch;}
+}
+/* Where cards show up (v1.5.0, mockup-cards-outside-plugin.html): the card
+ * box in a note and in the side panel (the review's card, smaller), and the
+ * count in the bottom bar. */
+html:not(#a4r-guard) .a4r-root.a4r-cbox{height:auto;overflow:visible;max-width:none;margin:0;padding:14px 16px;background:var(--a4r-card);border:1px solid var(--a4r-line);border-radius:12px;display:grid;gap:12px;}
+html:not(#a4r-guard) .a4r-root.a4r-cbox.is-panel{padding:12px;}
+html:not(#a4r-guard) .a4r-cards-panel{padding:12px;}
+html:not(#a4r-guard) .a4r-cbox-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--a4r-cm-dim);}
+html:not(#a4r-guard) .a4r-cbox-top b{color:var(--a4r-ink);font-weight:600;}
+html:not(#a4r-guard) .a4r-root.a4r-cbox button.a4r-fc-link{min-height:0;font-size:12.5px;}
+html:not(#a4r-guard) .a4r-cbox .a4r-rv-src{margin:0;}
+html:not(#a4r-guard) .a4r-cbox .a4r-rv-cover{width:22px;height:30px;font-size:12px;}
+html:not(#a4r-guard) .a4r-cbox .a4r-fc-q{font-size:18px;margin:0;}
+html:not(#a4r-guard) .a4r-cbox .a4r-fc-q.is-word{font-size:24px;}
+html:not(#a4r-guard) .a4r-cbox .a4r-fc-ctx{font-size:15px;}
+html:not(#a4r-guard) .a4r-cbox .a4r-fc-ans{margin-top:10px;padding-top:10px;}
+html:not(#a4r-guard) .a4r-cbox .a4r-fc-a{font-size:16px;margin:0 0 8px;}
+html:not(#a4r-guard) .a4r-cbox .a4r-fc-rate{margin:0;max-width:none;}
+html:not(#a4r-guard) .a4r-cbox.is-panel .a4r-fc-rate{grid-template-columns:repeat(2,minmax(0,1fr));}
+html:not(#a4r-guard) .a4r-root.a4r-cbox button.a4r-fc-rb{min-height:44px;padding:6px 4px;}
+html:not(#a4r-guard) .a4r-cbox .a4r-fc-rb b{font-size:13.5px;}
+html:not(#a4r-guard) .a4r-root.a4r-cbox button.a4r-cbox-show{justify-self:start;min-height:36px;}
+html:not(#a4r-guard) .a4r-cbox-empty{margin:0;font-size:14px;color:var(--a4r-cm-dim);}
+html:not(#a4r-guard) .a4r-cards-status::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--interactive-accent);margin-right:5px;}
+@media (max-width: 480px){
+  html:not(#a4r-guard) .a4r-cbox .a4r-fc-rate{grid-template-columns:repeat(2,minmax(0,1fr));}
+}

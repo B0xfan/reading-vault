@@ -25,6 +25,7 @@ Most of Reading Vault is free. Pro adds extras on top, for a one-time payment. E
 | [Full screen](full-screen.md) | Free |
 | [Bookmarks](bookmarks.md) | Free |
 | [Highlights](highlights.md) | Free |
+| [Flashcards](flashcards.md) | Free (first 20 cards), Pro for more |
 | [Notes](notes.md) | Free |
 | [Listen](listen.md) | Free |
 | [Word lookup](word-lookup.md) | Free |

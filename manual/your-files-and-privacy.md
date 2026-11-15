@@ -13,6 +13,7 @@ Everything is a regular note or file in your vault. You can open any of it in Ob
 - **Book files and covers.** The EPUB and PDF files themselves, and their cover pictures.
 - **Topic notes.** The notes you link highlights to (with Pro).
 - **Saved words.** One note per word you save (with Pro).
+- **Flashcards.** One note per card, in a Cards folder inside your Reading folder, plus a small review history file there. See [Flashcards](flashcards.md).
 
 You choose these folders yourself. See [Settings and folders](settings.md).
 
@@ -26,13 +27,15 @@ Your reading history for the Reading Dashboard and your settings are stored with
 
 Reading Vault works offline. It never sends anything about you or your reading anywhere on its own, and it has no tracking or analytics. These are the only times it connects to the internet, all started by you:
 
-- **Ask the book, "Write with AI" summaries and "Explain in this sentence" (Pro).** These are off until you switch them on in Settings and add a key for the AI service you choose: Anthropic (api.anthropic.com), OpenAI (api.openai.com) or OpenRouter (openrouter.ai). Your key is kept in Obsidian's own secure storage, not in the plugin's settings file. Only then, and only when you ask, the plugin sends that service:
+- **Ask the book, "Write with AI" summaries, "Explain in this sentence" and "Draft with AI" for flashcards (Pro).** These are off until you switch them on in Settings and add a key for the AI service you choose: Anthropic (api.anthropic.com), OpenAI (api.openai.com) or OpenRouter (openrouter.ai). Your key is kept in Obsidian's own secure storage, not in the plugin's settings file. Only then, and only when you ask, the plugin sends that service:
   - for Ask: your question, the book's title and author, the highlights and notes from this book, the Topic notes they link to, and the text of the chapter you're on (never the whole book). Each of these can be switched off in Settings, and "What was sent" under every answer shows exactly what went.
   - for a summary: the book's title, author, the description inside the book file, and its chapter titles (not the book's text).
   - for "Explain in this sentence": the word, the sentence it's in, and the book's title and author.
+  - for "Draft with AI" in the flashcard maker: the book's title, the passage and your note on it, only when you press **Draft two cards**.
   - The "Test" button next to a key, and the list of models to choose from, also ask that service to check your key and list its models.
 - **Word lookup dictionary.** When you press Download in Settings → Word lookup, the English dictionary (made from Princeton WordNet, about 5.5 MB) is downloaded once from the public GitHub repository [B0xfan/a4-reading-dictionaries](https://github.com/B0xfan/a4-reading-dictionaries), checked, and saved on your computer outside your vault. After that, lookups are offline.
 - **Buy Pro.** The Buy Pro button opens the store page in your web browser.
+- **Buy me a coffee.** In a free copy, this link opens buymeacoffee.com in your web browser.
 - **User manual.** The "Manual" link in the Library and "Open manual" in Settings open this manual as a web page (b0xfan.github.io/reading-vault/manual/) in your web browser.
 - **Natural voices (Pro).** When you press Download in Settings → Reading Vault, the voice model (about 325 MB, once) and each voice you use (about half a megabyte) are downloaded from Hugging Face (huggingface.co, the public Kokoro-82M files, Apache-2.0 license), together with English pronunciation lists (about 3 MB) from the public GitHub repository [B0xfan/reading-vault-voices](https://github.com/B0xfan/reading-vault-voices). Each file is checked against a fingerprint built into the plugin, then saved on your computer outside your vault, in `Library/Application Support/a4-reading-kokoro` in your home folder on a Mac, or `AppData\Roaming\a4-reading-kokoro` on Windows (so it doesn't sync or get backed up with your notes). After that, listening is offline and your books' text never leaves your computer. The voice engine itself is inside the plugin; it is never downloaded.
 - **Voice samples.** Pressing ▶ next to a natural voice in Settings plays a short sample clip (about 30 KB) from the same public repository, [B0xfan/reading-vault-voices](https://github.com/B0xfan/reading-vault-voices). It's checked the same way and kept in that same folder, so it plays without the internet next time. This works with or without Pro, and doesn't need the voice model.

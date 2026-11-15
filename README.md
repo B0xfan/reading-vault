@@ -23,6 +23,7 @@ Website: **[getreadingvault.app](https://getreadingvault.app)**. New here? The [
 - **A library for your books.** Add EPUB and PDF files by dragging them in. Title, author and cover fill in on their own. Search, filter by status or format, browse by author, and sort books onto your own shelves.
 - **One reader for EPUB and PDF.** Real pages, a table of contents, search inside the book, bookmarks, and it opens where you left off. Choose the font, text size, line spacing and margins, with a light, dark or automatic page.
 - **Highlights that become notes.** Select text, pick one of five colors, add a note. Each book's own note lists its highlights, with links that jump straight back to the exact spot.
+- **Flashcards.** Turn any highlight into a fill in the blank or question card and review a few each day on a smart schedule. The first 20 cards are free; Pro has no limit and adds word cards, AI drafts, Practice all and read aloud. Export to Anki is always free.
 - **Listen.** Have the book read aloud with your computer's built-in voices, sentence by sentence, with the sentence being read underlined and the page turning as it goes. Works for PDFs too.
 - **Word lookup.** Select a word for its meaning, from an English dictionary (about 5.5 MB) you download once and use offline.
 
@@ -34,6 +35,7 @@ Also free: four sample books to try it with (Meditations, Pride and Prejudice, T
 - **Audiobook mode.** Listening keeps going past the end of a chapter, each word lights up as it's read (EPUB and PDF), and a sleep timer pauses it and keeps your place.
 - **Ask the book, book summaries and "Explain in this sentence".** AI features that use your own AI key.
 - **Highlight review, Topic links and a reading dashboard.** Link highlights to your own Topic notes, get a few back each day, and see goals, streaks and charts.
+- **Cards outside the Reader.** Your due cards inside any note or your daily note, in the side panel, as a count in the bottom bar, as a message when Obsidian opens, and in a Due cards table. Each one starts off, so you switch on only the ones you want.
 - **Save and export.** Save looked-up words as notes, and save or copy your highlights.
 - **iPhone and iPad.** Your library, books and highlights on the phone (iOS 17 or newer), with the same license.
 
@@ -114,6 +116,9 @@ Payment is required for full access: the features marked Pro below unlock with a
 | Full screen reading | ✓ | ✓ |
 | Highlights in five colors, with notes | ✓ | ✓ |
 | Highlights listed in each book's note | ✓ | ✓ |
+| Flashcards: first 20 cards from highlights, review, card list, Export to Anki | ✓ | ✓ |
+| Flashcards: unlimited cards, word cards, AI drafts, Practice all, read aloud |  | ✓ |
+| Flashcards outside Reading Vault: in notes and your daily note, side panel, bottom bar count, Due cards table, a message when Obsidian opens |  | ✓ |
 | Listen with your computer's built-in voices | ✓ | ✓ |
 | Natural voices: 28 English voices, offline after one download (about 325 MB) |  | ✓ |
 | Audiobook mode: keeps going past a chapter's end, word-by-word lighting (EPUB and PDF), sleep timer |  | ✓ |
@@ -130,7 +135,7 @@ Payment is required for full access: the features marked Pro below unlock with a
 | Highlight review |  | ✓ |
 | iPhone and iPad (iOS 17 or newer), with the phone's built-in voices |  | ✓ |
 
-Inside the plugin, Pro features carry a small "Pro" tag, and Settings has a "Get Pro" section with a Buy Pro button that opens the store page. That's the only promotion in the plugin, and nothing in it is loaded from the internet.
+Inside the plugin, Pro features carry a small "Pro" tag, and Settings has a "Get Pro" section with a Buy Pro button that opens the store page. Free copies also show a "Buy me a coffee" link (buymeacoffee.com, opens in your browser) under the Pro key box, and from November 26 to 30, 2026 a short sale line sits next to Get Pro. That's all the promotion in the plugin. The sale line is built in, with its dates fixed, and nothing in the plugin is loaded from the internet.
 
 ## Buy Pro
 
@@ -139,14 +144,14 @@ Inside the plugin, Pro features carry a small "Pro" tag, and Settings has a "Get
 - One payment, no subscription. Every future update is included.
 - Your key arrives by email right after purchase. Paste it in on your computer: Settings → Reading Vault → Pro license. Your iPhone or iPad picks it up with your vault, as long as your sync copies plugin settings.
 - The key is checked on your computer or phone, offline. Nothing is sent anywhere to check it.
-- The AI features (Ask the book, "Write with AI" summaries, "Explain in this sentence") are off until you add a key for your own account with Anthropic, OpenAI or OpenRouter. That provider bills you separately for what you use.
+- The AI features (Ask the book, "Write with AI" summaries, "Explain in this sentence", "Draft with AI" for flashcards) are off until you add a key for your own account with Anthropic, OpenAI or OpenRouter. That provider bills you separately for what you use.
 
 **Refunds:** if Reading Vault Pro doesn't work for you, write to me through the [contact page](https://getreadingvault.app/contact) or at jhesch@gmail.com within 14 days for a full refund. Refunded keys are switched off in the next update.
 
 ## Privacy and your files
 
 - Works offline. No account, no tracking or analytics. Nothing is sent anywhere unless you turn on AI with your own key (Anthropic at api.anthropic.com, OpenAI at api.openai.com or OpenRouter at openrouter.ai, Pro).
-- It only goes online when you press a button: the dictionary, the sample books and the voice samples (from Reading Vault's public GitHub repositories [B0xfan/a4-reading-dictionaries](https://github.com/B0xfan/a4-reading-dictionaries), [B0xfan/a4-reading-sample-books](https://github.com/B0xfan/a4-reading-sample-books) and [B0xfan/reading-vault-voices](https://github.com/B0xfan/reading-vault-voices)), the natural voices (Hugging Face at huggingface.co, and GitHub, Pro), testing an AI key, and Buy Pro or Manual, which open your web browser. Downloads are checked, then kept on your computer outside your vault.
+- It only goes online when you press a button: the dictionary, the sample books and the voice samples (from Reading Vault's public GitHub repositories [B0xfan/a4-reading-dictionaries](https://github.com/B0xfan/a4-reading-dictionaries), [B0xfan/a4-reading-sample-books](https://github.com/B0xfan/a4-reading-sample-books) and [B0xfan/reading-vault-voices](https://github.com/B0xfan/reading-vault-voices)), the natural voices (Hugging Face at huggingface.co, and GitHub, Pro), testing an AI key, and Buy Pro, Buy me a coffee or Manual, which open your web browser. Downloads are checked, then kept on your computer outside your vault.
 - Everything you make stays in your vault as plain notes, and it never reads your clipboard. Full details, including exactly what each AI feature sends and where downloads are kept: [Your files and privacy](https://b0xfan.github.io/reading-vault/manual/your-files-and-privacy) in the manual.
 
 ## User manual

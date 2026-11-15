@@ -57,6 +57,10 @@ Without Pro they're shown switched off, with **Get Pro**. See [Audiobook mode](a
 
 Pro. How many highlights come back each day, and whether to hide the passage until you tap it. See [Highlight review](highlight-review.md). Without Pro these are shown locked, with **Get Pro**.
 
+## Flashcards
+
+Free and Pro. **New cards a day** (10 to begin with) and **Most reviews a day** (100 to begin with) set your daily limits. **Export…** saves your cards as a file Anki opens, free with or without Pro. **Where cards show up** (Pro) picks where due cards reach you: inside your notes, a table, a message or the review when Obsidian opens, the side panel, the bottom bar, or a review link. See [Flashcards](flashcards.md#where-cards-show-up).
+
 ## Ask the book
 
 Pro. Turn on Ask, pick an AI service, and add your key. See [Ask the book](ask-the-book.md).
