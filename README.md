@@ -85,13 +85,22 @@ Pro: highlight review brings a few of your linked highlights back each day:
 
 ![Highlight review](assets/highlight-review-light.png)
 
-On an iPhone (Pro): the library, a book's page, reading, and the highlight colors.
+Flashcards: tap the words to hide in a highlight, and the card is made (your first 20 cards are free):
+
+![Making a fill in the blank card from a Walden highlight](assets/card-maker-light.png)
+
+Reviewing a card: show the answer, then press Again, Hard, Good or Easy:
+
+![A flashcard review with the answer showing](assets/flashcards-light.png)
+
+On an iPhone (Pro): the library, a book's page, reading, the highlight colors, and a card review.
 
 <p>
 <img src="assets/library-phone.png" width="190" alt="The library on an iPhone">
 <img src="assets/book-page-phone.png" width="190" alt="A book's page on an iPhone">
 <img src="assets/reader-phone.png" width="190" alt="Reading Walden on an iPhone">
 <img src="assets/highlight-new-phone.png" width="190" alt="The highlight colors on an iPhone">
+<img src="assets/flashcards-phone.png" width="190" alt="A flashcard review on an iPhone">
 </p>
 
 Everything also works with a dark theme:

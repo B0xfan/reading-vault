@@ -18,6 +18,8 @@ The card maker opens beside the page in the Reader, and as its own screen everyw
 - **Fill in the blank.** Tap the words you want to hide, and tap again to show them. Words that touch become one blank. Each separate phrase you hide makes its own card.
 - **Question.** Write your own question. The answer starts as the passage, or press **Use the whole passage** to keep it that way.
 
+![The card maker beside the page, with one word hidden](images/card-maker.png)
+
 The book, the chapter and the Topic come from the highlight. You can change the Topic. Press **Save card**. You'll see "Card saved. First review tomorrow." with an **Undo** button.
 
 The card maker stays open on the same passage, titled **Another card from this passage**, so you can make as many cards from one highlight as you like: hide other words, or switch to **Question**. You can also press **Make card** on the same highlight again later.
@@ -42,6 +44,8 @@ Each card leads with the word's base form and keeps the sentence from your book.
 Press **Review cards** from the command palette, or press "N cards due" in the Today line at the bottom of the Library. The [Reading Dashboard](reading-dashboard.md) has a Cards box too.
 
 The first screen shows how many cards are due today, about how many minutes that takes, and how they split into new, to review and tomorrow. Choose **All cards**, one book or one Topic, then press **Start**. If more than 5 are due, **Just 5 cards** gives you a short session.
+
+![A card with its answer showing and the four answer buttons](images/flashcards.png)
 
 For each card:
 
