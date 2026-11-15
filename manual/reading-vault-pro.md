@@ -2,7 +2,7 @@
 
 **Pro.** This page is about Pro itself.
 
-Pro is a one-time payment. You get every Pro feature for life, including every future update. There's no subscription.
+Pro is a one-time payment: $19 for the first 250 copies, then $29. You get every Pro feature for life, including every future update. There's no subscription.
 
 ## What Pro adds
 

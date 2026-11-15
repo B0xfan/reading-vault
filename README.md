@@ -2,33 +2,46 @@
 
 # Reading Vault
 
-Read EPUB and PDF books inside your Obsidian vault. Everything you highlight becomes a real note, and with Pro you can link it to your own Topic notes, so your reading ends up in the same place as the rest of your thinking.
+Read your EPUB and PDF books right inside Obsidian. Every highlight becomes a real note in your vault, linked back to the exact spot. Free to read, highlight and listen. No account, no tracking.
 
 I built Reading Vault because I wanted my books, my highlights and my notes in one place, as plain files I own. No separate app, no account, no hidden database: every book, highlight and saved word is an ordinary Markdown note in your vault.
 
-![The library: your books as covers, with shelves, authors and today's reading](assets/library-light.png)
+![Selecting a sentence in Walden, picking yellow, and the highlight note appearing in the vault's Highlights folder](assets/highlight-demo.gif)
+
+**Install it:** In Obsidian: Settings, Community plugins, Browse, search Reading Vault, Install, Enable.
+
+Free on computers. iPhone and iPad need Pro. Android isn't supported yet. Tested on Mac and iPhone; Windows is untested.
+
+Uninstall it and every note is still there, readable in Obsidian or any text editor.
+
+**Reading Vault is free.** Some features need a one-time **Reading Vault Pro** purchase. $19 for the first 250 copies, then $29. See [Free and Pro](#free-and-pro) below.
 
 Website: **[getreadingvault.app](https://getreadingvault.app)**. New here? The [user manual](manual/README.md) has a short page for every feature.
 
-**Reading Vault is free.** Some features need a one-time **Reading Vault Pro** purchase ($19 founding price, $29 later). See [Free and Pro](#free-and-pro) below.
-
-## What it does
+## What it does (free)
 
 - **A library for your books.** Add EPUB and PDF files by dragging them in. Title, author and cover fill in on their own. Search, filter by status or format, browse by author, and sort books onto your own shelves.
-- **Add sample books.** Nothing in your Library yet? One button adds four free classics (Meditations, Pride and Prejudice, The Adventures of Sherlock Holmes, Walden), so there's something to read, highlight and listen to right away. Free for everyone.
 - **One reader for EPUB and PDF.** Real pages, a table of contents, search inside the book, bookmarks, and it opens where you left off. Choose the font, text size, line spacing and margins, with a light, dark or automatic page.
 - **Highlights that become notes.** Select text, pick one of five colors, add a note. Each book's own note lists its highlights, with links that jump straight back to the exact spot.
 - **Listen.** Have the book read aloud with your computer's built-in voices, sentence by sentence, with the sentence being read underlined and the page turning as it goes. Works for PDFs too.
-- **Natural voices (Pro).** 28 natural-sounding English voices (American and British) that sound much closer to a person reading. They're off until you switch them on, and need a one-time download of about 325 MB. After that they run on your own computer, offline.
-- **Audiobook mode (Pro).** Turn any book into an audiobook: listening keeps going past the end of a chapter instead of stopping there, each word lights up as it's read (EPUB and PDF), and a sleep timer pauses it and keeps your place.
-- **Word lookup.** Select a word for its meaning, from an English dictionary (about 5.5 MB) you download once and use offline. With Pro, "Explain in this sentence" asks your own AI service what the word means right there.
-- **Book summaries (Pro).** A short summary on each book's page, from the book's description, your own words, or AI.
-- **Export highlights.** Preview a book's highlights and notes as Markdown; with Pro, save them to a file or copy them.
-- **Full screen reading.** Just the page, nothing else on screen.
-- **On your iPhone or iPad (Pro).** Your library, books and highlights on the phone, laid out for a small screen, with the same Pro license as your computer. Listening uses the phone's own built-in voices and stops when you lock the phone. Needs iOS 17 or newer. Android isn't supported yet.
-- **Your files stay yours.** Choose which folders it uses. Uninstall it and every note is still there, readable in Obsidian or any text editor.
+- **Word lookup.** Select a word for its meaning, from an English dictionary (about 5.5 MB) you download once and use offline.
+
+Also free: four sample books to try it with (Meditations, Pride and Prejudice, The Adventures of Sherlock Holmes, Walden), full screen reading, a preview of your highlights as Markdown, and your choice of folders.
+
+## Pro adds
+
+- **Natural voices.** 28 natural-sounding English voices (American and British), offline after a one-time download of about 325 MB.
+- **Audiobook mode.** Listening keeps going past the end of a chapter, each word lights up as it's read (EPUB and PDF), and a sleep timer pauses it and keeps your place.
+- **Ask the book, book summaries and "Explain in this sentence".** AI features that use your own AI key.
+- **Highlight review, Topic links and a reading dashboard.** Link highlights to your own Topic notes, get a few back each day, and see goals, streaks and charts.
+- **Save and export.** Save looked-up words as notes, and save or copy your highlights.
+- **iPhone and iPad.** Your library, books and highlights on the phone (iOS 17 or newer), with the same license.
 
 ## Screenshots
+
+The library: your books as covers, with shelves, authors and today's reading:
+
+![The library: your books as covers, with shelves, authors and today's reading](assets/library-light.png)
 
 The reader, with a highlight and the progress strip (time left in the chapter and the book):
 
@@ -121,7 +134,7 @@ Inside the plugin, Pro features carry a small "Pro" tag, and Settings has a "Get
 
 ## Buy Pro
 
-**[Buy Reading Vault Pro](https://payhip.com/WorkbenchGoods)** ($19 founding price, $29 later; one-time).
+**[Buy Reading Vault Pro](https://payhip.com/WorkbenchGoods)**, one time. $19 for the first 250 copies, then $29.
 
 - One payment, no subscription. Every future update is included.
 - Your key arrives by email right after purchase. Paste it in on your computer: Settings → Reading Vault → Pro license. Your iPhone or iPad picks it up with your vault, as long as your sync copies plugin settings.
@@ -130,53 +143,11 @@ Inside the plugin, Pro features carry a small "Pro" tag, and Settings has a "Get
 
 **Refunds:** if Reading Vault Pro doesn't work for you, write to me through the [contact page](https://getreadingvault.app/contact) or at jhesch@gmail.com within 14 days for a full refund. Refunded keys are switched off in the next update.
 
-## What goes online, and why
+## Privacy and your files
 
-Reading Vault works offline. It never sends anything about you or your reading anywhere on its own, and it has no tracking or analytics. These are the only times it connects to the internet, all started by you:
-
-- **Ask the book, "Write with AI" summaries and "Explain in this sentence" (Pro).** These are off until you switch them on in Settings and add a key for the AI service you choose: Anthropic (api.anthropic.com), OpenAI (api.openai.com) or OpenRouter (openrouter.ai). Your key is kept in Obsidian's own secure storage, not in the plugin's settings file. Only then, and only when you ask, the plugin sends that service:
-  - for Ask: your question, the book's title and author, the highlights and notes from this book, the Topic notes they link to, and the text of the chapter you're on (never the whole book). Each of these can be switched off in Settings, and "What was sent" under every answer shows exactly what went.
-  - for a summary: the book's title, author, the description inside the book file, and its chapter titles (not the book's text).
-  - for "Explain in this sentence": the word, the sentence it's in, and the book's title and author.
-  - The "Test" button next to a key, and the list of models to choose from, also ask that service to check your key and list its models.
-- **Word lookup dictionary.** When you press Download in Settings → Word lookup, the English dictionary (made from Princeton WordNet, about 5.5 MB) is downloaded once from the public GitHub repository [B0xfan/a4-reading-dictionaries](https://github.com/B0xfan/a4-reading-dictionaries), checked, and saved on your computer outside your vault. After that, lookups are offline.
-- **Buy Pro.** The Buy Pro button opens the store page in your web browser.
-- **User manual.** The "Manual" link in the Library and "Open manual" in Settings open this user manual as a web page (b0xfan.github.io/reading-vault/manual/) in your web browser.
-- **Natural voices (Pro).** When you press Download in Settings → Reading Vault, the voice model (about 325 MB, once) and each voice you use (about half a megabyte) are downloaded from Hugging Face (huggingface.co, the public Kokoro-82M files, Apache-2.0 license), together with English pronunciation lists (about 3 MB) from the public GitHub repository [B0xfan/reading-vault-voices](https://github.com/B0xfan/reading-vault-voices). Each file is checked against a fingerprint built into the plugin, then saved on your computer outside your vault, in `Library/Application Support/a4-reading-kokoro` in your home folder on a Mac, or `AppData\Roaming\a4-reading-kokoro` on Windows (so it doesn't sync or get backed up with your notes). After that, listening is offline and your books' text never leaves your computer. The voice engine itself is inside the plugin; it is never downloaded.
-- **Voice samples.** Pressing ▶ next to a natural voice in Settings plays a short sample clip (about 30 KB) from the same public repository, [B0xfan/reading-vault-voices](https://github.com/B0xfan/reading-vault-voices). It's checked the same way and kept in that same folder, so it plays without the internet next time. This works with or without Pro, and doesn't need the voice model.
-- **Add sample books.** When you press "Add sample books" (in an empty Library, or the first-run welcome), four EPUB files (about 3 MB total) are downloaded once from the public GitHub repository [B0xfan/a4-reading-sample-books](https://github.com/B0xfan/a4-reading-sample-books), checked, and added to your Library as regular books. They're free, public-domain editions from [Standard Ebooks](https://standardebooks.org/). Free for everyone.
-
-"Open in Apple Dictionary" (on a Mac) opens the dictionary app on your computer; it doesn't go online.
-
-Text that comes from a book or an AI service (passages, chapter names, a book's description, summaries and answers) is saved into your notes as plain words. It reads the same, but it can't run as code in other plugins such as Dataview or Templater.
-
-## Files kept outside your vault
-
-Everything you make with Reading Vault (books, highlights, notes, saved words, reading history) lives inside your vault. Only these things are kept outside it, and only because you asked for them:
-
-- **Natural voices.** The voice model and voices you download (Pro), and the short voice samples you play in Settings, are saved in a folder called `a4-reading-kokoro`: in `Library/Application Support` in your home folder on a Mac, or in `AppData\Roaming` on Windows. They stay outside the vault on purpose: at about 325 MB they would fill up Obsidian Sync, iCloud or any backup of your notes, and one download serves every vault on your computer. To remove them, quit Obsidian and delete that folder.
-- **Word lookup dictionary.** The dictionary you download (about 5.5 MB) is saved in a folder called `a4-reading-dictionaries` in the same place, for the same reasons. Settings → Word lookup → Remove deletes it.
-- **Export highlights, "Save file…" (Pro).** Your computer's own save window opens, and the file goes where you choose, which can be outside the vault.
-
-The plugin only reads and writes those two folders and the file you save; it never looks anywhere else on your computer.
-
-## Copying to the clipboard
-
-The **Copy** buttons in Export highlights (Pro) and under an Ask the book answer (Pro) put that text on your clipboard, only when you press them. Reading Vault never reads your clipboard.
-
-## Install
-
-The free version runs in Obsidian on a computer. On an iPhone or iPad (iOS 17 or newer) it needs Pro: without a Pro key, the phone shows a screen to buy or unlock Pro instead of your books. One license covers your computer and your phone. On the phone, listening uses the phone's own built-in voices (the natural voices are computer only) and stops when you lock the phone. It installs on Android but doesn't support it yet: it shows a short message instead of your books. Tested on Mac and iPhone; Windows is untested. Obsidian 1.8.9 or later; the AI features need Obsidian 1.11.4 or later for its secure key storage.
-
-**From Obsidian (once it's listed):** Settings → Community plugins → Browse, search for "Reading Vault", then Install and Enable.
-
-**By hand:**
-
-1. Download `main.js`, `manifest.json` and `styles.css` from the latest [release](https://github.com/B0xfan/reading-vault/releases).
-2. Put them in a folder called `reading-vault` inside your vault's `.obsidian/plugins/` folder.
-3. In Obsidian: Settings → Community plugins, turn on Reading Vault.
-
-Then click the book icon in the left ribbon, or run "Reading Vault: Open library" from the command palette, and drag a book in.
+- Works offline. No account, no tracking or analytics. Nothing is sent anywhere unless you turn on AI with your own key (Anthropic, OpenAI or OpenRouter, Pro).
+- It only goes online when you press a button: the dictionary, the sample books and the voice samples (from Reading Vault's public GitHub repositories), the natural voices (Hugging Face and GitHub, Pro), testing an AI key, and Buy Pro or Manual, which open your web browser. Downloads are checked, then kept on your computer outside your vault.
+- Everything you make stays in your vault as plain notes, and it never reads your clipboard. Full details, including exactly what each AI feature sends and where downloads are kept: [Your files and privacy](https://b0xfan.github.io/reading-vault/manual/your-files-and-privacy) in the manual.
 
 ## User manual
 
@@ -203,3 +174,13 @@ The license text is the part that counts; this summary isn't legal advice.
 Reading Vault includes some open-source parts (the natural-voice engine) under the Apache 2.0 and MIT licenses; they're listed, with their license texts, in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md). None of them is under the GPL.
 
 The fonts bundled in `styles.css` (Fraunces, Work Sans, IBM Plex Mono, Atkinson Hyperlegible) are under the SIL Open Font License 1.1; see [`fonts/`](fonts/).
+
+## Install by hand
+
+The free version runs in Obsidian on a computer. On an iPhone or iPad (iOS 17 or newer) it needs Pro: without a Pro key, the phone shows a screen to buy or unlock Pro instead of your books. One license covers your computer and your phone. On the phone, listening uses the phone's own built-in voices (the natural voices are computer only) and stops when you lock the phone. It installs on Android but doesn't support it yet: it shows a short message instead of your books. Tested on Mac and iPhone; Windows is untested. Obsidian 1.8.9 or later; the AI features need Obsidian 1.11.4 or later for its secure key storage.
+
+1. Download `main.js`, `manifest.json` and `styles.css` from the latest [release](https://github.com/B0xfan/reading-vault/releases).
+2. Put them in a folder called `reading-vault` inside your vault's `.obsidian/plugins/` folder.
+3. In Obsidian: Settings → Community plugins, turn on Reading Vault.
+
+Then click the book icon in the left ribbon, or run "Reading Vault: Open library" from the command palette, and drag a book in.
