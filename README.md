@@ -145,8 +145,8 @@ Inside the plugin, Pro features carry a small "Pro" tag, and Settings has a "Get
 
 ## Privacy and your files
 
-- Works offline. No account, no tracking or analytics. Nothing is sent anywhere unless you turn on AI with your own key (Anthropic, OpenAI or OpenRouter, Pro).
-- It only goes online when you press a button: the dictionary, the sample books and the voice samples (from Reading Vault's public GitHub repositories), the natural voices (Hugging Face and GitHub, Pro), testing an AI key, and Buy Pro or Manual, which open your web browser. Downloads are checked, then kept on your computer outside your vault.
+- Works offline. No account, no tracking or analytics. Nothing is sent anywhere unless you turn on AI with your own key (Anthropic at api.anthropic.com, OpenAI at api.openai.com or OpenRouter at openrouter.ai, Pro).
+- It only goes online when you press a button: the dictionary, the sample books and the voice samples (from Reading Vault's public GitHub repositories [B0xfan/a4-reading-dictionaries](https://github.com/B0xfan/a4-reading-dictionaries), [B0xfan/a4-reading-sample-books](https://github.com/B0xfan/a4-reading-sample-books) and [B0xfan/reading-vault-voices](https://github.com/B0xfan/reading-vault-voices)), the natural voices (Hugging Face at huggingface.co, and GitHub, Pro), testing an AI key, and Buy Pro or Manual, which open your web browser. Downloads are checked, then kept on your computer outside your vault.
 - Everything you make stays in your vault as plain notes, and it never reads your clipboard. Full details, including exactly what each AI feature sends and where downloads are kept: [Your files and privacy](https://b0xfan.github.io/reading-vault/manual/your-files-and-privacy) in the manual.
 
 ## User manual
